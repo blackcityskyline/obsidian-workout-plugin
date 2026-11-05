@@ -42,6 +42,7 @@
     "convertExercise": "Convert exercise",
     "createCsvLog": "Create CSV log file",
     "createExampleNotes": "Create example notes",
+    "createReferenceExercises": "Create reference exercise pages",
     "exportWorkoutToCanvas": "Export workout to canvas",
     "generateTagReference": "Generate tag reference",
     "importWorkouts": "Import from Strong or Hevy",
@@ -580,7 +581,8 @@
       "csvCreateError": "Error creating CSV file: {error}",
       "csvFilesError": "Error creating CSV files: {error}",
       "csvLoadError": "Error loading CSV workout data: {error}",
-      "muscleTagsCsvError": "Error creating muscle tags CSV: {error}",
+      "referenceExercisesError": "Error creating reference exercises: {error}",
+    "muscleTagsCsvError": "Error creating muscle tags CSV: {error}",
       "muscleTagsLoadError": "Error loading muscle tags: {error}",
       "tableRenderError": "Error in table rendering",
       "tagReferenceFailed": "Error generating tag reference: {error}",
@@ -594,6 +596,7 @@
     "success": {
       "blockIdsAdded": "Added {count} missing ID(s) in {files} file(s)",
       "csvCreated": "CSV file created successfully!",
+      "referenceExercisesCreated": "Reference exercises: {created} page(s) created, {skipped} already existed",
       "noBlockIdsNeeded": "All code blocks already have IDs",
       "weightUnitsStamped": "Saved the weight unit on {count} older logs"
     },

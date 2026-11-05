@@ -15,6 +15,7 @@ export default [
       "build/**",
       "coverage/**",
       "scripts/**",
+      "helper/**", // our reference plugin sources and tools (plain JS, not part of the build)
       "AI translate/**",
       "*.config.js",
       "*.config.mjs",

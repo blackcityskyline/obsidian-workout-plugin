@@ -587,4 +587,13 @@ describe("CommandHandlerService", () => {
     expect(find("create-example-notes").hotkeys).toBeUndefined();
     expect(find("open-getting-started-guide").hotkeys).toBeUndefined();
   });
+
+  it("registers the reference exercises command without a hotkey", () => {
+    service.registerCommands();
+    const cmd = mockPlugin.addCommand.mock.calls.find(
+      (c: any) => c[0].id === "create-reference-exercises",
+    )[0];
+    expect(cmd.name).toBe(t("commands.createReferenceExercises"));
+    expect(cmd.hotkeys).toBeUndefined();
+  });
 });

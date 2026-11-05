@@ -29,6 +29,11 @@ import {
   createExampleNotes,
   openGettingStartedGuide,
 } from "@app/services/examples/GettingStartedGuide";
+import {
+  createReferenceExercisePages,
+  referenceLanguage,
+} from "@app/services/reference/ReferenceExercises";
+import { LanguageUtils } from "@app/utils/LanguageUtils";
 import { startGuidedTour } from "@app/features/tour/startGuidedTour";
 import { allReleaseNotes } from "@app/services/onboarding/WhatsNew";
 import { WhatsNewModal } from "@app/features/modals/common/WhatsNewModal";
@@ -77,6 +82,31 @@ export class CommandHandlerService {
       name: t("commands.createExampleNotes"),
       callback: async () => {
         await createExampleNotes(this.plugin);
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "create-reference-exercises",
+      name: t("commands.createReferenceExercises"),
+      callback: async () => {
+        try {
+          const { created, skipped } = await createReferenceExercisePages(
+            this.plugin,
+            referenceLanguage(LanguageUtils.getUserLanguage()),
+          );
+          new Notice(
+            t("messages.success.referenceExercisesCreated", {
+              created: String(created),
+              skipped: String(skipped),
+            }),
+          );
+        } catch (error) {
+          new Notice(
+            t("messages.errors.referenceExercisesError", {
+              error: ErrorUtils.getErrorMessage(error),
+            }),
+          );
+        }
       },
     });
 
