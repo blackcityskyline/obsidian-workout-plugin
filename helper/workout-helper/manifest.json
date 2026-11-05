@@ -1,0 +1,9 @@
+{
+  "id": "workout-helper",
+  "name": "Workout Vault App",
+  "version": "1.7.0",
+  "minAppVersion": "1.0.0",
+  "description": "Home workout planner: exercise library with technique, spine-safety notes and video, strength days A/B/C, HIIT and light cardio with an interval timer. English and Russian.",
+  "author": "Workout Vault",
+  "isDesktopOnly": false
+}

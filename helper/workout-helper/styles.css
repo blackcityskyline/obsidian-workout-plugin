@@ -1,0 +1,415 @@
+/* ===== Workout Vault App ===== */
+
+.wt-root {
+  padding: 16px 20px 48px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ---------- Шапка и навигация ---------- */
+.wt-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.wt-header h1 {
+  margin: 0;
+  font-size: 1.6em;
+  flex: 1 1 auto;
+}
+
+.wt-back {
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: var(--radius-m);
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+  border: none;
+  font-size: var(--font-ui-small);
+}
+
+.wt-back:hover {
+  background: var(--background-modifier-active-hover);
+}
+
+.wt-subtitle {
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+.wt-section-title {
+  margin: 28px 0 12px;
+  font-size: 1.15em;
+  color: var(--text-normal);
+}
+
+/* ---------- Сетка карточек ---------- */
+.wt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.wt-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-l);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.wt-card:hover,
+.wt-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--interactive-accent);
+  background: var(--background-secondary-alt);
+  outline: none;
+}
+
+.wt-card-icon {
+  font-size: 1.8em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.wt-card-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.wt-card-meta {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.wt-day-card {
+  border-left-width: 5px;
+}
+
+.wt-day-a { border-left-color: #3fb950; }
+.wt-day-b { border-left-color: #4493f8; }
+.wt-day-c { border-left-color: #a371f7; }
+.wt-day-h1 { border-left-color: #f0883e; }
+.wt-day-h2 { border-left-color: #f85149; }
+.wt-day-h3 { border-left-color: #d29922; }
+
+.wt-callout-info {
+  border-left-color: #4493f8;
+  margin-bottom: 18px;
+}
+
+.wt-callout-info > div + div {
+  margin-top: 6px;
+}
+
+/* ---------- Интервальный таймер ---------- */
+.wt-timer {
+  border: 2px solid var(--background-modifier-border);
+  border-radius: var(--radius-l);
+  background: var(--background-secondary);
+  padding: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: border-color 0.15s ease;
+}
+
+.wt-timer.is-work { border-color: #3fb950; }
+.wt-timer.is-rest { border-color: #4493f8; }
+
+.wt-timer-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.wt-timer-rounds {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--text-muted);
+}
+
+.wt-timer-round-btn {
+  min-width: 36px;
+}
+
+.wt-timer-round-btn.is-active {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.wt-timer-phase {
+  font-size: var(--font-ui-small);
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.wt-timer.is-work .wt-timer-phase { color: #3fb950; }
+.wt-timer.is-rest .wt-timer-phase { color: #4493f8; }
+
+.wt-timer-time {
+  font-size: 3.4em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.wt-timer-ex {
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.wt-timer-meta {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  margin: 4px 0 12px;
+}
+
+.wt-timer-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Список упражнений ---------- */
+.wt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.wt-row:hover,
+.wt-row:focus-visible {
+  border-color: var(--interactive-accent);
+  outline: none;
+}
+
+.wt-row-name {
+  font-weight: 600;
+}
+
+.wt-row-muscles {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  margin-top: 2px;
+}
+
+.wt-row-scheme {
+  white-space: nowrap;
+  color: var(--text-accent);
+  font-size: var(--font-ui-small);
+}
+
+/* ---------- Блоки дня ---------- */
+.wt-block {
+  margin-bottom: 18px;
+}
+
+.wt-block-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-ui-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.wt-badge {
+  font-size: 0.75em;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.wt-or {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  margin: 2px 0;
+}
+
+.wt-note {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  margin-top: 4px;
+}
+
+/* ---------- Модальное окно ---------- */
+.wt-modal {
+  width: min(720px, 94vw);
+  max-width: 94vw;
+}
+
+.wt-modal .modal-content {
+  max-height: 78vh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.wt-modal-muscles {
+  color: var(--text-muted);
+  margin: 0 0 12px;
+}
+
+.wt-modal h4 {
+  margin: 16px 0 6px;
+}
+
+.wt-modal ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.wt-modal ol li {
+  margin-bottom: 6px;
+}
+
+.wt-callout {
+  border-radius: var(--radius-m);
+  padding: 10px 14px;
+  margin-top: 6px;
+  border-left: 4px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+}
+
+.wt-callout-safety {
+  border-left-color: #e5534b;
+}
+
+.wt-callout-home {
+  border-left-color: #d29922;
+}
+
+.wt-callout-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* ---------- Видеоплеер ---------- */
+.wt-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: #000;
+  margin-top: 6px;
+}
+
+.wt-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.wt-video-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: var(--font-ui-small);
+}
+
+/* ---------- Мобильная версия ---------- */
+@media (max-width: 600px) {
+  .wt-root {
+    padding: 12px 12px 40px;
+  }
+
+  .wt-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .wt-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .wt-modal .modal-content {
+    max-height: 72vh;
+  }
+}
+
+/* ---------- Language toggle (EN | RU) ---------- */
+.wt-lang {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-left: auto;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+
+.wt-lang-btn {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 4px 10px;
+  font-size: var(--font-ui-small);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.wt-lang-btn.is-active {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+/* Ranking tiers (ATHLEAN-X lists) */
+.wt-tier { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: 0.72em; font-weight: 600; line-height: 1.5; vertical-align: middle; color: #fff; }
+.wt-tier-5 { background: #d29922; }
+.wt-tier-4 { background: #3fb950; }
+.wt-tier-3 { background: #4493f8; }
+.wt-tier-title { margin: 18px 0 6px; }
+.wt-rank-line { color: var(--text-muted); font-size: 0.85em; margin: 6px 0 10px; }
+.wt-rank-line .wt-tier { margin-left: 0; margin-right: 6px; }
+.wt-tier-2 { background: #8b949e; }
+
+/* Add / edit / delete exercises */
+.wt-add {
+  margin-left: auto;
+  margin-right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.3em;
+  line-height: 1;
+  padding: 0;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+.wt-modal-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 4px 0 10px; }
+.wt-danger { color: var(--text-error); }
+.wt-confirm-text { color: var(--text-muted); }
+.wt-form-field { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
+.wt-form-field label { font-size: 0.85em; color: var(--text-muted); }
+.wt-form-field input, .wt-form-field textarea, .wt-form-field select { width: 100%; }
+.wt-form-lang { margin: 16px 0 8px; padding-top: 8px; border-top: 1px solid var(--background-modifier-border); }
+.wt-form-error { color: var(--text-error); min-height: 1.2em; margin: 6px 0; }
+.wt-add + .wt-lang { margin-left: 0; }
