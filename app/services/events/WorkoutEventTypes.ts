@@ -66,6 +66,11 @@ export interface BodyWeightChangedPayload {
   date: string;
 }
 
+/** A food log entry was added or deleted (YYYY-MM-DD of its day). */
+export interface FoodChangedPayload {
+  date: string;
+}
+
 /** Which "Insert workout ..." command ran. */
 export type InsertCommandKind =
   | "chart"
@@ -90,6 +95,7 @@ export type WorkoutEvent =
   | { type: "log:bulk-changed"; payload: LogBulkChangedPayload }
   | { type: "muscle-tags:changed"; payload: MuscleTagsChangedPayload }
   | { type: "bodyweight:changed"; payload: BodyWeightChangedPayload }
+  | { type: "food:changed"; payload: FoodChangedPayload }
   | { type: "settings:changed"; payload: SettingsChangedPayload }
   | { type: "command:insert"; payload: CommandInsertPayload }
   | { type: "plugin:error"; payload: PluginErrorPayload };

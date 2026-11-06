@@ -53,7 +53,8 @@
     "startTour": "Start the tour",
     "showWhatsNew": "Show what's new",
     "createProgramNotes": "Create program notes (days A, B, C and cardio)",
-    "openDailyCard": "Open today's daily report card"
+    "openDailyCard": "Open today's daily report card",
+    "createReferenceFoods": "Create reference food pages"
   },
   "common": {
     "bpm": "bpm",
@@ -595,7 +596,8 @@
       "templateGenError": "Failed to generate templates: {error}",
       "workoutLogCreateError": "Failed to create CSV file at path: {path}. Please check the path in settings.",
       "programNotesError": "Error creating program notes: {error}",
-      "dailyCardError": "Error opening the daily report card: {error}"
+      "dailyCardError": "Error opening the daily report card: {error}",
+      "referenceFoodsError": "Error creating reference foods: {error}"
     },
     "imbalanceAlerts": "Imbalance alerts",
     "insufficientData": "Not enough data",
@@ -607,7 +609,8 @@
       "referenceExercisesCreated": "Reference exercises: {created} page(s) created, {skipped} already existed",
       "noBlockIdsNeeded": "All code blocks already have IDs",
       "weightUnitsStamped": "Saved the weight unit on {count} older logs",
-      "programNotesCreated": "Program notes: {created} created, {skipped} already existed"
+      "programNotesCreated": "Program notes: {created} created, {skipped} already existed",
+      "referenceFoodsCreated": "Reference foods: {created} page(s) created, {skipped} already existed"
     },
     "tagReferenceGenerated": "Tag reference generated successfully!",
     "timerCompleted": "Timer completed!",
@@ -1370,5 +1373,8 @@
     "minutes": "{minutes} min",
     "setsCount": "{count} sets",
     "topWeight": "up to {weight} {unit}"
+  },
+  "food": {
+    "folder": "Food"
   }
 }

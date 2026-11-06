@@ -618,4 +618,13 @@ describe("CommandHandlerService", () => {
       /^```workout-bodyweight\nid: .+\n```/,
     );
   });
+
+  it("registers the reference foods command without a hotkey", () => {
+    service.registerCommands();
+    const cmd = mockPlugin.addCommand.mock.calls.find(
+      (c: any) => c[0].id === "create-reference-foods",
+    )[0];
+    expect(cmd.name).toBe(t("commands.createReferenceFoods"));
+    expect(cmd.hotkeys).toBeUndefined();
+  });
 });

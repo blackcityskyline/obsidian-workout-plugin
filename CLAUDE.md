@@ -151,6 +151,10 @@ The only module that knows the body weight CSV (`body_weight.csv`, next to the w
 
 **Calendar marks**: the training calendar widget marks days with a weigh-in (line along the bottom) and a daily note (dot) through `calendarMarks(plugin)` (`widgets/training-calendar/business/calendarMarks.ts`: `BodyWeightLog` dates + date-named notes in the Days folder). A view that must redraw on a weigh-in sets `bodyWeightAware: true` in its `EventAwareRenderChild` filter (the dashboard does).
 
+#### Food (`app/services/food/`)
+
+`FoodLibrary` is the only place that finds a food's page: notes in the `Food` folder next to the exercise folder (`foodFolder`), found by `food_name`, file name or `aliases` (case/spacing ignored, never partial); a page counts only with `kcal`, `protein`, `fat`, `carbs` per 100 g (`fiber` optional). `nutrientsFor(per100, grams)` scales them. `FoodLog` is the only module that knows `food_log.csv` (next to the workout log: `date,meal,food,grams,kcal,protein,fat,carbs,timestamp`, through `CsvCodec`; meals `breakfast|lunch|dinner|snack`): macros are stored as logged, so editing a page never rewrites history; `add(input, timestamp?)` (a given timestamp puts a deleted entry back exactly), `delete(timestamp)`, `food:changed` events; tests use an in-memory `FoodLogStorage`. Get both with `plugin.getFoodLog()` / `plugin.getFoodLibrary()` (`FoodPort`). `createReferenceFoods` (command "Create reference food pages") writes the curated base from `referenceFoodData.ts` (about 45 foods, USDA-approximate, EN/RU names), never overwriting.
+
 #### ExerciseDefinitionService
 
 Turns an exercise page (from `ExerciseLibrary`) into a definition: type (`exercise_type`, then `type`, aliases resolved, default strength), muscle tags and declared parameters, and the fields to log (`getParametersForExercise`). `saveExerciseDefinition` writes into the page the library finds and creates `folder/name.md` only when there is none. No cache of its own.

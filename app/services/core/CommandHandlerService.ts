@@ -34,6 +34,7 @@ import {
   referenceLanguage,
 } from "@app/services/reference/ReferenceExercises";
 import { createProgramNotes } from "@app/services/reference/ProgramNotes";
+import { createReferenceFoods } from "@app/services/food/ReferenceFoods";
 import { LanguageUtils } from "@app/utils/LanguageUtils";
 import { startGuidedTour } from "@app/features/tour/startGuidedTour";
 import { allReleaseNotes } from "@app/services/onboarding/WhatsNew";
@@ -109,6 +110,31 @@ export class CommandHandlerService {
         } catch (error) {
           new Notice(
             t("messages.errors.referenceExercisesError", {
+              error: ErrorUtils.getErrorMessage(error),
+            }),
+          );
+        }
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "create-reference-foods",
+      name: t("commands.createReferenceFoods"),
+      callback: async () => {
+        try {
+          const { created, skipped } = await createReferenceFoods(
+            this.plugin,
+            referenceLanguage(LanguageUtils.getUserLanguage()),
+          );
+          new Notice(
+            t("messages.success.referenceFoodsCreated", {
+              created: String(created),
+              skipped: String(skipped),
+            }),
+          );
+        } catch (error) {
+          new Notice(
+            t("messages.errors.referenceFoodsError", {
               error: ErrorUtils.getErrorMessage(error),
             }),
           );
