@@ -19,6 +19,14 @@ export interface ExercisePage {
   tags: string[];
   /** Valid `parameters` the page declares beyond its type's */
   parameters: ParameterDefinition[];
+  /** Ranking tier 2-5 (`tier`), undefined when the page has none */
+  tier?: number;
+  /** `neck_warning: true`: puts load on the neck or spine's axis */
+  neckWarning: boolean;
+  /** `jerk_warning: true`: explosive, jerky movement */
+  jerkWarning: boolean;
+  /** Equipment the page asks for: `band`, `bar`, plus `equipment_gear` */
+  equipment: string[];
 }
 
 type LibraryApp = {
@@ -132,6 +140,10 @@ export class ExerciseLibrary {
       type: text(frontmatter.exercise_type) ?? text(frontmatter.type),
       tags: tagList(frontmatter.tags),
       parameters: parseParameters(frontmatter.parameters),
+      tier: tierOf(frontmatter.tier),
+      neckWarning: frontmatter.neck_warning === true,
+      jerkWarning: frontmatter.jerk_warning === true,
+      equipment: equipmentOf(frontmatter),
     };
   }
 }
@@ -215,6 +227,20 @@ function text(value: unknown): string | undefined {
   if (typeof value !== "string" && typeof value !== "number") return undefined;
   const s = String(value).trim();
   return s || undefined;
+}
+
+function tierOf(raw: unknown): number | undefined {
+  const n = Number(raw);
+  return Number.isInteger(n) && n >= 2 && n <= 5 ? n : undefined;
+}
+
+function equipmentOf(frontmatter: Record<string, unknown>): string[] {
+  const list: string[] = [];
+  if (frontmatter.equipment_band === true) list.push("band");
+  if (frontmatter.equipment_bar === true) list.push("bar");
+  const gear = text(frontmatter.equipment_gear);
+  if (gear) list.push(gear);
+  return list;
 }
 
 function byPath(a: ExercisePage, b: ExercisePage): number {

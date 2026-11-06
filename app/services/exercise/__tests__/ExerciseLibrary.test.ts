@@ -18,6 +18,35 @@ const pathOf = (page: { file: { path: string } } | undefined) =>
   page?.file.path;
 
 describe("ExerciseLibrary", () => {
+  describe("reference data of a page", () => {
+    it("should read tier, warnings and equipment", () => {
+      const { lib } = library({
+        "Gym/Exercises/Row.md": {
+          tier: 4,
+          neck_warning: true,
+          jerk_warning: true,
+          equipment_band: true,
+          equipment_bar: true,
+          equipment_gear: "landmine",
+        },
+        "Gym/Exercises/Plain.md": { tier: 9 },
+      });
+
+      expect(lib.find("Row")).toMatchObject({
+        tier: 4,
+        neckWarning: true,
+        jerkWarning: true,
+        equipment: ["band", "bar", "landmine"],
+      });
+      expect(lib.find("Plain")).toMatchObject({
+        tier: undefined,
+        neckWarning: false,
+        jerkWarning: false,
+        equipment: [],
+      });
+    });
+  });
+
   describe("which notes are exercise pages", () => {
     it("should include notes in the exercise folder and its subfolders", () => {
       const { lib } = library({

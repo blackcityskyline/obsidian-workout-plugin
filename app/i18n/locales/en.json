@@ -1316,6 +1316,18 @@
       "timer": "Interval timer",
       "roundRest": "Rest between circuits:",
       "log": "Log"
+    },
+    "notice": {
+      "tier": "Rank: {tier}",
+      "tier2": "Better",
+      "tier3": "Better still",
+      "tier4": "Almost best",
+      "tier5": "Best",
+      "neck": "Axial load on the neck or spine: go light and keep the spine neutral.",
+      "jerk": "Explosive movement: do it smoothly, no jerking.",
+      "equipment": "Needs: {items}",
+      "band": "band",
+      "bar": "pull-up bar"
     }
   }
 }

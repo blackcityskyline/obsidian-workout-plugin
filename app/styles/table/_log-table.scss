@@ -301,3 +301,14 @@ tr.workout-table-row-tappable {
     background: var(--background-modifier-active-hover);
   }
 }
+
+// Rank, warnings and equipment from the exercise page, under the log form's history
+.workout-log-reference {
+  margin: var(--size-4-2) 0;
+  font-size: var(--font-ui-small);
+  color: var(--workout-text-warning);
+
+  &.is-empty {
+    display: none;
+  }
+}

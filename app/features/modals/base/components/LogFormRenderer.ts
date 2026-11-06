@@ -1,3 +1,4 @@
+import { renderReferenceNotice } from "@app/features/modals/log/ExerciseReferenceNotice";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
 
 import { Platform } from "obsidian";
@@ -63,6 +64,20 @@ export class LogFormRenderer {
       this.plugin,
       initialExerciseName || "",
     );
+    const notice = formContainer.createDiv({
+      cls: "workout-log-reference",
+      attr: { "aria-live": "polite" },
+    });
+    const showNotice = () =>
+      renderReferenceNotice(
+        notice,
+        this.plugin
+          .getExerciseLibrary()
+          .find(exerciseElements.exerciseInput.value.trim()),
+      );
+    showNotice();
+    exerciseElements.exerciseInput.addEventListener("change", showNotice);
+    exerciseElements.exerciseInput.addEventListener("blur", showNotice);
     exerciseElements.exerciseInput.addEventListener("change", () => {
       void LogHistory.render(
         history,

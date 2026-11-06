@@ -1748,6 +1748,15 @@ tr.workout-table-row-tappable:active {
   background: var(--background-modifier-active-hover);
 }
 
+.workout-log-reference {
+  margin: var(--size-4-2) 0;
+  font-size: var(--font-ui-small);
+  color: var(--workout-text-warning);
+}
+.workout-log-reference.is-empty {
+  display: none;
+}
+
 /* ============================================================================
    TARGET (TargetSection): a block's goal, as its own panel in the card
    ============================================================================
