@@ -149,7 +149,7 @@ The only module that knows the body weight CSV (`body_weight.csv`, next to the w
 
 **Daily Report Card** (`app/features/daycard/`): the `workout-day` block (`dayCardBlock`: `id`, `date`) draws one day from the log and `BodyWeightLog`; `dayReport(day, logs, weights)` (pure, `business/dayReport.ts`) is the one summary (sets, volume, records via `TrainingHistory`, that day's weight), `resolveDay` picks the day (block `date`, the note's `date` property, a date-named note, else today). `ensureDailyNote` (`dailyCardNote.ts`) creates `Days/YYYY-MM-DD.md` next to the exercise folder, never overwriting; command "Open today's daily report card". `readWorkoutNote` knows `workout-bodyweight` and `workout-day`.
 
-**Calendar marks**: the training calendar widget marks days with a weigh-in (line along the bottom) and a daily note (dot) through `calendarMarks(plugin)` (`widgets/training-calendar/business/calendarMarks.ts`: `BodyWeightLog` dates + date-named notes in the Days folder). A view that must redraw on a weigh-in sets `bodyWeightAware: true` in its `EventAwareRenderChild` filter (the dashboard does).
+**Calendar marks**: the training calendar widget marks days with a weigh-in (line along the bottom), food (line along the left edge) and a daily note (dot) through `calendarMarks(plugin)` (`widgets/training-calendar/business/calendarMarks.ts`: `BodyWeightLog` dates, `FoodLog` dates + date-named notes in the Days folder). A view that must redraw on a weigh-in or a food change sets `bodyWeightAware` / `foodAware: true` in its `EventAwareRenderChild` filter (the dashboard does). The day card shows the day's calories and macros (`dayReport(day, logs, weights, meals)`, `food` is undefined without entries).
 
 #### Food (`app/services/food/`)
 

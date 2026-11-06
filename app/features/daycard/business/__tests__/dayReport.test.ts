@@ -53,4 +53,19 @@ describe("dayReport", () => {
     expect(report).toMatchObject({ sessions: [], totalSets: 0, totalVolume: 0, records: 0 });
     expect(report.bodyWeight).toBeUndefined();
   });
+
+  it("adds what was eaten that day, and nothing without entries", () => {
+    const meals = [
+      { date: "2026-11-02", meal: "lunch", food: "Rice", grams: 200, kcal: 260, protein: 5.4, fat: 0.6, carbs: 56.4, timestamp: 1 },
+      { date: "2026-11-03", meal: "lunch", food: "Egg", grams: 50, kcal: 72, protein: 6.3, fat: 4.8, carbs: 0.4, timestamp: 2 },
+    ] as const;
+    expect(dayReport("2026-11-02", logs, weights, meals).food).toEqual({
+      kcal: 260,
+      protein: 5.4,
+      fat: 0.6,
+      carbs: 56.4,
+    });
+    expect(dayReport("2026-11-05", logs, weights, meals).food).toBeUndefined();
+    expect(dayReport("2026-11-02", logs, weights).food).toBeUndefined();
+  });
 });

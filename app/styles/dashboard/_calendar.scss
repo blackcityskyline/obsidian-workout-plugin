@@ -35,6 +35,17 @@
       box-shadow: inset 0 -2px 0 var(--workout-text-accent);
     }
 
+    // Food: a line along the left edge (a weigh-in plus food shows both)
+    &.has-food {
+      box-shadow: inset 2px 0 0 var(--workout-text-success);
+    }
+
+    &.has-food.has-weight {
+      box-shadow:
+        inset 2px 0 0 var(--workout-text-success),
+        inset 0 -2px 0 var(--workout-text-accent);
+    }
+
     &.has-note {
       position: relative;
 
@@ -100,6 +111,11 @@
 
   &.is-weight {
     border-bottom: 2px solid var(--workout-text-accent);
+  }
+
+  &.is-food {
+    border-left: 2px solid var(--workout-text-success);
+    padding-left: var(--size-4-1);
   }
 
   &.is-note::before {

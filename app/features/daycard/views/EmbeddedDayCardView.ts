@@ -32,6 +32,7 @@ const REFRESH_EVENTS = [
   "log:deleted",
   "log:bulk-changed",
   "bodyweight:changed",
+  "food:changed",
   "settings:changed",
 ] as const;
 
@@ -68,11 +69,12 @@ class DayCardRenderChild extends MarkdownRenderChild {
 
   async render(): Promise<void> {
     try {
-      const [logs, weights] = await Promise.all([
+      const [logs, weights, meals] = await Promise.all([
         this.plugin.getWorkoutLogData(),
         this.plugin.getBodyWeightLog().read(),
+        this.plugin.getFoodLog().read(),
       ]);
-      this.draw(dayReport(this.day(), logs, weights));
+      this.draw(dayReport(this.day(), logs, weights, meals));
     } catch (error) {
       this.onError(error);
     }
@@ -94,6 +96,17 @@ class DayCardRenderChild extends MarkdownRenderChild {
       label: t("dayCard.bodyWeight"),
       value: report.bodyWeight ? `${report.bodyWeight.weight} ${unit}` : "—",
     });
+    if (report.food) {
+      StatCard.create(figures, {
+        label: t("dayCard.calories"),
+        value: `${report.food.kcal} ${t("food.kcalUnit")}`,
+        detail: t("dayCard.macros", {
+          protein: String(report.food.protein),
+          fat: String(report.food.fat),
+          carbs: String(report.food.carbs),
+        }),
+      });
+    }
     if (report.records > 0) {
       StatCard.create(figures, { label: t("dayCard.records"), value: report.records });
     }

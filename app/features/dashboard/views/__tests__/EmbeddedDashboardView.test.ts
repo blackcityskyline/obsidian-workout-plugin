@@ -94,6 +94,7 @@ const render = async (params: EmbeddedDashboardParams) => {
     settings: { weeklyGoal: 3, exerciseFolderPath: "Workouts/Exercises" },
     getWorkoutLogData: async () => history,
     getBodyWeightLog: () => ({ read: async () => [] }),
+      getFoodLog: () => ({ read: async () => [] }),
     app: { vault: { getAbstractFileByPath: () => null } },
   } as unknown as WorkoutChartsPlugin);
   await view.createDashboard(createObsidianContainer(), logs, params);
@@ -223,6 +224,7 @@ describe("EmbeddedDashboardView grid layout", () => {
       settings: { exerciseFolderPath: "Workouts/Exercises" },
       getWorkoutLogData: async () => history,
       getBodyWeightLog: () => ({ read: async () => [] }),
+      getFoodLog: () => ({ read: async () => [] }),
       app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin).createDashboard(
       container,
@@ -334,6 +336,7 @@ describe("EmbeddedDashboardView resize watching", () => {
       settings: { exerciseFolderPath: "Workouts/Exercises" },
       getWorkoutLogData: async () => history,
       getBodyWeightLog: () => ({ read: async () => [] }),
+      getFoodLog: () => ({ read: async () => [] }),
       app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin);
 
@@ -360,6 +363,7 @@ describe("EmbeddedDashboardView view state", () => {
       settings: { exerciseFolderPath: "Workouts/Exercises" },
       getWorkoutLogData: async () => history,
       getBodyWeightLog: () => ({ read: async () => [] }),
+      getFoodLog: () => ({ read: async () => [] }),
       app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin);
     const params: EmbeddedDashboardParams = { title: "Stats" };

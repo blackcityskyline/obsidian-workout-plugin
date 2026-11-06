@@ -113,12 +113,18 @@ describe("TrainingCalendarWidget", () => {
       marks: {
         weighed: new Set(["2024-01-16", "2024-01-15"]),
         noted: new Set(["2024-01-16"]),
+        fed: new Set(["2024-01-16"]),
       },
     });
     const weighed = Array.from(container.querySelectorAll(".has-weight"));
     const noted = Array.from(container.querySelectorAll(".has-note"));
     expect(weighed).toHaveLength(2);
     expect(noted).toHaveLength(1);
+    const fed = Array.from(container.querySelectorAll(".has-food"));
+    expect(fed).toHaveLength(1);
+    expect(fed[0].getAttribute("aria-label")).toContain(
+      t("dashboard.trainingCalendar.fed"),
+    );
     expect(noted[0].getAttribute("aria-label")).toContain(
       t("dashboard.trainingCalendar.noted"),
     );

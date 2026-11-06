@@ -18,6 +18,8 @@ export interface ViewFilter {
   muscleTagsAware?: boolean;
   /** True: the view also redraws on bodyweight:changed (the calendar marks weigh-ins) */
   bodyWeightAware?: boolean;
+  /** True: the view also redraws on food:changed (the calendar marks days with food) */
+  foodAware?: boolean;
 }
 
 /**
@@ -117,6 +119,14 @@ export class EventAwareRenderChild extends MarkdownRenderChild {
     if (this.filter.bodyWeightAware) {
       this.register(
         this.eventBus.on("bodyweight:changed", () => {
+          void this.renderFn();
+        }),
+      );
+    }
+
+    if (this.filter.foodAware) {
+      this.register(
+        this.eventBus.on("food:changed", () => {
           void this.renderFn();
         }),
       );

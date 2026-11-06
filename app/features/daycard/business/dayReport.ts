@@ -1,6 +1,8 @@
 import { TrainingHistory, trainingDay } from "@app/services/history/TrainingHistory";
 import type { WorkoutLogData } from "@app/types/WorkoutLogData";
 import type { BodyWeightEntry } from "@app/services/body/BodyWeightFile";
+import type { FoodEntry } from "@app/services/food/FoodLog";
+import { totalsOf, type FoodTotals } from "@app/features/food/business/foodDay";
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -51,6 +53,8 @@ export interface DayReport {
   /** Sets of the day that beat the exercise's earlier best */
   records: number;
   bodyWeight?: BodyWeightEntry;
+  /** What was eaten that day; undefined when nothing was logged */
+  food?: FoodTotals;
 }
 
 /** The Daily Report Card of one training day. Pure. */
@@ -58,6 +62,7 @@ export function dayReport(
   day: string,
   logs: WorkoutLogData[],
   weights: readonly BodyWeightEntry[],
+  meals: readonly FoodEntry[] = [],
 ): DayReport {
   const history = new TrainingHistory(logs);
   const sessions = history.sessions().filter((s) => s.day === day);
@@ -81,6 +86,7 @@ export function dayReport(
       duration: session.duration,
     };
   });
+  const eaten = meals.filter((e) => e.date === day);
   const all = summaries.flatMap((s) => s.exercises);
   return {
     day,
@@ -91,5 +97,6 @@ export function dayReport(
       .newRecordSets()
       .filter((set) => trainingDay(set.date) === day).length,
     bodyWeight: weights.find((w) => w.date === day),
+    food: eaten.length > 0 ? totalsOf(eaten) : undefined,
   };
 }

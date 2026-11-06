@@ -242,7 +242,9 @@
       "weighed": "weighed",
       "noted": "daily note",
       "weighedLegend": "Weighed",
-      "notedLegend": "Note"
+      "notedLegend": "Note",
+      "fed": "food logged",
+      "fedLegend": "Food"
     },
     "widgetModal": {
       "noSettings": "This widget has no settings of its own.",
@@ -1373,7 +1375,9 @@
     "unnamedWorkout": "Workout",
     "minutes": "{minutes} min",
     "setsCount": "{count} sets",
-    "topWeight": "up to {weight} {unit}"
+    "topWeight": "up to {weight} {unit}",
+    "calories": "Calories",
+    "macros": "P {protein} · F {fat} · C {carbs}"
   },
   "food": {
     "folder": "Food",

@@ -4700,6 +4700,12 @@ body.is-mobile .workout-field-with-adjust .workout-field-label {
 .workout-calendar-cell.has-weight {
   box-shadow: inset 0 -2px 0 var(--workout-text-accent);
 }
+.workout-calendar-cell.has-food {
+  box-shadow: inset 2px 0 0 var(--workout-text-success);
+}
+.workout-calendar-cell.has-food.has-weight {
+  box-shadow: inset 2px 0 0 var(--workout-text-success), inset 0 -2px 0 var(--workout-text-accent);
+}
 .workout-calendar-cell.has-note {
   position: relative;
 }
@@ -4744,6 +4750,10 @@ body.is-mobile .workout-field-with-adjust .workout-field-label {
 }
 .workout-calendar-legend-mark.is-weight {
   border-bottom: 2px solid var(--workout-text-accent);
+}
+.workout-calendar-legend-mark.is-food {
+  border-left: 2px solid var(--workout-text-success);
+  padding-left: var(--size-4-1);
 }
 .workout-calendar-legend-mark.is-note::before {
   content: "• ";

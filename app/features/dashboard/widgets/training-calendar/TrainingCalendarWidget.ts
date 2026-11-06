@@ -96,10 +96,14 @@ export class TrainingCalendarWidget {
     legendEl.createSpan({
       text: t("dashboard.trainingCalendar.more"),
     });
-    if (marks.weighed.size > 0 || marks.noted.size > 0) {
+    if (marks.weighed.size > 0 || marks.noted.size > 0 || marks.fed.size > 0) {
       legendEl.createSpan({
         cls: "workout-calendar-legend-mark is-weight",
         text: t("dashboard.trainingCalendar.weighedLegend"),
+      });
+      legendEl.createSpan({
+        cls: "workout-calendar-legend-mark is-food",
+        text: t("dashboard.trainingCalendar.fedLegend"),
       });
       legendEl.createSpan({
         cls: "workout-calendar-legend-mark is-note",
@@ -152,6 +156,10 @@ export class TrainingCalendarWidget {
     if (marks.weighed.has(day.day)) {
       cellEl.addClass("has-weight");
       notes.push(t("dashboard.trainingCalendar.weighed"));
+    }
+    if (marks.fed.has(day.day)) {
+      cellEl.addClass("has-food");
+      notes.push(t("dashboard.trainingCalendar.fed"));
     }
     if (marks.noted.has(day.day)) {
       cellEl.addClass("has-note");

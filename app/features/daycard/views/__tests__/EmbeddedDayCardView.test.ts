@@ -9,7 +9,7 @@ import { t } from "@app/i18n";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
-function setup(logs: WorkoutLogData[]) {
+function setup(logs: WorkoutLogData[], food: unknown[] = []) {
   const eventBus = new WorkoutEventBus();
   const plugin = {
     eventBus,
@@ -19,6 +19,7 @@ function setup(logs: WorkoutLogData[]) {
       metadataCache: { getFileCache: () => null },
     },
     getWorkoutLogData: async () => logs,
+    getFoodLog: () => ({ read: async () => food }),
     getBodyWeightLog: () => ({
       read: async () => [{ date: "2026-11-02", weight: 78.4, note: "" }],
     }),
@@ -66,5 +67,13 @@ describe("EmbeddedDayCardView", () => {
     await flush();
     expect(container.textContent).not.toContain(t("dayCard.rest"));
     expect(container.textContent).toContain("Squat");
+  });
+
+  it("shows calories and macros when food was logged that day", async () => {
+    const { container } = setup([set], [
+      { date: "2026-11-02", meal: "lunch", food: "Rice", grams: 200, kcal: 260, protein: 5.4, fat: 0.6, carbs: 56.4, timestamp: 1 },
+    ]);
+    await flush();
+    expect(container.textContent).toContain(`${t("dayCard.calories")}260`);
   });
 });

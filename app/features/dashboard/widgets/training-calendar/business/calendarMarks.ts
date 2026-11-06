@@ -6,11 +6,14 @@ import type { WorkoutPluginContext } from "@app/types/PluginPorts";
 export interface CalendarMarks {
   weighed: ReadonlySet<string>;
   noted: ReadonlySet<string>;
+  /** Days with something eaten */
+  fed: ReadonlySet<string>;
 }
 
 export const NO_MARKS: CalendarMarks = {
   weighed: new Set(),
   noted: new Set(),
+  fed: new Set(),
 };
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
@@ -24,7 +27,10 @@ export function noteDays(basenames: readonly string[]): Set<string> {
 export async function calendarMarks(
   plugin: WorkoutPluginContext,
 ): Promise<CalendarMarks> {
-  const weights = await plugin.getBodyWeightLog().read();
+  const [weights, meals] = await Promise.all([
+    plugin.getBodyWeightLog().read(),
+    plugin.getFoodLog().read(),
+  ]);
   const folder = plugin.app.vault.getAbstractFileByPath(
     dailyFolder(plugin.settings.exerciseFolderPath),
   );
@@ -37,5 +43,6 @@ export async function calendarMarks(
   return {
     weighed: new Set(weights.map((entry) => entry.date)),
     noted: noteDays(basenames),
+    fed: new Set(meals.map((entry) => entry.date)),
   };
 }
