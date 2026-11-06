@@ -40,6 +40,9 @@ import { allReleaseNotes } from "@app/services/onboarding/WhatsNew";
 import { WhatsNewModal } from "@app/features/modals/common/WhatsNewModal";
 import type { InsertCommandKind } from "@app/services/events/WorkoutEventTypes";
 import { durationBlock } from "@app/features/duration/durationBlock";
+import { dayCardBlock } from "@app/features/daycard/dayCardBlock";
+import { ensureDailyNote } from "@app/features/daycard/business/dailyCardNote";
+import { localDay } from "@app/services/history/TrainingHistory";
 import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
 import { generateCodeBlockId } from "@app/utils/IdUtils";
 import { sessionBlock } from "@app/features/session/sessionBlock";
@@ -259,6 +262,38 @@ export class CommandHandlerService {
           editor.getCursor(),
         );
         new Notice(t("messages.codeInserted"));
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "insert-workout-day",
+      name: t("modal.titles.insertDayCard"),
+      editorCallback: (editor) => {
+        editor.replaceRange(
+          dayCardBlock.serialize({ id: generateCodeBlockId() }) + "\n\n",
+          editor.getCursor(),
+        );
+        new Notice(t("messages.codeInserted"));
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "open-daily-card",
+      name: t("commands.openDailyCard"),
+      callback: async () => {
+        try {
+          const { file } = await ensureDailyNote(
+            this.plugin,
+            localDay(new Date()),
+          );
+          await this.app.workspace.getLeaf().openFile(file);
+        } catch (error) {
+          new Notice(
+            t("messages.errors.dailyCardError", {
+              error: ErrorUtils.getErrorMessage(error),
+            }),
+          );
+        }
       },
     });
 

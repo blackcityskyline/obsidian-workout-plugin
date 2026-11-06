@@ -1,0 +1,15 @@
+// workout-day: the daily report card. Card and stat cards come from the kit.
+.workout-daycard {
+  .workout-daycard-session {
+    margin-top: var(--size-4-3);
+  }
+
+  .workout-daycard-session-title {
+    font-weight: var(--font-semibold);
+  }
+
+  .workout-daycard-exercise,
+  .workout-daycard-empty {
+    color: var(--text-muted);
+  }
+}

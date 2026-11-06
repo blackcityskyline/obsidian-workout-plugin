@@ -52,7 +52,8 @@
     "openGettingStartedGuide": "Open getting started guide",
     "startTour": "Start the tour",
     "showWhatsNew": "Show what's new",
-    "createProgramNotes": "Create program notes (days A, B, C and cardio)"
+    "createProgramNotes": "Create program notes (days A, B, C and cardio)",
+    "openDailyCard": "Open today's daily report card"
   },
   "common": {
     "bpm": "bpm",
@@ -589,7 +590,8 @@
       "tagReferenceFailed": "Error generating tag reference: {error}",
       "templateGenError": "Failed to generate templates: {error}",
       "workoutLogCreateError": "Failed to create CSV file at path: {path}. Please check the path in settings.",
-      "programNotesError": "Error creating program notes: {error}"
+      "programNotesError": "Error creating program notes: {error}",
+      "dailyCardError": "Error opening the daily report card: {error}"
     },
     "imbalanceAlerts": "Imbalance alerts",
     "insufficientData": "Not enough data",
@@ -891,7 +893,8 @@
       "editDashboard": "Edit dashboard",
       "editChart": "Edit workout chart",
       "insertSets": "Insert workout sets",
-      "insertBodyWeight": "Insert workout body weight"
+      "insertBodyWeight": "Insert workout body weight",
+      "insertDayCard": "Insert workout day card"
     },
     "weightUnitToggle": "Unit for this entry",
     "work": "Work",
@@ -1350,5 +1353,18 @@
     "empty": "No weigh-ins in this period yet.",
     "remove": "Remove the weigh-in of {date}",
     "removed": "Weigh-in of {date} removed"
+  },
+  "dayCard": {
+    "folder": "Days",
+    "notes": "Notes",
+    "sets": "Sets",
+    "volume": "Volume",
+    "bodyWeight": "Body weight",
+    "records": "Records",
+    "rest": "No training logged on this day.",
+    "unnamedWorkout": "Workout",
+    "minutes": "{minutes} min",
+    "setsCount": "{count} sets",
+    "topWeight": "up to {weight} {unit}"
   }
 }

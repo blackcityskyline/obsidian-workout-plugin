@@ -27,6 +27,8 @@ import { timerBlock } from "@app/features/timer/timerBlock";
 import { dashboardBlock } from "@app/features/dashboard/dashboardBlock";
 import { durationBlock } from "@app/features/duration/durationBlock";
 import { sessionBlock } from "@app/features/session/sessionBlock";
+import { EmbeddedDayCardView } from "@app/features/daycard/views/EmbeddedDayCardView";
+import { dayCardBlock } from "@app/features/daycard/dayCardBlock";
 import { EmbeddedBodyWeightView } from "@app/features/bodyweight/views/EmbeddedBodyWeightView";
 import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
 import { EmbeddedSessionView } from "@app/features/session/views/EmbeddedSessionView";
@@ -103,6 +105,7 @@ class TimerRenderChild extends MarkdownRenderChild {
 export class CodeBlockProcessorService {
   private embeddedDurationView: EmbeddedDurationView;
   private embeddedBodyWeightView: EmbeddedBodyWeightView;
+  private embeddedDayCardView: EmbeddedDayCardView;
 
   constructor(
     private plugin: CodeBlockProcessorPlugin,
@@ -117,9 +120,14 @@ export class CodeBlockProcessorService {
     // Initialize duration view internally (no external dependencies needed)
     this.embeddedDurationView = new EmbeddedDurationView(plugin);
     this.embeddedBodyWeightView = new EmbeddedBodyWeightView(plugin);
+    this.embeddedDayCardView = new EmbeddedDayCardView(plugin);
   }
 
   registerProcessors(): void {
+    this.plugin.registerMarkdownCodeBlockProcessor(
+      dayCardBlock.type,
+      (source, el, ctx) => this.handleWorkoutDayCard(source, el, ctx),
+    );
     this.plugin.registerMarkdownCodeBlockProcessor(
       bodyWeightBlock.type,
       (source, el, ctx) => this.handleWorkoutBodyWeight(source, el, ctx),
@@ -187,6 +195,20 @@ export class CodeBlockProcessorService {
         );
       },
     });
+  }
+
+  // Handle workout day code blocks: the daily report card of the note's day
+  private handleWorkoutDayCard(
+    source: string,
+    el: HTMLElement,
+    ctx: MarkdownPostProcessorContext,
+  ) {
+    const params = this.parseParams(dayCardBlock, source, el);
+    if (params) {
+      ctx.addChild(
+        this.embeddedDayCardView.createDayCard(el, params, ctx.sourcePath),
+      );
+    }
   }
 
   // Handle workout body weight code blocks: the view redraws itself on bodyweight:changed

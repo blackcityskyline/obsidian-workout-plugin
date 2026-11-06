@@ -2633,6 +2633,17 @@ body.is-mobile .workout-timer-strip .workout-timer .workout-timer-controls .work
   color: var(--text-muted);
 }
 
+.workout-daycard .workout-daycard-session {
+  margin-top: var(--size-4-3);
+}
+.workout-daycard .workout-daycard-session-title {
+  font-weight: var(--font-semibold);
+}
+.workout-daycard .workout-daycard-exercise,
+.workout-daycard .workout-daycard-empty {
+  color: var(--text-muted);
+}
+
 /* Modal styles entrypoint (split into app/styles/modal/*) */
 /* ============================================================================
    MODAL STYLES
