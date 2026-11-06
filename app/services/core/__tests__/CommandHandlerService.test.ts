@@ -596,4 +596,13 @@ describe("CommandHandlerService", () => {
     expect(cmd.name).toBe(t("commands.createReferenceExercises"));
     expect(cmd.hotkeys).toBeUndefined();
   });
+
+  it("registers the program notes command without a hotkey", () => {
+    service.registerCommands();
+    const cmd = mockPlugin.addCommand.mock.calls.find(
+      (c: any) => c[0].id === "create-program-notes",
+    )[0];
+    expect(cmd.name).toBe(t("commands.createProgramNotes"));
+    expect(cmd.hotkeys).toBeUndefined();
+  });
 });

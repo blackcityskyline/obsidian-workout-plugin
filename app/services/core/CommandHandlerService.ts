@@ -33,6 +33,7 @@ import {
   createReferenceExercisePages,
   referenceLanguage,
 } from "@app/services/reference/ReferenceExercises";
+import { createProgramNotes } from "@app/services/reference/ProgramNotes";
 import { LanguageUtils } from "@app/utils/LanguageUtils";
 import { startGuidedTour } from "@app/features/tour/startGuidedTour";
 import { allReleaseNotes } from "@app/services/onboarding/WhatsNew";
@@ -103,6 +104,31 @@ export class CommandHandlerService {
         } catch (error) {
           new Notice(
             t("messages.errors.referenceExercisesError", {
+              error: ErrorUtils.getErrorMessage(error),
+            }),
+          );
+        }
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "create-program-notes",
+      name: t("commands.createProgramNotes"),
+      callback: async () => {
+        try {
+          const { created, skipped } = await createProgramNotes(
+            this.plugin,
+            referenceLanguage(LanguageUtils.getUserLanguage()),
+          );
+          new Notice(
+            t("messages.success.programNotesCreated", {
+              created: String(created),
+              skipped: String(skipped),
+            }),
+          );
+        } catch (error) {
+          new Notice(
+            t("messages.errors.programNotesError", {
               error: ErrorUtils.getErrorMessage(error),
             }),
           );
