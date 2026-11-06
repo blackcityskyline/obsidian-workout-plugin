@@ -61,6 +61,11 @@ export interface PluginErrorPayload {
   recoverable: boolean;
 }
 
+/** A body weight entry was added, replaced or deleted (YYYY-MM-DD of its day). */
+export interface BodyWeightChangedPayload {
+  date: string;
+}
+
 /** Which "Insert workout ..." command ran. */
 export type InsertCommandKind =
   | "chart"
@@ -69,7 +74,8 @@ export type InsertCommandKind =
   | "dashboard"
   | "duration"
   | "session"
-  | "sets";
+  | "sets"
+  | "bodyweight";
 
 export interface CommandInsertPayload {
   kind: InsertCommandKind;
@@ -83,6 +89,7 @@ export type WorkoutEvent =
   | { type: "log:deleted"; payload: LogDeletedPayload }
   | { type: "log:bulk-changed"; payload: LogBulkChangedPayload }
   | { type: "muscle-tags:changed"; payload: MuscleTagsChangedPayload }
+  | { type: "bodyweight:changed"; payload: BodyWeightChangedPayload }
   | { type: "settings:changed"; payload: SettingsChangedPayload }
   | { type: "command:insert"; payload: CommandInsertPayload }
   | { type: "plugin:error"; payload: PluginErrorPayload };

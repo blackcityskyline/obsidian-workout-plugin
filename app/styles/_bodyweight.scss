@@ -1,0 +1,36 @@
+// workout-bodyweight: weigh-in form and entries list. The card, stat cards and
+// fields come from the kit; this only places them.
+.workout-bodyweight {
+  .workout-bodyweight-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--size-4-2);
+    margin: var(--size-4-3) 0;
+  }
+
+  .workout-bodyweight-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .workout-bodyweight-row {
+    display: grid;
+    grid-template-columns: minmax(0, 8rem) minmax(0, 6rem) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--size-4-2);
+    padding: var(--size-4-1) 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+  }
+
+  .workout-bodyweight-row-note {
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .workout-bodyweight-empty {
+    color: var(--text-muted);
+  }
+}

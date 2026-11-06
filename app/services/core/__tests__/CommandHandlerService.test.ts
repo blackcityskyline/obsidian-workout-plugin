@@ -605,4 +605,17 @@ describe("CommandHandlerService", () => {
     expect(cmd.name).toBe(t("commands.createProgramNotes"));
     expect(cmd.hotkeys).toBeUndefined();
   });
+
+  it("inserts a body weight block with an id at the cursor", () => {
+    service.registerCommands();
+    const cmd = mockPlugin.addCommand.mock.calls.find(
+      (c: any) => c[0].id === "insert-workout-bodyweight",
+    )[0];
+    expect(cmd.name).toBe(t("modal.titles.insertBodyWeight"));
+    const editor = { replaceRange: jest.fn(), getCursor: jest.fn() };
+    cmd.editorCallback(editor);
+    expect(editor.replaceRange.mock.calls[0][0]).toMatch(
+      /^```workout-bodyweight\nid: .+\n```/,
+    );
+  });
 });

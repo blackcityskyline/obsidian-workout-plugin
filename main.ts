@@ -13,6 +13,10 @@ import { EmbeddedTableView } from "@app/features/tables/views/EmbeddedTableView"
 import { EmbeddedTimerView } from "@app/features/timer/views/EmbeddedTimerView";
 import { TimerDeviceEffects } from "@app/features/timer/business/TimerDeviceEffects";
 import { EmbeddedDashboardView } from "@app/features/dashboard/views/EmbeddedDashboardView";
+import {
+  BodyWeightLog,
+  VaultBodyWeightStorage,
+} from "@app/services/body/BodyWeightFile";
 import { EmbeddedSessionView } from "@app/features/session/views/EmbeddedSessionView";
 import { EmbeddedSetsView } from "@app/features/tables/views/EmbeddedSetsView";
 import { CommandHandlerService } from "@app/services/core/CommandHandlerService";
@@ -58,6 +62,7 @@ export default class WorkoutChartsPlugin extends Plugin {
   public embeddedTableView!: EmbeddedTableView;
   public embeddedDashboardView!: EmbeddedDashboardView;
   public embeddedSessionView!: EmbeddedSessionView;
+  private bodyWeightLog!: BodyWeightLog;
   public embeddedSetsView!: EmbeddedSetsView;
   public timerDeviceEffects!: TimerDeviceEffects;
   private activeTimers: Map<string, EmbeddedTimerView> = new Map();
@@ -157,6 +162,11 @@ export default class WorkoutChartsPlugin extends Plugin {
     // Initialize services
     this.workoutLogFile = new WorkoutLogFile(
       new VaultLogStorage(this.app, this.settings),
+      this.settings,
+      this.eventBus,
+    );
+    this.bodyWeightLog = new BodyWeightLog(
+      new VaultBodyWeightStorage(this.app, this.settings),
       this.settings,
       this.eventBus,
     );
@@ -344,6 +354,10 @@ export default class WorkoutChartsPlugin extends Plugin {
   /**
    * The exercise pages, found by exercise name.
    */
+  public getBodyWeightLog(): BodyWeightLog {
+    return this.bodyWeightLog;
+  }
+
   public getExerciseLibrary(): ExerciseLibrary {
     return this.exerciseLibrary;
   }

@@ -890,7 +890,8 @@
       "muscleTagManager": "Manage muscle tags",
       "editDashboard": "Edit dashboard",
       "editChart": "Edit workout chart",
-      "insertSets": "Insert workout sets"
+      "insertSets": "Insert workout sets",
+      "insertBodyWeight": "Insert workout body weight"
     },
     "weightUnitToggle": "Unit for this entry",
     "work": "Work",
@@ -1159,7 +1160,8 @@
       "log": "Error loading log: {error}",
       "timer": "Error loading timer: {error}",
       "dashboard": "Error loading dashboard: {error}",
-      "sets": "Error loading sets: {error}"
+      "sets": "Error loading sets: {error}",
+      "bodyWeight": "Error loading body weight: {error}"
     },
     "validation": {
       "title": "Invalid parameters:",
@@ -1329,5 +1331,24 @@
       "band": "band",
       "bar": "pull-up bar"
     }
+  },
+  "bodyWeight": {
+    "title": "Body weight",
+    "latest": "Latest",
+    "change": "Change, {days} days",
+    "trend": "Trend",
+    "trendDirection": {
+      "up": "Rising",
+      "down": "Falling",
+      "stable": "Stable"
+    },
+    "date": "Date",
+    "weight": "Weight",
+    "add": "Add weigh-in",
+    "invalid": "Enter a weight above 0",
+    "saved": "Saved {weight} {unit}",
+    "empty": "No weigh-ins in this period yet.",
+    "remove": "Remove the weigh-in of {date}",
+    "removed": "Weigh-in of {date} removed"
   }
 }

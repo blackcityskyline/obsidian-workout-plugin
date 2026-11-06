@@ -27,6 +27,8 @@ import { timerBlock } from "@app/features/timer/timerBlock";
 import { dashboardBlock } from "@app/features/dashboard/dashboardBlock";
 import { durationBlock } from "@app/features/duration/durationBlock";
 import { sessionBlock } from "@app/features/session/sessionBlock";
+import { EmbeddedBodyWeightView } from "@app/features/bodyweight/views/EmbeddedBodyWeightView";
+import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
 import { EmbeddedSessionView } from "@app/features/session/views/EmbeddedSessionView";
 import { setsBlock } from "@app/features/tables/setsBlock";
 import { EmbeddedSetsView } from "@app/features/tables/views/EmbeddedSetsView";
@@ -100,6 +102,7 @@ class TimerRenderChild extends MarkdownRenderChild {
 
 export class CodeBlockProcessorService {
   private embeddedDurationView: EmbeddedDurationView;
+  private embeddedBodyWeightView: EmbeddedBodyWeightView;
 
   constructor(
     private plugin: CodeBlockProcessorPlugin,
@@ -113,9 +116,14 @@ export class CodeBlockProcessorService {
   ) {
     // Initialize duration view internally (no external dependencies needed)
     this.embeddedDurationView = new EmbeddedDurationView(plugin);
+    this.embeddedBodyWeightView = new EmbeddedBodyWeightView(plugin);
   }
 
   registerProcessors(): void {
+    this.plugin.registerMarkdownCodeBlockProcessor(
+      bodyWeightBlock.type,
+      (source, el, ctx) => this.handleWorkoutBodyWeight(source, el, ctx),
+    );
     this.plugin.registerMarkdownCodeBlockProcessor(
       chartBlock.type,
       (source, el, ctx) => this.handleWorkoutChart(source, el, ctx),
@@ -179,6 +187,18 @@ export class CodeBlockProcessorService {
         );
       },
     });
+  }
+
+  // Handle workout body weight code blocks: the view redraws itself on bodyweight:changed
+  private handleWorkoutBodyWeight(
+    source: string,
+    el: HTMLElement,
+    ctx: MarkdownPostProcessorContext,
+  ) {
+    const params = this.parseParams(bodyWeightBlock, source, el);
+    if (params) {
+      ctx.addChild(this.embeddedBodyWeightView.createBodyWeight(el, params));
+    }
   }
 
   // Handle workout session code blocks: the session reads its own note

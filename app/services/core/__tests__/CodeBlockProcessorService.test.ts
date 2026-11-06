@@ -146,7 +146,10 @@ describe("CodeBlockProcessorService", () => {
 
       expect(
         mockPlugin.registerMarkdownCodeBlockProcessor,
-      ).toHaveBeenCalledTimes(7);
+      ).toHaveBeenCalledTimes(8);
+      expect(
+        mockPlugin.registerMarkdownCodeBlockProcessor,
+      ).toHaveBeenCalledWith("workout-bodyweight", expect.any(Function));
       expect(
         mockPlugin.registerMarkdownCodeBlockProcessor,
       ).toHaveBeenCalledWith(

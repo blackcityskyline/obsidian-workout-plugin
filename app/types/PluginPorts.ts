@@ -1,3 +1,4 @@
+import type { BodyWeightLog } from "@app/services/body/BodyWeightFile";
 import type { App, Command, MarkdownPostProcessorContext } from "obsidian";
 import type {
   LogEntryInput,
@@ -57,6 +58,10 @@ export interface ExerciseLibraryPort {
   getExerciseLibrary(): ExerciseLibrary;
 }
 
+export interface BodyWeightPort {
+  getBodyWeightLog(): BodyWeightLog;
+}
+
 export interface MuscleTagPort {
   getMuscleTagService(): MuscleTagService;
   triggerMuscleTagRefresh(): void;
@@ -106,6 +111,7 @@ export type WorkoutPluginContext = AppPort &
   WorkoutDataPort &
   ExerciseDefinitionPort &
   ExerciseLibraryPort &
+  BodyWeightPort &
   MuscleTagPort &
   EventBusPort &
   LogModalPort & { timerDeviceEffects: TimerDeviceEffects };

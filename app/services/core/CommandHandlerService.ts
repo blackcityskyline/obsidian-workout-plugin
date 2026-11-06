@@ -40,6 +40,8 @@ import { allReleaseNotes } from "@app/services/onboarding/WhatsNew";
 import { WhatsNewModal } from "@app/features/modals/common/WhatsNewModal";
 import type { InsertCommandKind } from "@app/services/events/WorkoutEventTypes";
 import { durationBlock } from "@app/features/duration/durationBlock";
+import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
+import { generateCodeBlockId } from "@app/utils/IdUtils";
 import { sessionBlock } from "@app/features/session/sessionBlock";
 
 type CommandHandlerPlugin = WorkoutPluginContext & CommandRegistryPort & WorkoutAPIPort & TemplateGeneratorPort & TourPort;
@@ -241,6 +243,19 @@ export class CommandHandlerService {
         this.emitInsert("session");
         editor.replaceRange(
           sessionBlock.serialize({}) + "\n\n",
+          editor.getCursor(),
+        );
+        new Notice(t("messages.codeInserted"));
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "insert-workout-bodyweight",
+      name: t("modal.titles.insertBodyWeight"),
+      editorCallback: (editor) => {
+        this.emitInsert("bodyweight");
+        editor.replaceRange(
+          bodyWeightBlock.serialize({ id: generateCodeBlockId() }) + "\n\n",
           editor.getCursor(),
         );
         new Notice(t("messages.codeInserted"));
