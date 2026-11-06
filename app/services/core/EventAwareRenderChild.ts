@@ -16,6 +16,8 @@ export interface ViewFilter {
   exactMatch?: boolean;
   /** Se true, questa view deve aggiornarsi anche su muscle-tags:changed */
   muscleTagsAware?: boolean;
+  /** True: the view also redraws on bodyweight:changed (the calendar marks weigh-ins) */
+  bodyWeightAware?: boolean;
 }
 
 /**
@@ -111,6 +113,14 @@ export class EventAwareRenderChild extends MarkdownRenderChild {
         },
       ),
     );
+
+    if (this.filter.bodyWeightAware) {
+      this.register(
+        this.eventBus.on("bodyweight:changed", () => {
+          void this.renderFn();
+        }),
+      );
+    }
 
     // muscle-tags:changed — solo per view muscleTagsAware (es. dashboard)
     if (this.filter.muscleTagsAware) {

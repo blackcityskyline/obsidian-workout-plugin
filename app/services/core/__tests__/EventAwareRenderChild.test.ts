@@ -253,4 +253,18 @@ describe("EventAwareRenderChild", () => {
       expect(renderFn).not.toHaveBeenCalled();
     });
   });
+
+  describe("bodyweight:changed", () => {
+    it("should refresh only if bodyWeightAware=true", () => {
+      makeChild({ bodyWeightAware: true });
+      bus.emit({ type: "bodyweight:changed", payload: { date: "2026-11-06" } });
+      expect(renderFn).toHaveBeenCalledTimes(1);
+    });
+
+    it("should NOT refresh a view that is not bodyWeightAware", () => {
+      makeChild({});
+      bus.emit({ type: "bodyweight:changed", payload: { date: "2026-11-06" } });
+      expect(renderFn).not.toHaveBeenCalled();
+    });
+  });
 });

@@ -91,8 +91,10 @@ const history = [
 
 const render = async (params: EmbeddedDashboardParams) => {
   const view = new EmbeddedDashboardView({
-    settings: { weeklyGoal: 3 },
+    settings: { weeklyGoal: 3, exerciseFolderPath: "Workouts/Exercises" },
     getWorkoutLogData: async () => history,
+    getBodyWeightLog: () => ({ read: async () => [] }),
+    app: { vault: { getAbstractFileByPath: () => null } },
   } as unknown as WorkoutChartsPlugin);
   await view.createDashboard(createObsidianContainer(), logs, params);
 };
@@ -218,8 +220,10 @@ describe("EmbeddedDashboardView grid layout", () => {
       .mockReturnValue({ width, height: 0 } as DOMRect);
     const container = createObsidianContainer();
     await new EmbeddedDashboardView({
-      settings: {},
+      settings: { exerciseFolderPath: "Workouts/Exercises" },
       getWorkoutLogData: async () => history,
+      getBodyWeightLog: () => ({ read: async () => [] }),
+      app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin).createDashboard(
       container,
       logs,
@@ -327,8 +331,10 @@ describe("EmbeddedDashboardView resize watching", () => {
         }
       };
     const view = new EmbeddedDashboardView({
-      settings: {},
+      settings: { exerciseFolderPath: "Workouts/Exercises" },
       getWorkoutLogData: async () => history,
+      getBodyWeightLog: () => ({ read: async () => [] }),
+      app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin);
 
     await view.createDashboard(createObsidianContainer(), logs, {});
@@ -351,8 +357,10 @@ describe("EmbeddedDashboardView view state", () => {
   it("keeps its edit menu and the block's place after a protocol is picked, apart from the block parameters", async () => {
     const menu = jest.spyOn(BlockMenu, "render");
     const view = new EmbeddedDashboardView({
-      settings: {},
+      settings: { exerciseFolderPath: "Workouts/Exercises" },
       getWorkoutLogData: async () => history,
+      getBodyWeightLog: () => ({ read: async () => [] }),
+      app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin);
     const params: EmbeddedDashboardParams = { title: "Stats" };
     const editAction = { label: "Edit", icon: "pencil", edits: true, run: jest.fn() };

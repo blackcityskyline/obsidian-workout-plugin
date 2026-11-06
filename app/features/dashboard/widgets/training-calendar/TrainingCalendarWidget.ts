@@ -9,7 +9,13 @@ import {
 import { WidgetContainer } from "@app/features/dashboard/ui/WidgetContainer";
 import { StatCard } from "@app/components/molecules";
 import { FormatUtils } from "@app/utils/FormatUtils";
+import {
+  NO_MARKS,
+  type CalendarMarks,
+} from "@app/features/dashboard/widgets/training-calendar/business/calendarMarks";
 import { t } from "@app/i18n";
+
+const LABEL_SEPARATOR = "; ";
 
 /**
  * A year of training days as a heat map (one column per week, Monday on
@@ -23,11 +29,13 @@ export class TrainingCalendarWidget {
     /** Training days a week that keep the streak */
     weeklyGoal: number,
     today: Date = new Date(),
-    { weeks = CALENDAR_WEEKS, showStats = true }: {
+    { weeks = CALENDAR_WEEKS, showStats = true, marks = NO_MARKS }: {
       /** Weeks shown, counting back from this one */
       weeks?: number;
       /** The streaks and this week's progress above the grid */
       showStats?: boolean;
+      /** Days with a weigh-in or a daily note, marked on their cell */
+      marks?: CalendarMarks;
     } = {},
   ): void {
     const widgetEl = WidgetContainer.create(container, {
@@ -72,7 +80,7 @@ export class TrainingCalendarWidget {
     const gridEl = widgetEl.createDiv({
       cls: "workout-calendar-grid",
     });
-    for (const day of [...calendar.weeks].reverse().flat()) this.cell(gridEl, day);
+    for (const day of [...calendar.weeks].reverse().flat()) this.cell(gridEl, day, marks);
 
     const legendEl = widgetEl.createDiv({
       cls: "workout-calendar-legend",
@@ -88,6 +96,16 @@ export class TrainingCalendarWidget {
     legendEl.createSpan({
       text: t("dashboard.trainingCalendar.more"),
     });
+    if (marks.weighed.size > 0 || marks.noted.size > 0) {
+      legendEl.createSpan({
+        cls: "workout-calendar-legend-mark is-weight",
+        text: t("dashboard.trainingCalendar.weighedLegend"),
+      });
+      legendEl.createSpan({
+        cls: "workout-calendar-legend-mark is-note",
+        text: t("dashboard.trainingCalendar.notedLegend"),
+      });
+    }
   }
 
   private static stat(
@@ -107,6 +125,7 @@ export class TrainingCalendarWidget {
   private static cell(
     container: HTMLElement,
     day: CalendarDay,
+    marks: CalendarMarks,
   ): void {
     const cellEl = container.createDiv({
       cls: `workout-calendar-cell workout-calendar-level-${day.level}`,
@@ -129,7 +148,17 @@ export class TrainingCalendarWidget {
               unit: getUnitsMap()["volume"],
             })
           : t("dashboard.trainingCalendar.restDay", { day: day.day });
-    cellEl.setAttribute("aria-label", label);
-    cellEl.setAttribute("title", label);
+    const notes = [label];
+    if (marks.weighed.has(day.day)) {
+      cellEl.addClass("has-weight");
+      notes.push(t("dashboard.trainingCalendar.weighed"));
+    }
+    if (marks.noted.has(day.day)) {
+      cellEl.addClass("has-note");
+      notes.push(t("dashboard.trainingCalendar.noted"));
+    }
+    const text = notes.join(LABEL_SEPARATOR);
+    cellEl.setAttribute("aria-label", text);
+    cellEl.setAttribute("title", text);
   }
 }

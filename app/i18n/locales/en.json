@@ -237,7 +237,11 @@
       "less": "Less",
       "more": "More",
       "trainedDayNoVolume": "{day}: trained",
-      "weeks": "{count} weeks"
+      "weeks": "{count} weeks",
+      "weighed": "weighed",
+      "noted": "daily note",
+      "weighedLegend": "Weighed",
+      "notedLegend": "Note"
     },
     "widgetModal": {
       "noSettings": "This widget has no settings of its own.",

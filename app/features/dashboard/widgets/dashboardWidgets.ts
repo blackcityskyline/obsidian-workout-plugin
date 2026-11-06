@@ -1,3 +1,4 @@
+import { calendarMarks } from "@app/features/dashboard/widgets/training-calendar/business/calendarMarks";
 import { WorkoutLogData } from "@app/types/WorkoutLogData";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
 import {
@@ -195,6 +196,7 @@ export const DASHBOARD_WIDGETS: Record<
         {
           weeks: ctx.params.calendarWeeks,
           showStats: ctx.params.calendarShowStats,
+          marks: await calendarMarks(ctx.plugin),
         },
       ),
   },

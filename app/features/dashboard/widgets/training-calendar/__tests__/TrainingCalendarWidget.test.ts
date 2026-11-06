@@ -105,4 +105,29 @@ describe("TrainingCalendarWidget", () => {
     expect(container.querySelector(".workout-calendar-stats")).toBeNull();
     expect(container.querySelector(".workout-calendar-grid")).not.toBeNull();
   });
+
+  it("marks days with a weigh-in or a daily note, and says so in their label", () => {
+    const container = createObsidianContainer();
+    TrainingCalendarWidget.render(container, [set("2024-01-16")], 1, today, {
+      weeks: 2,
+      marks: {
+        weighed: new Set(["2024-01-16", "2024-01-15"]),
+        noted: new Set(["2024-01-16"]),
+      },
+    });
+    const weighed = Array.from(container.querySelectorAll(".has-weight"));
+    const noted = Array.from(container.querySelectorAll(".has-note"));
+    expect(weighed).toHaveLength(2);
+    expect(noted).toHaveLength(1);
+    expect(noted[0].getAttribute("aria-label")).toContain(
+      t("dashboard.trainingCalendar.noted"),
+    );
+    expect(container.querySelector(".workout-calendar-legend-mark")).not.toBeNull();
+  });
+
+  it("draws no marks or legend without any", () => {
+    const container = render([set("2024-01-16")], 1, 2);
+    expect(container.querySelector(".has-weight, .has-note")).toBeNull();
+    expect(container.querySelector(".workout-calendar-legend-mark")).toBeNull();
+  });
 });
