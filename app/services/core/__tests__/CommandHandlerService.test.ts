@@ -627,4 +627,17 @@ describe("CommandHandlerService", () => {
     expect(cmd.name).toBe(t("commands.createReferenceFoods"));
     expect(cmd.hotkeys).toBeUndefined();
   });
+
+  it("inserts a food block with an id at the cursor", () => {
+    service.registerCommands();
+    const cmd = mockPlugin.addCommand.mock.calls.find(
+      (c: any) => c[0].id === "insert-workout-food",
+    )[0];
+    expect(cmd.name).toBe(t("modal.titles.insertFood"));
+    const editor = { replaceRange: jest.fn(), getCursor: jest.fn() };
+    cmd.editorCallback(editor);
+    expect(editor.replaceRange.mock.calls[0][0]).toMatch(
+      /^```workout-food\nid: .+\n```/,
+    );
+  });
 });

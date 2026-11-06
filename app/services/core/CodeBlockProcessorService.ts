@@ -27,6 +27,8 @@ import { timerBlock } from "@app/features/timer/timerBlock";
 import { dashboardBlock } from "@app/features/dashboard/dashboardBlock";
 import { durationBlock } from "@app/features/duration/durationBlock";
 import { sessionBlock } from "@app/features/session/sessionBlock";
+import { EmbeddedFoodView } from "@app/features/food/views/EmbeddedFoodView";
+import { foodBlock } from "@app/features/food/foodBlock";
 import { EmbeddedDayCardView } from "@app/features/daycard/views/EmbeddedDayCardView";
 import { dayCardBlock } from "@app/features/daycard/dayCardBlock";
 import { EmbeddedBodyWeightView } from "@app/features/bodyweight/views/EmbeddedBodyWeightView";
@@ -106,6 +108,7 @@ export class CodeBlockProcessorService {
   private embeddedDurationView: EmbeddedDurationView;
   private embeddedBodyWeightView: EmbeddedBodyWeightView;
   private embeddedDayCardView: EmbeddedDayCardView;
+  private embeddedFoodView: EmbeddedFoodView;
 
   constructor(
     private plugin: CodeBlockProcessorPlugin,
@@ -121,9 +124,14 @@ export class CodeBlockProcessorService {
     this.embeddedDurationView = new EmbeddedDurationView(plugin);
     this.embeddedBodyWeightView = new EmbeddedBodyWeightView(plugin);
     this.embeddedDayCardView = new EmbeddedDayCardView(plugin);
+    this.embeddedFoodView = new EmbeddedFoodView(plugin);
   }
 
   registerProcessors(): void {
+    this.plugin.registerMarkdownCodeBlockProcessor(
+      foodBlock.type,
+      (source, el, ctx) => this.handleWorkoutFood(source, el, ctx),
+    );
     this.plugin.registerMarkdownCodeBlockProcessor(
       dayCardBlock.type,
       (source, el, ctx) => this.handleWorkoutDayCard(source, el, ctx),
@@ -195,6 +203,18 @@ export class CodeBlockProcessorService {
         );
       },
     });
+  }
+
+  // Handle workout food code blocks: the view redraws itself on food:changed
+  private handleWorkoutFood(
+    source: string,
+    el: HTMLElement,
+    ctx: MarkdownPostProcessorContext,
+  ) {
+    const params = this.parseParams(foodBlock, source, el);
+    if (params) {
+      ctx.addChild(this.embeddedFoodView.createFood(el, params, ctx.sourcePath));
+    }
   }
 
   // Handle workout day code blocks: the daily report card of the note's day

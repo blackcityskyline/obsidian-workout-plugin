@@ -1,0 +1,45 @@
+// workout-food: form and meal list. Card, stat cards, chips and fields come from the kit.
+.workout-food {
+  .workout-food-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--size-4-2);
+    margin: var(--size-4-3) 0;
+  }
+
+  // Two classes deep to outrank Obsidian's input[type="text"]
+  .workout-food-form .workout-food-name {
+    flex: 1 1 10rem;
+    min-width: 0;
+  }
+
+  .workout-food-meal {
+    margin-top: var(--size-4-3);
+  }
+
+  .workout-food-meal-title {
+    font-weight: var(--font-semibold);
+  }
+
+  .workout-food-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    align-items: center;
+    gap: var(--size-4-2);
+    padding: var(--size-4-1) 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+  }
+
+  .workout-food-row-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .workout-food-row-grams,
+  .workout-food-row-macros,
+  .workout-food-empty {
+    color: var(--text-muted);
+  }
+}

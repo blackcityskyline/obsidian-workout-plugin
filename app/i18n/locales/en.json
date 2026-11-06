@@ -901,7 +901,8 @@
       "editChart": "Edit workout chart",
       "insertSets": "Insert workout sets",
       "insertBodyWeight": "Insert workout body weight",
-      "insertDayCard": "Insert workout day card"
+      "insertDayCard": "Insert workout day card",
+      "insertFood": "Insert workout food log"
     },
     "weightUnitToggle": "Unit for this entry",
     "work": "Work",
@@ -1375,6 +1376,35 @@
     "topWeight": "up to {weight} {unit}"
   },
   "food": {
-    "folder": "Food"
+    "folder": "Food",
+    "title": "Food, {day}",
+    "meal": "Meal",
+    "meals": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack"
+    },
+    "food": "Food",
+    "foodPlaceholder": "Food",
+    "grams": "Amount",
+    "gramsUnit": "g",
+    "kcalUnit": "kcal",
+    "kcal": "{kcal} kcal",
+    "figures": {
+      "kcal": "Calories",
+      "protein": "Protein",
+      "fat": "Fat",
+      "carbs": "Carbs"
+    },
+    "ofTarget": "of {target} {unit}",
+    "progress": "{name}: {value} of {target}",
+    "add": "Add food",
+    "unknown": "No food page named \"{name}\". Create it in the Food folder first.",
+    "invalidGrams": "Enter an amount above 0",
+    "empty": "Nothing logged for this day yet.",
+    "macros": "{kcal} kcal · P {protein} · F {fat} · C {carbs}",
+    "remove": "Remove {food}",
+    "removed": "{food} removed"
   }
 }

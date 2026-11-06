@@ -44,6 +44,7 @@ import { durationBlock } from "@app/features/duration/durationBlock";
 import { dayCardBlock } from "@app/features/daycard/dayCardBlock";
 import { ensureDailyNote } from "@app/features/daycard/business/dailyCardNote";
 import { localDay } from "@app/services/history/TrainingHistory";
+import { foodBlock } from "@app/features/food/foodBlock";
 import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
 import { generateCodeBlockId } from "@app/utils/IdUtils";
 import { sessionBlock } from "@app/features/session/sessionBlock";
@@ -285,6 +286,18 @@ export class CommandHandlerService {
         this.emitInsert("bodyweight");
         editor.replaceRange(
           bodyWeightBlock.serialize({ id: generateCodeBlockId() }) + "\n\n",
+          editor.getCursor(),
+        );
+        new Notice(t("messages.codeInserted"));
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "insert-workout-food",
+      name: t("modal.titles.insertFood"),
+      editorCallback: (editor) => {
+        editor.replaceRange(
+          foodBlock.serialize({ id: generateCodeBlockId() }) + "\n\n",
           editor.getCursor(),
         );
         new Notice(t("messages.codeInserted"));

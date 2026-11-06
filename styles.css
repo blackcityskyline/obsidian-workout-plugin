@@ -2644,6 +2644,42 @@ body.is-mobile .workout-timer-strip .workout-timer .workout-timer-controls .work
   color: var(--text-muted);
 }
 
+.workout-food .workout-food-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--size-4-2);
+  margin: var(--size-4-3) 0;
+}
+.workout-food .workout-food-form .workout-food-name {
+  flex: 1 1 10rem;
+  min-width: 0;
+}
+.workout-food .workout-food-meal {
+  margin-top: var(--size-4-3);
+}
+.workout-food .workout-food-meal-title {
+  font-weight: var(--font-semibold);
+}
+.workout-food .workout-food-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: var(--size-4-2);
+  padding: var(--size-4-1) 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+.workout-food .workout-food-row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.workout-food .workout-food-row-grams,
+.workout-food .workout-food-row-macros,
+.workout-food .workout-food-empty {
+  color: var(--text-muted);
+}
+
 /* Modal styles entrypoint (split into app/styles/modal/*) */
 /* ============================================================================
    MODAL STYLES

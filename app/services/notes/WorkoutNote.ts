@@ -9,6 +9,7 @@ const BLOCK_TYPES = new Set([
   "workout-sets",
   "workout-bodyweight",
   "workout-day",
+  "workout-food",
 ]);
 
 /** One of the plugin's code blocks in a note */
