@@ -1473,6 +1473,69 @@
         "deleted": "Goal deleted",
         "confirmDelete": "Delete this goal? Food blocks that use it will show no targets."
       }
+    },
+    "nutrients": {
+      "defaults": {
+        "vitamin_a": "Vitamin A",
+        "vitamin_c": "Vitamin C",
+        "vitamin_d": "Vitamin D",
+        "vitamin_e": "Vitamin E",
+        "vitamin_k": "Vitamin K",
+        "vitamin_b1": "Vitamin B1 (thiamin)",
+        "vitamin_b2": "Vitamin B2 (riboflavin)",
+        "vitamin_b3": "Vitamin B3 (niacin)",
+        "vitamin_b6": "Vitamin B6",
+        "vitamin_b9": "Vitamin B9 (folate)",
+        "vitamin_b12": "Vitamin B12",
+        "calcium": "Calcium",
+        "iron": "Iron",
+        "magnesium": "Magnesium",
+        "potassium": "Potassium",
+        "zinc": "Zinc",
+        "sodium": "Sodium",
+        "histidine": "Histidine",
+        "isoleucine": "Isoleucine",
+        "leucine": "Leucine",
+        "lysine": "Lysine",
+        "methionine": "Methionine",
+        "phenylalanine": "Phenylalanine",
+        "threonine": "Threonine",
+        "tryptophan": "Tryptophan",
+        "valine": "Valine"
+      },
+      "title": "Vitamins, minerals and amino acids",
+      "empty": "No food eaten today has data for these yet. Add per 100 g values as properties on the food pages, for example vitamin_c: 4.6.",
+      "coverage": "{covered} of {foods} foods have data",
+      "groups": {
+        "vitamin": "Vitamins",
+        "mineral": "Minerals",
+        "aminoAcid": "Essential amino acids",
+        "other": "Other"
+      },
+      "ofTarget": "{value} of {target} {unit}",
+      "amount": "{value} {unit}",
+      "settings": {
+        "heading": "Nutrients",
+        "empty": "No nutrients yet. Add vitamins, minerals or amino acids to track.",
+        "add": "Add nutrient",
+        "edit": "Edit nutrient",
+        "delete": "Delete nutrient",
+        "nameRequired": "Enter a name and a key",
+        "keyExists": "A nutrient with this key already exists",
+        "saved": "Nutrient \"{name}\" saved",
+        "deleted": "Nutrient deleted",
+        "confirmDelete": "Delete this nutrient? Food pages keep their values, they just stop being shown.",
+        "editorAdd": "Add nutrient",
+        "editorEdit": "Edit nutrient",
+        "name": "Name",
+        "key": "Page property",
+        "keyDesc": "The property on food pages, per 100 g in the unit below, for example vitamin_c",
+        "unit": "Unit",
+        "group": "Group",
+        "target": "Daily target",
+        "save": "Save nutrient"
+      },
+      "kg": "kg"
     }
   }
 }

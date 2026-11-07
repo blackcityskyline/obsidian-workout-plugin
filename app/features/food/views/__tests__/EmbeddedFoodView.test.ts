@@ -20,7 +20,7 @@ class MemoryStorage implements FoodLogStorage {
 }
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
-const oats = { name: "Oats, dry", per100: { kcal: 389, protein: 16.9, fat: 6.9, carbs: 66.3 } };
+const oats = { name: "Oats, dry", per100: { kcal: 389, protein: 16.9, fat: 6.9, carbs: 66.3 }, extra: { vitamin_b1: 0.76 } };
 
 function setup(params = {}) {
   const eventBus = new WorkoutEventBus();
@@ -171,6 +171,37 @@ describe("EmbeddedFoodView", () => {
       expect(container.querySelector(".workout-food-goal .workout-chip")).toBeNull();
       const maxima = [...container.querySelectorAll(".workout-progress-meter")].map((m) => m.getAttribute("aria-valuemax"));
       expect(maxima).toEqual(["3040", "150", "80", "460"]);
+    });
+  });
+
+  describe("nutrients", () => {
+    it("is absent without a catalog", async () => {
+      const { container } = setup();
+      await flush();
+      expect(container.querySelector(".workout-food-nutrients")).toBeNull();
+    });
+
+    it("sums the day's vitamins from the food pages and says how complete they are", async () => {
+      const { container, log, settings } = setup({ date: "2026-11-06" });
+      (settings as Record<string, unknown>).nutrients = [
+        { key: "vitamin_b1", name: "Vitamin B1", unit: "mg", group: "vitamin", target: { mode: "fixed", value: 1.2 } },
+        { key: "iron", name: "Iron", unit: "mg", group: "mineral", target: { mode: "none" } },
+      ];
+      await log.add({ date: "2026-11-06", meal: "breakfast", food: "Oats, dry", grams: 100, kcal: 389, protein: 17, fat: 7, carbs: 66 });
+      await flush();
+      const lines = [...container.querySelectorAll(".workout-food-nutrient")];
+      expect(lines).toHaveLength(1);
+      expect(lines[0].querySelector(".workout-food-nutrient-name")?.textContent).toBe("Vitamin B1");
+      expect(lines[0].querySelector(".workout-progress-meter")?.getAttribute("aria-valuemax")).toBe("1.2");
+    });
+
+    it("explains how to add data when no eaten food has any", async () => {
+      const { container, settings } = setup({ date: "2026-11-06" });
+      (settings as Record<string, unknown>).nutrients = [
+        { key: "iron", name: "Iron", unit: "mg", group: "mineral", target: { mode: "none" } },
+      ];
+      await flush();
+      expect(container.querySelector(".workout-food-nutrients")?.textContent).toContain(t("food.nutrients.empty"));
     });
   });
 });

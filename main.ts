@@ -46,6 +46,7 @@ import { WorkoutEventBus } from "@app/services/events/WorkoutEventBus";
 import type { LogBulkChangedPayload } from "@app/services/events/WorkoutEventTypes";
 import type { WeightUnit } from "@app/utils/WeightUnitUtils";
 import { TOUR_TARGETS, markTourTarget } from "@app/features/tour/tourTargets";
+import { withDefaultNutrients } from "@app/services/food/NutrientCatalog";
 import { withDefaultGoals } from "@app/services/food/NutritionGoals";
 import { withDefaultProtocols } from "@app/services/protocols/ProtocolCatalog";
 import { newInstallBetaFeatures } from "@app/services/features/BetaFeatures";
@@ -158,6 +159,14 @@ export default class WorkoutChartsPlugin extends Plugin {
     if (!this.settings.nutritionGoalDefaultsAdded) {
       this.settings.nutritionGoals = withDefaultGoals(this.settings.nutritionGoals);
       this.settings.nutritionGoalDefaultsAdded = true;
+      await this.saveSettings();
+    }
+
+    // The starting vitamins, minerals and amino acids are ordinary entries of
+    // Settings → Nutrients, added once
+    if (!this.settings.nutrientDefaultsAdded) {
+      this.settings.nutrients = withDefaultNutrients(this.settings.nutrients);
+      this.settings.nutrientDefaultsAdded = true;
       await this.saveSettings();
     }
 

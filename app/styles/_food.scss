@@ -1,5 +1,39 @@
 // workout-food: form and meal list. Card, stat cards, chips and fields come from the kit.
 .workout-food {
+  .workout-food-nutrients {
+    margin-bottom: var(--size-4-3);
+
+    summary {
+      cursor: pointer;
+      font-weight: var(--font-semibold);
+    }
+  }
+
+  .workout-food-nutrient-group {
+    margin-top: var(--size-4-2);
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+  }
+
+  .workout-food-nutrient {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--size-2-1) var(--size-4-2);
+    padding: var(--size-2-1) 0;
+  }
+
+  .workout-food-nutrient-value {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .workout-food-nutrient-coverage {
+    grid-column: 1 / -1;
+    color: var(--text-faint);
+    font-size: var(--font-ui-smaller);
+  }
+
   .workout-food-goal {
     margin-bottom: var(--size-4-2);
   }

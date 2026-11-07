@@ -98,6 +98,7 @@ export type LogEntryInput = Omit<CSVWorkoutLogEntry, "timestamp" | "volume">;
  */
 export type TimedLogEntryInput = LogEntryInput & { timestamp: number };
 
+import type { NutrientDef } from "@app/services/food/NutrientCatalog";
 import type { NutritionGoal } from "@app/services/food/NutritionGoals";
 /**
  * Plugin settings interface.
@@ -129,6 +130,10 @@ export interface WorkoutChartsSettings {
   nutritionGoals: NutritionGoal[];
   /** The starting goals were added to `nutritionGoals` (once, so deleted ones stay deleted) */
   nutritionGoalDefaultsAdded: boolean;
+  /** Vitamins, minerals and amino acids tracked per day (see NutrientCatalog) */
+  nutrients: NutrientDef[];
+  /** The starting nutrients were added to `nutrients` (once, so deleted ones stay deleted) */
+  nutrientDefaultsAdded: boolean;
   /** Id of the goal the food blocks work their targets out from; empty = none */
   activeNutritionGoal: string;
   /** Default duration per set in seconds for workout duration estimation */

@@ -71,6 +71,8 @@ workout: {{workout}}
   /** Nutrition goals; the starting ones are added on first load */
   nutritionGoals: [],
   nutritionGoalDefaultsAdded: false,
+  nutrients: [],
+  nutrientDefaultsAdded: false,
   /** No goal picked: food blocks show targets only for figures they name */
   activeNutritionGoal: "",
   /** Default set duration for fallback estimation (45 seconds) */

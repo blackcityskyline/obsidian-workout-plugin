@@ -37,6 +37,19 @@ describe("FoodLibrary", () => {
   });
 });
 
+describe("FoodLibrary extra nutrients", () => {
+  it("reads every other number on the page per 100 g, keys in lower case", () => {
+    const lib = library({
+      [`${FOLDER}/Oats.md`]: { ...oats, category: "grains", Vitamin_B1: 0.76, calcium: "54", note: "text", iron: -1 },
+    });
+    expect(lib.find("oats")?.extra).toEqual({ vitamin_b1: 0.76, calcium: 54 });
+  });
+
+  it("has no extra nutrients on a plain page", () => {
+    expect(library({ [`${FOLDER}/Oats.md`]: oats }).find("oats")?.extra).toEqual({});
+  });
+});
+
 describe("nutrientsFor", () => {
   it("scales per 100 g to the amount eaten", () => {
     expect(nutrientsFor({ kcal: 389, protein: 16.9, fat: 6.9, carbs: 66.3, fiber: 10.6 }, 60)).toEqual({

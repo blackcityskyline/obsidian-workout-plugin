@@ -131,16 +131,17 @@ describe("WorkoutChartsSettingTab definitions (settings search)", () => {
     );
   });
 
-  it("lists timer presets, protocols and nutrition goals as lists with their entries", () => {
+  it("lists timer presets, protocols, nutrition goals and nutrients as lists with their entries", () => {
     const { tab } = makeTab();
     const lists = (tab.getSettingDefinitions() as AnyItem[]).filter(
       (item) => item.type === "list",
     );
 
-    expect(lists.length).toBe(3);
+    expect(lists.length).toBe(4);
     expect(lists.map((l) => l.items?.map((i) => i.name))).toEqual([
       ["rest"],
       ["Myo"],
+      [],
       [],
     ]);
   });

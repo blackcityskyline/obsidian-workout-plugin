@@ -2,6 +2,7 @@ import { normalizePath, TFile, TFolder } from "obsidian";
 import type { App } from "obsidian";
 import { t } from "@app/i18n";
 import type { WorkoutChartsSettings } from "@app/types/WorkoutLogData";
+import { FOOD_PAGE_KEYS } from "@app/services/food/NutrientCatalog";
 
 /** What a food holds per 100 g (kcal, grams); `fiber` is optional */
 export interface Nutrients {
@@ -20,6 +21,8 @@ export interface FoodPage {
   /** Other names from `aliases` */
   aliases: string[];
   per100: Nutrients;
+  /** Every other number on the page per 100 g (`vitamin_c: 4.6`), by property name */
+  extra: Record<string, number>;
 }
 
 type FoodApp = {
@@ -95,11 +98,18 @@ export class FoodLibrary {
         ? [fm.aliases]
         : [];
     const fiber = number(fm.fiber);
+    const extra: Record<string, number> = {};
+    for (const [property, raw] of Object.entries(fm)) {
+      if (FOOD_PAGE_KEYS.has(property)) continue;
+      const value = number(raw);
+      if (value !== undefined) extra[property.toLowerCase()] = value;
+    }
     return {
       file,
       name: typeof fm.food_name === "string" && fm.food_name.trim() ? fm.food_name.trim() : file.basename,
       aliases,
       per100: { kcal, protein, fat, carbs, ...(fiber !== undefined ? { fiber } : {}) },
+      extra,
     };
   }
 }

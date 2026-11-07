@@ -18,6 +18,7 @@ import { TemplatesSettings } from "@app/features/settings/components/TemplatesSe
 import { DurationEstimationSettings } from "@app/features/duration/settings/DurationEstimationSettings";
 import { QuickLogSettings } from "@app/features/settings/components/QuickLogSettings";
 import { MaintenanceSettings } from "@app/features/settings/components/MaintenanceSettings";
+import { NutrientsSettings } from "@app/features/food/settings/NutrientsSettings";
 import { NutritionGoalsSettings } from "@app/features/food/settings/NutritionGoalsSettings";
 import { BetaFeaturesSettings } from "@app/features/settings/components/BetaFeaturesSettings";
 
@@ -40,6 +41,7 @@ export class WorkoutChartsSettingTab extends PluginSettingTab {
   private templates: TemplatesSettings;
   private maintenance: MaintenanceSettings;
   private nutritionGoals: NutritionGoalsSettings;
+  private nutrients: NutrientsSettings;
   private beta: BetaFeaturesSettings;
 
   constructor(app: App, plugin: SettingsTabContext) {
@@ -60,6 +62,7 @@ export class WorkoutChartsSettingTab extends PluginSettingTab {
       refresh,
     );
     this.nutritionGoals = new NutritionGoalsSettings(app, plugin, refresh);
+    this.nutrients = new NutrientsSettings(app, plugin, refresh);
     this.durationEstimation = new DurationEstimationSettings(plugin);
     this.templates = new TemplatesSettings(plugin);
     this.maintenance = new MaintenanceSettings(app, plugin);
@@ -84,6 +87,7 @@ export class WorkoutChartsSettingTab extends PluginSettingTab {
       ...this.timerPresets.definitions(),
       ...this.customProtocols.definitions(),
       ...this.nutritionGoals.definitions(),
+      ...this.nutrients.definitions(),
       // Training parameters
       ...this.durationEstimation.definitions(),
       // New features the user opts into

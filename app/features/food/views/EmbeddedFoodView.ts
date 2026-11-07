@@ -8,6 +8,7 @@ import { UndoNotice } from "@app/components/molecules/UndoNotice";
 import { ProgressMeter } from "@app/components/atoms/ProgressMeter";
 import { Button, BUTTONSIZE, BUTTONVARIANT } from "@app/components/atoms/Button";
 import { DeleteButton } from "@app/components/atoms/DeleteButton";
+import { NUTRIENT_GROUPS, nutrientRows, type NutrientRow } from "@app/services/food/NutrientCatalog";
 import { foodTargets, type FoodTargets } from "@app/features/food/business/foodTargets";
 import { foodDay, mealAt, type FoodDay, type FoodTotals } from "@app/features/food/business/foodDay";
 import { resolveDay } from "@app/features/daycard/business/dayReport";
@@ -46,6 +47,7 @@ export class EmbeddedFoodView extends BaseView {
 class FoodRenderChild extends MarkdownRenderChild {
   /** The meal the form adds to; kept across redraws */
   private meal: Meal = mealAt(new Date().getHours());
+  private nutrientsOpen = false;
 
   constructor(
     container: HTMLElement,
@@ -115,6 +117,7 @@ class FoodRenderChild extends MarkdownRenderChild {
     this.drawTotals(card.el, day.totals, goals.targets);
     this.drawForm(card.el, day.day);
     this.drawSaved(card.el, day.day, saved);
+    this.drawNutrients(card.el, day, goals.weightKg);
 
     const list = card.el.createDiv({ cls: "workout-food-list" });
     let any = false;
@@ -270,6 +273,48 @@ class FoodRenderChild extends MarkdownRenderChild {
     });
     const add = Button.create(form, { text: t("food.add"), variant: BUTTONVARIANT.PRIMARY });
     Button.onClick(add, () => void submit());
+  }
+
+  /** Vitamins, minerals and amino acids from the food pages' per-100 g values; folded away, its state kept across redraws */
+  private drawNutrients(parent: HTMLElement, day: FoodDay, weightKg: number | undefined): void {
+    const catalog = this.plugin.settings.nutrients ?? [];
+    if (catalog.length === 0) return;
+    const eaten = MEALS.flatMap((meal) => day.meals[meal]);
+    const rows = nutrientRows(eaten, (food) => this.plugin.getFoodLibrary().find(food)?.extra, catalog, weightKg);
+    const box = parent.createEl("details", { cls: "workout-food-nutrients" });
+    box.open = this.nutrientsOpen;
+    box.addEventListener("toggle", () => (this.nutrientsOpen = box.open));
+    box.createEl("summary", { text: t("food.nutrients.title") });
+    if (rows.length === 0) {
+      box.createDiv({ cls: "workout-food-empty", text: t("food.nutrients.empty") });
+      return;
+    }
+    for (const group of NUTRIENT_GROUPS) {
+      const inGroup = rows.filter((r) => r.def.group === group);
+      if (inGroup.length === 0) continue;
+      box.createDiv({ cls: "workout-food-nutrient-group", text: t(`food.nutrients.groups.${group}`) });
+      for (const row of inGroup) this.drawNutrientRow(box, row);
+    }
+  }
+
+  private drawNutrientRow(parent: HTMLElement, row: NutrientRow): void {
+    const line = parent.createDiv({ cls: "workout-food-nutrient" });
+    const { unit } = row.def;
+    const text =
+      row.target !== undefined
+        ? t("food.nutrients.ofTarget", { value: String(row.total), target: String(Math.round(row.target * 10) / 10), unit })
+        : t("food.nutrients.amount", { value: String(row.total), unit });
+    line.createSpan({ cls: "workout-food-nutrient-name", text: row.def.name });
+    if (row.target !== undefined) {
+      ProgressMeter.create(line, { value: row.total, max: row.target, label: `${row.def.name}: ${text}` });
+    }
+    line.createSpan({ cls: "workout-food-nutrient-value", text });
+    if (row.covered < row.foods) {
+      line.createSpan({
+        cls: "workout-food-nutrient-coverage",
+        text: t("food.nutrients.coverage", { covered: String(row.covered), foods: String(row.foods) }),
+      });
+    }
   }
 
   /** The saved meals: one tap adds a meal's foods to the chosen meal of the day */

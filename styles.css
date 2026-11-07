@@ -2647,6 +2647,34 @@ body.is-mobile .workout-timer-strip .workout-timer .workout-timer-controls .work
   color: var(--text-muted);
 }
 
+.workout-food .workout-food-nutrients {
+  margin-bottom: var(--size-4-3);
+}
+.workout-food .workout-food-nutrients summary {
+  cursor: pointer;
+  font-weight: var(--font-semibold);
+}
+.workout-food .workout-food-nutrient-group {
+  margin-top: var(--size-4-2);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+.workout-food .workout-food-nutrient {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--size-2-1) var(--size-4-2);
+  padding: var(--size-2-1) 0;
+}
+.workout-food .workout-food-nutrient-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.workout-food .workout-food-nutrient-coverage {
+  grid-column: 1/-1;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
 .workout-food .workout-food-goal {
   margin-bottom: var(--size-4-2);
 }
