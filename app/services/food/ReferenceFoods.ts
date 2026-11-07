@@ -1,13 +1,29 @@
-import { normalizePath } from "obsidian";
+import { normalizePath, TFile } from "obsidian";
 import type { AppPort, SettingsPort } from "@app/types/PluginPorts";
 import { foodFolder } from "@app/services/food/FoodLibrary";
 import { REFERENCE_FOODS, type ReferenceFood } from "@app/services/food/referenceFoodData";
+import { REFERENCE_MICROS } from "@app/services/food/referenceFoodMicros";
 import type { ReferenceLanguage } from "@app/services/reference/ReferenceExercises";
 import { pageFileName } from "@app/services/reference/ProgramNotes";
 
 export type ReferenceFoodsPlugin = AppPort & SettingsPort;
 
-/** The text of a food page: nutrients per 100 g as properties, the name in both languages as aliases */
+/** Adds the SR28 vitamins and minerals a page does not have yet; true when the page changed */
+async function addMissingMicros(plugin: ReferenceFoodsPlugin, file: TFile, food: ReferenceFood): Promise<boolean> {
+  const micros = REFERENCE_MICROS[food.name.en] ?? {};
+  let changed = false;
+  await plugin.app.fileManager.processFrontMatter(file, (frontmatter: Record<string, unknown>) => {
+    const have = new Set(Object.keys(frontmatter).map((key) => key.toLowerCase()));
+    for (const [key, value] of Object.entries(micros)) {
+      if (have.has(key)) continue;
+      frontmatter[key] = value;
+      changed = true;
+    }
+  });
+  return changed;
+}
+
+/** The text of a food page: nutrients and (where USDA SR28 has them) vitamins and minerals per 100 g as properties, the name in both languages as aliases */
 export function foodPageContent(food: ReferenceFood, lang: ReferenceLanguage): string {
   const other = lang === "ru" ? food.name.en : food.name.ru;
   return [
@@ -20,6 +36,7 @@ export function foodPageContent(food: ReferenceFood, lang: ReferenceLanguage): s
     `fat: ${food.fat}`,
     `carbs: ${food.carbs}`,
     `fiber: ${food.fiber}`,
+    ...Object.entries(REFERENCE_MICROS[food.name.en] ?? {}).map(([key, value]) => `${key}: ${value}`),
     "---",
     "",
     `# ${food.name[lang]}`,
@@ -27,14 +44,17 @@ export function foodPageContent(food: ReferenceFood, lang: ReferenceLanguage): s
   ].join("\n");
 }
 
-/** Writes the reference foods as pages in the food folder, one subfolder per category; never overwrites */
+/**
+ * Writes the reference foods as pages in the food folder, one subfolder per category; never overwrites a page.
+ * A page that already exists only gets the vitamins and minerals it lacks (`updated`), no value of the user is touched.
+ */
 export async function createReferenceFoods(
   plugin: ReferenceFoodsPlugin,
   lang: ReferenceLanguage,
-): Promise<{ created: number; skipped: number }> {
+): Promise<{ created: number; skipped: number; updated: number }> {
   const { vault } = plugin.app;
   const root = foodFolder(plugin.settings.exerciseFolderPath);
-  const result = { created: 0, skipped: 0 };
+  const result = { created: 0, skipped: 0, updated: 0 };
   const made = new Set<string>();
   const ensure = async (path: string) => {
     if (made.has(path) || vault.getAbstractFileByPath(path)) return;
@@ -45,8 +65,10 @@ export async function createReferenceFoods(
   for (const food of REFERENCE_FOODS) {
     const folder = normalizePath(`${root}/${food.category}`);
     const path = normalizePath(`${folder}/${pageFileName(food.name[lang])}.md`);
-    if (vault.getAbstractFileByPath(path)) {
+    const existing = vault.getAbstractFileByPath(path);
+    if (existing) {
       result.skipped++;
+      if (existing instanceof TFile && (await addMissingMicros(plugin, existing, food))) result.updated++;
       continue;
     }
     await ensure(folder);

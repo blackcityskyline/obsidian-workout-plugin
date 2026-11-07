@@ -612,7 +612,8 @@
       "noBlockIdsNeeded": "All code blocks already have IDs",
       "weightUnitsStamped": "Saved the weight unit on {count} older logs",
       "programNotesCreated": "Program notes: {created} created, {skipped} already existed",
-      "referenceFoodsCreated": "Reference foods: {created} page(s) created, {skipped} already existed"
+      "referenceFoodsCreated": "Reference foods: {created} page(s) created, {skipped} already existed",
+      "referenceFoodsUpdated": "Vitamins and minerals added to {updated} existing food page(s)"
     },
     "tagReferenceGenerated": "Tag reference generated successfully!",
     "timerCompleted": "Timer completed!",

@@ -123,7 +123,7 @@ export class CommandHandlerService {
       name: t("commands.createReferenceFoods"),
       callback: async () => {
         try {
-          const { created, skipped } = await createReferenceFoods(
+          const { created, skipped, updated } = await createReferenceFoods(
             this.plugin,
             referenceLanguage(LanguageUtils.getUserLanguage()),
           );
@@ -133,6 +133,9 @@ export class CommandHandlerService {
               skipped: String(skipped),
             }),
           );
+          if (updated > 0) {
+            new Notice(t("messages.success.referenceFoodsUpdated", { updated: String(updated) }));
+          }
         } catch (error) {
           new Notice(
             t("messages.errors.referenceFoodsError", {
