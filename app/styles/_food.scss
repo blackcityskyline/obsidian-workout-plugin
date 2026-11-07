@@ -1,5 +1,14 @@
 // workout-food: form and meal list. Card, stat cards, chips and fields come from the kit.
 .workout-food {
+  .workout-food-goal {
+    margin-bottom: var(--size-4-2);
+  }
+
+  .workout-food-goal-basis {
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+  }
+
   .workout-food-form {
     display: flex;
     flex-wrap: wrap;

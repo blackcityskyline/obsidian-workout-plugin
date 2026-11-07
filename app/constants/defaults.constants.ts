@@ -68,6 +68,11 @@ workout: {{workout}}
   customProtocols: [],
   /** False until the built-in protocols are added to the list on first load */
   protocolDefaultsAdded: false,
+  /** Nutrition goals; the starting ones are added on first load */
+  nutritionGoals: [],
+  nutritionGoalDefaultsAdded: false,
+  /** No goal picked: food blocks show targets only for figures they name */
+  activeNutritionGoal: "",
   /** Default set duration for fallback estimation (45 seconds) */
   setDuration: 45,
   /** Default duration per repetition (5 seconds) */

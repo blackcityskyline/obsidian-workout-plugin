@@ -1427,6 +1427,52 @@
       "saved": "Saved \"{name}\"",
       "remove": "Delete saved meal {name}",
       "removed": "Saved meal {name} deleted"
+    },
+    "goals": {
+      "label": "Goal",
+      "none": "No goal",
+      "basis": "{goal}: targets from your weight, {weight} {unit}",
+      "needsWeight": "Log your weight to get targets in grams per kilogram.",
+      "defaults": {
+        "maintain": "Maintenance",
+        "gain": "Muscle gain",
+        "cut": "Fat loss"
+      },
+      "modes": {
+        "none": "No target",
+        "perKg": "Grams per kg of body weight",
+        "kcalPerKg": "Calories per kg of body weight",
+        "fixed": "Fixed amount",
+        "percentKcal": "Percent of calories",
+        "remainder": "What is left of the calories"
+      },
+      "units": {
+        "gPerKg": "g/kg",
+        "kcalPerKg": "kcal/kg",
+        "ofCalories": "of calories",
+        "remainder": "the rest"
+      },
+      "editor": {
+        "add": "Add nutrition goal",
+        "edit": "Edit nutrition goal",
+        "name": "Name",
+        "namePlaceholder": "e.g., Muscle gain",
+        "figureDesc": "How this figure is worked out for a day",
+        "value": "Number",
+        "save": "Save goal"
+      },
+      "settings": {
+        "heading": "Nutrition goals",
+        "empty": "No goals yet. A goal works out the day's calories, protein, fat and carbs from your body weight.",
+        "add": "Add goal",
+        "edit": "Edit goal",
+        "delete": "Delete goal",
+        "nameRequired": "Enter a name for the goal",
+        "nameExists": "A goal with this name already exists",
+        "saved": "Goal \"{name}\" saved",
+        "deleted": "Goal deleted",
+        "confirmDelete": "Delete this goal? Food blocks that use it will show no targets."
+      }
     }
   }
 }

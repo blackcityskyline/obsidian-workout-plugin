@@ -46,6 +46,7 @@ import { WorkoutEventBus } from "@app/services/events/WorkoutEventBus";
 import type { LogBulkChangedPayload } from "@app/services/events/WorkoutEventTypes";
 import type { WeightUnit } from "@app/utils/WeightUnitUtils";
 import { TOUR_TARGETS, markTourTarget } from "@app/features/tour/tourTargets";
+import { withDefaultGoals } from "@app/services/food/NutritionGoals";
 import { withDefaultProtocols } from "@app/services/protocols/ProtocolCatalog";
 import { newInstallBetaFeatures } from "@app/services/features/BetaFeatures";
 import { withDefaultTimerPresets } from "@app/features/timer/business/timerPresets";
@@ -149,6 +150,14 @@ export default class WorkoutChartsPlugin extends Plugin {
         );
         this.settings.timerPresetDefaultsAdded = true;
       }
+      await this.saveSettings();
+    }
+
+    // The starting nutrition goals (maintenance, gain, cut) are ordinary
+    // entries of Settings → Nutrition goals, added once
+    if (!this.settings.nutritionGoalDefaultsAdded) {
+      this.settings.nutritionGoals = withDefaultGoals(this.settings.nutritionGoals);
+      this.settings.nutritionGoalDefaultsAdded = true;
       await this.saveSettings();
     }
 

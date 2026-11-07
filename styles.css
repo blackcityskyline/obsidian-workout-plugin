@@ -2647,6 +2647,13 @@ body.is-mobile .workout-timer-strip .workout-timer .workout-timer-controls .work
   color: var(--text-muted);
 }
 
+.workout-food .workout-food-goal {
+  margin-bottom: var(--size-4-2);
+}
+.workout-food .workout-food-goal-basis {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
 .workout-food .workout-food-form {
   display: flex;
   flex-wrap: wrap;

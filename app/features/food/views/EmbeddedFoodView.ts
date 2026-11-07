@@ -8,6 +8,7 @@ import { UndoNotice } from "@app/components/molecules/UndoNotice";
 import { ProgressMeter } from "@app/components/atoms/ProgressMeter";
 import { Button, BUTTONSIZE, BUTTONVARIANT } from "@app/components/atoms/Button";
 import { DeleteButton } from "@app/components/atoms/DeleteButton";
+import { foodTargets, type FoodTargets } from "@app/features/food/business/foodTargets";
 import { foodDay, mealAt, type FoodDay, type FoodTotals } from "@app/features/food/business/foodDay";
 import { resolveDay } from "@app/features/daycard/business/dayReport";
 import { nutrientsFor } from "@app/services/food/FoodLibrary";
@@ -18,6 +19,7 @@ import { SaveMealModal } from "@app/features/food/modals/SaveMealModal";
 import { localDay } from "@app/services/history/TrainingHistory";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
 import type { EmbeddedFoodParams } from "@app/features/food/foodBlock";
+import { convertWeight } from "@app/utils/WeightUnitUtils";
 import { DomUtils } from "@app/utils/DomUtils";
 import { ErrorUtils } from "@app/utils/ErrorUtils";
 import { t } from "@app/i18n";
@@ -58,6 +60,8 @@ class FoodRenderChild extends MarkdownRenderChild {
   onload(): void {
     this.register(this.plugin.eventBus.on("food:changed", () => void this.render()));
     this.register(this.plugin.eventBus.on("meals:changed", () => void this.render()));
+    // A goal in grams per kg follows the body weight
+    this.register(this.plugin.eventBus.on("bodyweight:changed", () => void this.render()));
     this.register(this.plugin.eventBus.on("settings:changed", () => void this.render()));
     void this.render();
   }
@@ -77,18 +81,29 @@ class FoodRenderChild extends MarkdownRenderChild {
 
   async render(refocus = false): Promise<void> {
     try {
-      const [entries, saved] = await Promise.all([
+      const [entries, saved, weights] = await Promise.all([
         this.plugin.getFoodLog().read(),
         this.plugin.getSavedMeals().read(),
+        this.plugin.getBodyWeightLog().read(),
       ]);
-      this.draw(foodDay(this.day(), entries), saved);
+      const day = this.day();
+      const { settings } = this.plugin;
+      const goals = foodTargets({
+        params: this.params,
+        goals: settings.nutritionGoals ?? [],
+        activeGoal: settings.activeNutritionGoal ?? "",
+        weights,
+        day,
+        unit: settings.weightUnit,
+      });
+      this.draw(foodDay(day, entries), saved, goals);
       if (refocus) DomUtils.focusByKey(this.containerEl, FOOD_KEY);
     } catch (error) {
       this.onError(error);
     }
   }
 
-  private draw(day: FoodDay, saved: SavedMeal[]): void {
+  private draw(day: FoodDay, saved: SavedMeal[], goals: FoodTargets): void {
     const root = this.containerEl;
     root.empty();
     const card = BlockCard.create(root, {
@@ -96,7 +111,8 @@ class FoodRenderChild extends MarkdownRenderChild {
       className: "workout-food",
     });
 
-    this.drawTotals(card.el, day.totals);
+    this.drawGoal(card.el, goals);
+    this.drawTotals(card.el, day.totals, goals.targets);
     this.drawForm(card.el, day.day);
     this.drawSaved(card.el, day.day, saved);
 
@@ -124,10 +140,53 @@ class FoodRenderChild extends MarkdownRenderChild {
     if (!any) list.createDiv({ cls: "workout-food-empty", text: t("food.empty") });
   }
 
-  private drawTotals(parent: HTMLElement, totals: FoodTotals): void {
+  /** The goal the targets come from: pick another here, and what it was worked out from */
+  private drawGoal(parent: HTMLElement, goals: FoodTargets): void {
+    const all = this.plugin.settings.nutritionGoals ?? [];
+    if (all.length === 0) return;
+    const box = parent.createDiv({ cls: "workout-food-goal" });
+    // A block that names its goal keeps it; otherwise the pick is the settings'
+    if (this.params.goal === undefined) {
+      ChipGroup.create(box, {
+        label: t("food.goals.label"),
+        options: [{ id: "", label: t("food.goals.none") }, ...all.map((g) => ({ id: g.id, label: g.name }))],
+        selected: goals.goal?.id ?? "",
+        onPick: (id) => void this.pickGoal(id),
+        focusKeyPrefix: "food-goal",
+      });
+    }
+    if (goals.goal && goals.weightKg !== undefined && !goals.needsWeight) {
+      const unit = this.plugin.settings.weightUnit;
+      const shown = convertWeight(goals.weightKg, "kg", unit);
+      box.createDiv({
+        cls: "workout-food-goal-basis",
+        text: t("food.goals.basis", { goal: goals.goal.name, weight: String(Math.round(shown * 10) / 10), unit }),
+      });
+    } else if (goals.needsWeight) {
+      box.createDiv({ cls: "workout-food-goal-basis", text: t("food.goals.needsWeight") });
+    }
+  }
+
+  private async pickGoal(id: string): Promise<void> {
+    const { settings } = this.plugin;
+    const previousValue = settings.activeNutritionGoal;
+    if (previousValue === id) return;
+    settings.activeNutritionGoal = id;
+    try {
+      await this.plugin.saveSettings();
+      this.plugin.eventBus.emit({
+        type: "settings:changed",
+        payload: { key: "activeNutritionGoal", previousValue, newValue: id },
+      });
+    } catch (error) {
+      new Notice(ErrorUtils.getErrorMessage(error));
+    }
+  }
+
+  private drawTotals(parent: HTMLElement, totals: FoodTotals, targets: FoodTargets["targets"]): void {
     const row = StatCard.row(parent);
     for (const key of FIGURES) {
-      const target = this.params[key];
+      const target = targets[key];
       const unit = key === "kcal" ? t("food.kcalUnit") : t("food.gramsUnit");
       const value = `${totals[key]} ${unit}`;
       const cell = StatCard.create(row, {

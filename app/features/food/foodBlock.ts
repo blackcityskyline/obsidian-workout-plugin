@@ -8,7 +8,9 @@ export const foodBlock = defineCodeBlock("workout-food", {
   title: { kind: "string" },
   /** YYYY-MM-DD; unset = the note's `date` property, else a date-named note, else today */
   date: { kind: "string" },
-  /** Daily targets: a figure with a target shows its progress; none by default */
+  /** A nutrition goal (id or name from Settings → Nutrition goals); unset = the one picked in the block or the settings */
+  goal: { kind: "string" },
+  /** Daily targets written here win over the goal's; a figure with a target shows its progress */
   kcal: { kind: "number", min: 0 },
   protein: { kind: "number", min: 0 },
   fat: { kind: "number", min: 0 },

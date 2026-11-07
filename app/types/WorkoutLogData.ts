@@ -98,6 +98,7 @@ export type LogEntryInput = Omit<CSVWorkoutLogEntry, "timestamp" | "volume">;
  */
 export type TimedLogEntryInput = LogEntryInput & { timestamp: number };
 
+import type { NutritionGoal } from "@app/services/food/NutritionGoals";
 /**
  * Plugin settings interface.
  */
@@ -124,6 +125,12 @@ export interface WorkoutChartsSettings {
   customProtocols: CustomProtocolConfig[];
   /** The built-in protocols were added to `customProtocols` (once, so deleted ones stay deleted) */
   protocolDefaultsAdded: boolean;
+  /** Nutrition goals: named scenarios whose figures are formulas of body weight (see NutritionGoals) */
+  nutritionGoals: NutritionGoal[];
+  /** The starting goals were added to `nutritionGoals` (once, so deleted ones stay deleted) */
+  nutritionGoalDefaultsAdded: boolean;
+  /** Id of the goal the food blocks work their targets out from; empty = none */
+  activeNutritionGoal: string;
   /** Default duration per set in seconds for workout duration estimation */
   setDuration: number;
   /** Duration per repetition in seconds. Used when reps are detected. */

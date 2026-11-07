@@ -2,6 +2,7 @@
 
 import { EmbeddedFoodView } from "@app/features/food/views/EmbeddedFoodView";
 import { FoodLog, type FoodLogStorage } from "@app/services/food/FoodLog";
+import { BodyWeightLog } from "@app/services/body/BodyWeightFile";
 import { SavedMeals } from "@app/services/food/SavedMeals";
 import { WorkoutEventBus } from "@app/services/events/WorkoutEventBus";
 import { createObsidianContainer } from "@app/components/__tests__/obsidianDomMocks";
@@ -25,9 +26,27 @@ function setup(params = {}) {
   const eventBus = new WorkoutEventBus();
   const log = new FoodLog(new MemoryStorage(), eventBus);
   const savedMeals = new SavedMeals(new MemoryStorage(), eventBus);
+  const settings = {
+    weightUnit: "kg" as const,
+    activeNutritionGoal: "",
+    nutritionGoals: [
+      {
+        id: "gain",
+        name: "Muscle gain",
+        kcal: { mode: "perKg", value: 38 },
+        protein: { mode: "perKg", value: 1.5 },
+        fat: { mode: "perKg", value: 1 },
+        carbs: { mode: "remainder" },
+      },
+    ],
+  };
+  const bodyWeight = new BodyWeightLog(new MemoryStorage(), settings, eventBus);
+  const saveSettings = jest.fn().mockResolvedValue(undefined);
   const plugin = {
     eventBus,
-    settings: {},
+    settings,
+    saveSettings,
+    getBodyWeightLog: () => bodyWeight,
     app: { vault: { getAbstractFileByPath: () => null }, metadataCache: { getFileCache: () => null } },
     getFoodLog: () => log,
     getSavedMeals: () => savedMeals,
@@ -43,7 +62,7 @@ function setup(params = {}) {
     "Days/2026-11-06.md",
   );
   child.load();
-  return { container, log, savedMeals };
+  return { container, log, savedMeals, bodyWeight, settings, saveSettings };
 }
 
 describe("EmbeddedFoodView", () => {
@@ -117,5 +136,41 @@ describe("EmbeddedFoodView", () => {
     await flush();
     expect(await savedMeals.read()).toEqual([]);
     expect(container.textContent).toContain(t("food.sets.empty"));
+  });
+
+  describe("goals", () => {
+    it("shows no targets until a goal is picked, then works them out from the weight", async () => {
+      const { container, bodyWeight, settings, saveSettings } = setup({ date: "2026-11-06" });
+      await bodyWeight.set("2026-11-01", 80);
+      await flush();
+      expect(container.querySelector(".workout-progress-meter")).toBeNull();
+      const chips = [...container.querySelectorAll(".workout-food-goal .workout-chip")] as HTMLElement[];
+      expect(chips.map((c) => c.textContent)).toEqual([t("food.goals.none"), "Muscle gain"]);
+      chips[1].click();
+      await flush();
+      expect(settings.activeNutritionGoal).toBe("gain");
+      expect(saveSettings).toHaveBeenCalled();
+      expect(container.querySelectorAll(".workout-progress-meter")).toHaveLength(4);
+      const maxima = [...container.querySelectorAll(".workout-progress-meter")].map((m) => m.getAttribute("aria-valuemax"));
+      expect(maxima).toEqual(["3040", "120", "80", "460"]);
+      expect(container.querySelector(".workout-food-goal-basis")?.textContent).toBe(t("food.goals.basis"));
+    });
+
+    it("asks for a weight when the goal is per kg and there is none", async () => {
+      const { container, settings } = setup();
+      settings.activeNutritionGoal = "gain";
+      await flush();
+      expect(container.textContent).toContain(t("food.goals.needsWeight"));
+      expect(container.querySelector(".workout-progress-meter")).toBeNull();
+    });
+
+    it("keeps a figure written in the block over the goal's and hides the picker when the block names its goal", async () => {
+      const { container, bodyWeight } = setup({ date: "2026-11-06", goal: "gain", protein: 150 });
+      await bodyWeight.set("2026-11-01", 80);
+      await flush();
+      expect(container.querySelector(".workout-food-goal .workout-chip")).toBeNull();
+      const maxima = [...container.querySelectorAll(".workout-progress-meter")].map((m) => m.getAttribute("aria-valuemax"));
+      expect(maxima).toEqual(["3040", "150", "80", "460"]);
+    });
   });
 });
