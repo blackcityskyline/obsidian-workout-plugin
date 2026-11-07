@@ -11,6 +11,8 @@ import { localDay } from "@app/services/history/TrainingHistory";
 import type { BodyWeightEntry } from "@app/services/body/BodyWeightFile";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
 import type { EmbeddedBodyWeightParams } from "@app/features/bodyweight/bodyWeightBlock";
+import { ChartRenderer } from "@app/features/charts/components/ChartRenderer";
+import { CHART_DATA_TYPE } from "@app/features/charts/types";
 import { ErrorUtils } from "@app/utils/ErrorUtils";
 import { t } from "@app/i18n";
 
@@ -32,6 +34,9 @@ export class EmbeddedBodyWeightView extends BaseView {
 }
 
 class BodyWeightRenderChild extends MarkdownRenderChild {
+  /** One id per block, so a redraw replaces its chart instead of leaking it */
+  private chartId = `workout-bodyweight-chart-${Math.random().toString(36).slice(2, 10)}`;
+
   constructor(
     container: HTMLElement,
     private plugin: WorkoutPluginContext,
@@ -91,6 +96,8 @@ class BodyWeightRenderChild extends MarkdownRenderChild {
       value: trend ? t(`bodyWeight.trendDirection.${trend.direction}`) : "—",
     });
 
+    if (this.params.showChart !== false) this.drawChart(card.el, history, range, today);
+
     // The form: date and weight, suggestion = the latest weigh-in
     const form = card.el.createDiv({ cls: "workout-bodyweight-form" });
     const date = form.createEl("input", {
@@ -144,6 +151,22 @@ class BodyWeightRenderChild extends MarkdownRenderChild {
         onClick: () => void this.remove(entry),
       });
     }
+  }
+
+  /** The weight over the period (two weigh-ins at least) with its trend line */
+  private drawChart(
+    parent: HTMLElement,
+    history: BodyWeightHistory,
+    range: number,
+    today: string,
+  ): void {
+    const { dates, weights } = history.series(range, today);
+    if (weights.length < 2) return;
+    const container = ChartRenderer.createChartContainer(parent);
+    container.id = this.chartId;
+    const datasets = [{ label: t("bodyWeight.title"), data: weights }];
+    if (this.params.showTrendLine !== false) ChartRenderer.addTrendLineToDatasets(datasets);
+    ChartRenderer.renderChart(container, dates, datasets, { type: CHART_DATA_TYPE.WEIGHT }, { showTitle: false });
   }
 
   /** One tap removes the entry; Undo puts it back exactly */

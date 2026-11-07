@@ -18,6 +18,12 @@ export class BodyWeightHistory {
     return this.entries.filter((e) => e.date >= from && e.date <= today);
   }
 
+  /** The period's weigh-ins as chart input: dates and weights, oldest first */
+  series(days: number, today: string): { dates: string[]; weights: number[] } {
+    const period = this.since(days, today);
+    return { dates: period.map((e) => e.date), weights: period.map((e) => e.weight) };
+  }
+
   /** Weight now minus the first weigh-in of the period; undefined with fewer than two */
   change(days: number, today: string): number | undefined {
     const period = this.since(days, today);

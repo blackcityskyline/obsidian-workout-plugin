@@ -100,6 +100,14 @@ describe("BodyWeightHistory", () => {
     expect(history.since(1, "2026-11-01")).toHaveLength(1);
   });
 
+  it("gives a period as chart series, oldest first", () => {
+    expect(history.series(30, "2026-11-01")).toEqual({
+      dates: ["2026-10-20", "2026-11-01"],
+      weights: [79, 77.5],
+    });
+    expect(new BodyWeightHistory([]).series(30, "2026-11-01")).toEqual({ dates: [], weights: [] });
+  });
+
   it("measures the change and the trend over a period", () => {
     expect(history.change(60, "2026-11-01")).toBe(-2.5);
     expect(history.change(1, "2026-11-01")).toBeUndefined();

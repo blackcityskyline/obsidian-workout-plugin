@@ -1,6 +1,10 @@
 // workout-bodyweight: weigh-in form and entries list. The card, stat cards and
 // fields come from the kit; this only places them.
 .workout-bodyweight {
+  .workout-charts-container {
+    margin: var(--size-4-3) 0;
+  }
+
   .workout-bodyweight-form {
     display: flex;
     flex-wrap: wrap;

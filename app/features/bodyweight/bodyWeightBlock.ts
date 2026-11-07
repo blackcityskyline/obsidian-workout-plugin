@@ -8,6 +8,10 @@ export const bodyWeightBlock = defineCodeBlock("workout-bodyweight", {
   title: { kind: "string" },
   /** Days of history shown in the list and the figures */
   dateRange: { kind: "number", default: 90, min: 7 },
+  /** The weight over the period as a line; needs two weigh-ins */
+  showChart: { kind: "boolean", default: true },
+  /** The regression line of the period over the chart (the figure's "Trend" rule) */
+  showTrendLine: { kind: "boolean", default: true },
 });
 
 export type EmbeddedBodyWeightParams = BlockParams<typeof bodyWeightBlock>;
