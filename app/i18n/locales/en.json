@@ -1409,6 +1409,24 @@
     "empty": "Nothing logged for this day yet.",
     "macros": "{kcal} kcal · P {protein} · F {fat} · C {carbs}",
     "remove": "Remove {food}",
-    "removed": "{food} removed"
+    "removed": "{food} removed",
+    "sets": {
+      "title": "Saved meals",
+      "empty": "No saved meals yet. Use \"Save as meal\" on a meal below.",
+      "chip": "{name} · {kcal} kcal",
+      "addLabel": "Add {name} to {meal}",
+      "added": "{name} added ({count} foods)",
+      "missing": "No food page for: {foods}. Those were skipped.",
+      "saveAs": "Save as meal",
+      "saveAsLabel": "Save {meal} as a saved meal",
+      "saveTitle": "Save meal",
+      "name": "Name",
+      "namePlaceholder": "e.g., My breakfast",
+      "nameRequired": "Enter a name",
+      "save": "Save",
+      "saved": "Saved \"{name}\"",
+      "remove": "Delete saved meal {name}",
+      "removed": "Saved meal {name} deleted"
+    }
   }
 }

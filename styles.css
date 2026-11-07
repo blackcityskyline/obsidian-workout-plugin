@@ -2658,8 +2658,31 @@ body.is-mobile .workout-timer-strip .workout-timer .workout-timer-controls .work
 .workout-food .workout-food-meal {
   margin-top: var(--size-4-3);
 }
+.workout-food .workout-food-meal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-4-2);
+}
 .workout-food .workout-food-meal-title {
   font-weight: var(--font-semibold);
+}
+.workout-food .workout-food-saved {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+  margin-bottom: var(--size-4-3);
+}
+.workout-food .workout-food-saved-title {
+  flex-basis: 100%;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+.workout-food .workout-food-saved-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-2-1);
 }
 .workout-food .workout-food-row {
   display: grid;

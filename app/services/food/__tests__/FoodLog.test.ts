@@ -99,4 +99,30 @@ describe("FoodLog", () => {
     );
     expect((await log.read()).map((e) => e.timestamp)).toEqual([2]);
   });
+
+  it("adds several entries in one write with distinct timestamps and one event per day", async () => {
+    const { log, storage, events } = setup();
+    const added = await log.addMany([eaten, { ...eaten, food: "Milk", grams: 200 }, { ...eaten, date: "2026-11-07" }]);
+    expect(added.map((e) => e.timestamp)).toEqual([1000, 1001, 1002]);
+    expect(storage.text?.trim().split("\n")).toHaveLength(4);
+    expect(events).toEqual([{ date: "2026-11-06" }, { date: "2026-11-07" }]);
+  });
+
+  it("writes nothing when one of several entries is invalid", async () => {
+    const { log, storage, events } = setup();
+    await expect(log.addMany([eaten, { ...eaten, grams: 0 }])).rejects.toThrow();
+    expect(storage.text).toBeNull();
+    expect(events).toEqual([]);
+    expect(await log.addMany([])).toEqual([]);
+  });
+
+  it("deletes several entries in one write", async () => {
+    const { log, events } = setup();
+    const [a, b, c] = await log.addMany([eaten, eaten, eaten]);
+    events.length = 0;
+    expect(await log.deleteMany([a.timestamp, c.timestamp, 999])).toBe(2);
+    expect((await log.read()).map((e) => e.timestamp)).toEqual([b.timestamp]);
+    expect(events).toEqual([{ date: "2026-11-06" }]);
+    expect(await log.deleteMany([999])).toBe(0);
+  });
 });

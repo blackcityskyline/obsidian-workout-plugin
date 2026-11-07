@@ -1,4 +1,5 @@
 import type { FoodLog } from "@app/services/food/FoodLog";
+import type { SavedMeals } from "@app/services/food/SavedMeals";
 import type { FoodLibrary } from "@app/services/food/FoodLibrary";
 import type { BodyWeightLog } from "@app/services/body/BodyWeightFile";
 import type { App, Command, MarkdownPostProcessorContext } from "obsidian";
@@ -67,6 +68,7 @@ export interface BodyWeightPort {
 export interface FoodPort {
   getFoodLog(): FoodLog;
   getFoodLibrary(): FoodLibrary;
+  getSavedMeals(): SavedMeals;
 }
 
 export interface MuscleTagPort {

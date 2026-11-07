@@ -2,6 +2,7 @@
 
 import { EmbeddedFoodView } from "@app/features/food/views/EmbeddedFoodView";
 import { FoodLog, type FoodLogStorage } from "@app/services/food/FoodLog";
+import { SavedMeals } from "@app/services/food/SavedMeals";
 import { WorkoutEventBus } from "@app/services/events/WorkoutEventBus";
 import { createObsidianContainer } from "@app/components/__tests__/obsidianDomMocks";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
@@ -23,11 +24,13 @@ const oats = { name: "Oats, dry", per100: { kcal: 389, protein: 16.9, fat: 6.9, 
 function setup(params = {}) {
   const eventBus = new WorkoutEventBus();
   const log = new FoodLog(new MemoryStorage(), eventBus);
+  const savedMeals = new SavedMeals(new MemoryStorage(), eventBus);
   const plugin = {
     eventBus,
     settings: {},
     app: { vault: { getAbstractFileByPath: () => null }, metadataCache: { getFileCache: () => null } },
     getFoodLog: () => log,
+    getSavedMeals: () => savedMeals,
     getFoodLibrary: () => ({
       pages: () => [oats],
       find: (name: string) => (name.toLowerCase() === "oats, dry" ? oats : undefined),
@@ -40,7 +43,7 @@ function setup(params = {}) {
     "Days/2026-11-06.md",
   );
   child.load();
-  return { container, log };
+  return { container, log, savedMeals };
 }
 
 describe("EmbeddedFoodView", () => {
@@ -81,5 +84,38 @@ describe("EmbeddedFoodView", () => {
     (container.querySelector(".workout-food-form button.mod-cta, .workout-food-form .workout-btn") as HTMLElement | null)?.click();
     await flush();
     expect(await log.read()).toEqual([]);
+  });
+
+  it("shows the empty hint when no meal is saved", async () => {
+    const { container } = setup();
+    await flush();
+    expect(container.textContent).toContain(t("food.sets.empty"));
+  });
+
+  it("adds a saved meal with today's macros in one tap, skipping foods without a page", async () => {
+    const { container, log, savedMeals } = setup();
+    await savedMeals.save("My breakfast", [
+      { food: "Oats, dry", grams: 60 },
+      { food: "Gone", grams: 10 },
+    ]);
+    await flush();
+    const chip = container.querySelector(".workout-food-saved-item .workout-btn") as HTMLElement;
+    expect(chip).not.toBeNull();
+    chip.click();
+    await flush();
+    const entries = await log.read();
+    expect(entries).toHaveLength(1);
+    expect(entries[0]).toMatchObject({ food: "Oats, dry", grams: 60, kcal: 233, date: "2026-11-06" });
+    expect(container.querySelector(".workout-food-saved-item")).not.toBeNull();
+  });
+
+  it("deletes a saved meal with the delete button", async () => {
+    const { container, savedMeals } = setup();
+    await savedMeals.save("My breakfast", [{ food: "Oats, dry", grams: 60 }]);
+    await flush();
+    (container.querySelector(".workout-food-saved-item button:last-child") as HTMLElement).click();
+    await flush();
+    expect(await savedMeals.read()).toEqual([]);
+    expect(container.textContent).toContain(t("food.sets.empty"));
   });
 });

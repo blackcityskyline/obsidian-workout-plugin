@@ -19,6 +19,7 @@ import {
 } from "@app/services/body/BodyWeightFile";
 import { FoodLog, VaultFoodLogStorage } from "@app/services/food/FoodLog";
 import { FoodLibrary } from "@app/services/food/FoodLibrary";
+import { SavedMeals, savedMealsStorage } from "@app/services/food/SavedMeals";
 import { EmbeddedSessionView } from "@app/features/session/views/EmbeddedSessionView";
 import { EmbeddedSetsView } from "@app/features/tables/views/EmbeddedSetsView";
 import { CommandHandlerService } from "@app/services/core/CommandHandlerService";
@@ -67,6 +68,7 @@ export default class WorkoutChartsPlugin extends Plugin {
   private bodyWeightLog!: BodyWeightLog;
   private foodLog!: FoodLog;
   private foodLibrary!: FoodLibrary;
+  private savedMeals!: SavedMeals;
   public embeddedSetsView!: EmbeddedSetsView;
   public timerDeviceEffects!: TimerDeviceEffects;
   private activeTimers: Map<string, EmbeddedTimerView> = new Map();
@@ -179,6 +181,10 @@ export default class WorkoutChartsPlugin extends Plugin {
       this.eventBus,
     );
     this.foodLibrary = new FoodLibrary(this.app, this.settings);
+    this.savedMeals = new SavedMeals(
+      savedMealsStorage(this.app, this.settings),
+      this.eventBus,
+    );
     this.exerciseLibrary = new ExerciseLibrary(this.app, this.settings);
     this.exerciseLibrary.watch((ref) => this.registerEvent(ref));
     this.exerciseDefinitionService = new ExerciseDefinitionService(
@@ -369,6 +375,10 @@ export default class WorkoutChartsPlugin extends Plugin {
 
   public getFoodLibrary(): FoodLibrary {
     return this.foodLibrary;
+  }
+
+  public getSavedMeals(): SavedMeals {
+    return this.savedMeals;
   }
 
   public getBodyWeightLog(): BodyWeightLog {

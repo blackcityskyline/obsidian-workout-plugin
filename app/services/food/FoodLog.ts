@@ -37,21 +37,22 @@ export interface FoodLogStorage {
   write(content: string): Promise<void>;
 }
 
-/** The food log next to the workout log: `food_log.csv` */
-export function foodLogPath(csvLogFilePath: string): string {
+/** A food file next to the workout log; the food log is `food_log.csv` */
+export function foodLogPath(csvLogFilePath: string, fileName = "food_log.csv"): string {
   const parts = csvLogFilePath.split("/");
   parts.pop();
-  return [...parts, "food_log.csv"].join("/");
+  return [...parts, fileName].join("/");
 }
 
 export class VaultFoodLogStorage implements FoodLogStorage {
   constructor(
     private app: App,
     private settings: Pick<WorkoutChartsSettings, "csvLogFilePath">,
+    private fileName = "food_log.csv",
   ) {}
 
   private get path(): string {
-    return foodLogPath(this.settings.csvLogFilePath);
+    return foodLogPath(this.settings.csvLogFilePath, this.fileName);
   }
 
   async read(): Promise<string | null> {
@@ -90,30 +91,58 @@ export class FoodLog {
   }
 
   async add(input: FoodEntryInput, timestamp?: number): Promise<FoodEntry> {
+    const [entry] = await this.addMany([input], timestamp);
+    return entry;
+  }
+
+  /**
+   * Adds several entries in one write and one `food:changed` per day
+   * (a saved meal); all are checked before any is written. A given timestamp
+   * is the first entry's, the next ones follow it.
+   */
+  async addMany(inputs: readonly FoodEntryInput[], timestamp?: number): Promise<FoodEntry[]> {
+    if (inputs.length === 0) return [];
+    for (const input of inputs) this.check(input);
+    const entries = this.parse(await this.storage.read());
+    const used = new Set(entries.map((e) => e.timestamp));
+    let stamp = timestamp ?? this.now();
+    const added = inputs.map((input) => {
+      while (used.has(stamp)) stamp++;
+      used.add(stamp);
+      return { ...input, food: input.food.trim(), timestamp: stamp };
+    });
+    await this.write([...entries, ...added]);
+    for (const date of new Set(added.map((e) => e.date))) {
+      this.eventBus?.emit({ type: "food:changed", payload: { date } });
+    }
+    return added;
+  }
+
+  private check(input: FoodEntryInput): void {
     if (!DAY.test(input.date)) throw new Error(`Invalid date: ${input.date}`);
     if (!isMeal(input.meal)) throw new Error(`Invalid meal: ${String(input.meal)}`);
     if (!input.food.trim()) throw new Error("Food name is empty");
     if (!(input.grams > 0) || !Number.isFinite(input.grams)) {
       throw new Error(`Invalid grams: ${input.grams}`);
     }
-    const entries = this.parse(await this.storage.read());
-    const used = new Set(entries.map((e) => e.timestamp));
-    let stamp = timestamp ?? this.now();
-    while (used.has(stamp)) stamp++;
-    const entry: FoodEntry = { ...input, food: input.food.trim(), timestamp: stamp };
-    await this.write([...entries, entry]);
-    this.eventBus?.emit({ type: "food:changed", payload: { date: entry.date } });
-    return entry;
   }
 
   /** Removes an entry by its timestamp; false when there is none */
   async delete(timestamp: number): Promise<boolean> {
+    return (await this.deleteMany([timestamp])) > 0;
+  }
+
+  /** Removes entries by timestamp in one write; returns how many were there */
+  async deleteMany(timestamps: readonly number[]): Promise<number> {
     const entries = this.parse(await this.storage.read());
-    const gone = entries.find((e) => e.timestamp === timestamp);
-    if (!gone) return false;
-    await this.write(entries.filter((e) => e !== gone));
-    this.eventBus?.emit({ type: "food:changed", payload: { date: gone.date } });
-    return true;
+    const wanted = new Set(timestamps);
+    const gone = entries.filter((e) => wanted.has(e.timestamp));
+    if (gone.length === 0) return 0;
+    await this.write(entries.filter((e) => !wanted.has(e.timestamp)));
+    for (const date of new Set(gone.map((e) => e.date))) {
+      this.eventBus?.emit({ type: "food:changed", payload: { date } });
+    }
+    return gone.length;
   }
 
   private parse(content: string | null): FoodEntry[] {

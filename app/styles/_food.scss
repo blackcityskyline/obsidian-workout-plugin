@@ -18,8 +18,35 @@
     margin-top: var(--size-4-3);
   }
 
+  .workout-food-meal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--size-4-2);
+  }
+
   .workout-food-meal-title {
     font-weight: var(--font-semibold);
+  }
+
+  .workout-food-saved {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--size-4-2);
+    margin-bottom: var(--size-4-3);
+  }
+
+  .workout-food-saved-title {
+    flex-basis: 100%;
+    color: var(--text-muted);
+    font-size: var(--font-ui-small);
+  }
+
+  .workout-food-saved-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--size-2-1);
   }
 
   .workout-food-row {

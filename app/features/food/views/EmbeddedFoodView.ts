@@ -6,12 +6,15 @@ import { ChipGroup } from "@app/components/molecules/ChipGroup";
 import { NumberField, parseNumber } from "@app/components/molecules/NumberField";
 import { UndoNotice } from "@app/components/molecules/UndoNotice";
 import { ProgressMeter } from "@app/components/atoms/ProgressMeter";
-import { Button, BUTTONVARIANT } from "@app/components/atoms/Button";
+import { Button, BUTTONSIZE, BUTTONVARIANT } from "@app/components/atoms/Button";
 import { DeleteButton } from "@app/components/atoms/DeleteButton";
 import { foodDay, mealAt, type FoodDay, type FoodTotals } from "@app/features/food/business/foodDay";
 import { resolveDay } from "@app/features/daycard/business/dayReport";
 import { nutrientsFor } from "@app/services/food/FoodLibrary";
 import { MEALS, type FoodEntry, type Meal } from "@app/services/food/FoodLog";
+import type { SavedMeal } from "@app/services/food/SavedMeals";
+import { expandMeal, itemsOf, mealTotals } from "@app/features/food/business/savedMeal";
+import { SaveMealModal } from "@app/features/food/modals/SaveMealModal";
 import { localDay } from "@app/services/history/TrainingHistory";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
 import type { EmbeddedFoodParams } from "@app/features/food/foodBlock";
@@ -54,6 +57,7 @@ class FoodRenderChild extends MarkdownRenderChild {
 
   onload(): void {
     this.register(this.plugin.eventBus.on("food:changed", () => void this.render()));
+    this.register(this.plugin.eventBus.on("meals:changed", () => void this.render()));
     this.register(this.plugin.eventBus.on("settings:changed", () => void this.render()));
     void this.render();
   }
@@ -73,15 +77,18 @@ class FoodRenderChild extends MarkdownRenderChild {
 
   async render(refocus = false): Promise<void> {
     try {
-      const entries = await this.plugin.getFoodLog().read();
-      this.draw(foodDay(this.day(), entries));
+      const [entries, saved] = await Promise.all([
+        this.plugin.getFoodLog().read(),
+        this.plugin.getSavedMeals().read(),
+      ]);
+      this.draw(foodDay(this.day(), entries), saved);
       if (refocus) DomUtils.focusByKey(this.containerEl, FOOD_KEY);
     } catch (error) {
       this.onError(error);
     }
   }
 
-  private draw(day: FoodDay): void {
+  private draw(day: FoodDay, saved: SavedMeal[]): void {
     const root = this.containerEl;
     root.empty();
     const card = BlockCard.create(root, {
@@ -91,6 +98,7 @@ class FoodRenderChild extends MarkdownRenderChild {
 
     this.drawTotals(card.el, day.totals);
     this.drawForm(card.el, day.day);
+    this.drawSaved(card.el, day.day, saved);
 
     const list = card.el.createDiv({ cls: "workout-food-list" });
     let any = false;
@@ -99,10 +107,18 @@ class FoodRenderChild extends MarkdownRenderChild {
       if (entries.length === 0) continue;
       any = true;
       const section = list.createDiv({ cls: "workout-food-meal" });
-      section.createDiv({
+      const head = section.createDiv({ cls: "workout-food-meal-head" });
+      head.createSpan({
         cls: "workout-food-meal-title",
         text: `${t(`food.meals.${meal}`)}: ${t("food.kcal", { kcal: String(entries.reduce((n, e) => n + e.kcal, 0)) })}`,
       });
+      const saveAs = Button.create(head, {
+        text: t("food.sets.saveAs"),
+        variant: BUTTONVARIANT.SECONDARY,
+        size: BUTTONSIZE.SMALL,
+        ariaLabel: t("food.sets.saveAsLabel", { meal: t(`food.meals.${meal}`) }),
+      });
+      Button.onClick(saveAs, () => this.askName(entries, saved));
       for (const entry of entries) this.drawEntry(section, entry);
     }
     if (!any) list.createDiv({ cls: "workout-food-empty", text: t("food.empty") });
@@ -195,6 +211,86 @@ class FoodRenderChild extends MarkdownRenderChild {
     });
     const add = Button.create(form, { text: t("food.add"), variant: BUTTONVARIANT.PRIMARY });
     Button.onClick(add, () => void submit());
+  }
+
+  /** The saved meals: one tap adds a meal's foods to the chosen meal of the day */
+  private drawSaved(parent: HTMLElement, day: string, saved: SavedMeal[]): void {
+    const find = (name: string) => this.plugin.getFoodLibrary().find(name);
+    const box = parent.createDiv({ cls: "workout-food-saved" });
+    box.createDiv({ cls: "workout-food-saved-title", text: t("food.sets.title") });
+    if (saved.length === 0) {
+      box.createDiv({ cls: "workout-food-empty", text: t("food.sets.empty") });
+      return;
+    }
+    for (const meal of saved) {
+      const item = box.createDiv({ cls: "workout-food-saved-item" });
+      const add = Button.create(item, {
+        text: t("food.sets.chip", { name: meal.name, kcal: String(mealTotals(meal, find).kcal) }),
+        variant: BUTTONVARIANT.SECONDARY,
+        size: BUTTONSIZE.SMALL,
+        ariaLabel: t("food.sets.addLabel", { name: meal.name, meal: t(`food.meals.${this.meal}`) }),
+      });
+      Button.onClick(add, () => void this.addSaved(meal, day));
+      DeleteButton.create(item, {
+        label: t("food.sets.remove", { name: meal.name }),
+        onClick: () => void this.removeSaved(meal),
+      });
+    }
+  }
+
+  private async addSaved(saved: SavedMeal, day: string): Promise<void> {
+    const log = this.plugin.getFoodLog();
+    const { entries, missing } = expandMeal(
+      saved,
+      (name) => this.plugin.getFoodLibrary().find(name),
+      day,
+      this.meal,
+    );
+    if (missing.length > 0) {
+      new Notice(t("food.sets.missing", { foods: missing.join(", ") }));
+    }
+    if (entries.length === 0) return;
+    try {
+      const added = await log.addMany(entries);
+      UndoNotice.show({
+        message: t("food.sets.added", { name: saved.name, count: String(added.length) }),
+        onUndo: () => void log.deleteMany(added.map((e) => e.timestamp)),
+      });
+    } catch (error) {
+      new Notice(ErrorUtils.getErrorMessage(error));
+    }
+  }
+
+  private askName(entries: readonly FoodEntry[], saved: SavedMeal[]): void {
+    new SaveMealModal(
+      this.plugin.app,
+      saved.map((m) => m.name),
+      (name) => void this.saveMeal(name, entries),
+    ).open();
+  }
+
+  private async saveMeal(name: string, entries: readonly FoodEntry[]): Promise<void> {
+    try {
+      const meal = await this.plugin.getSavedMeals().save(name, itemsOf(entries));
+      new Notice(t("food.sets.saved", { name: meal.name }));
+    } catch (error) {
+      new Notice(ErrorUtils.getErrorMessage(error));
+    }
+  }
+
+  /** One tap deletes a saved meal; Undo saves it again */
+  private async removeSaved(meal: SavedMeal): Promise<void> {
+    const sets = this.plugin.getSavedMeals();
+    try {
+      const gone = await sets.delete(meal.name);
+      if (!gone) return;
+      UndoNotice.show({
+        message: t("food.sets.removed", { name: gone.name }),
+        onUndo: () => void sets.save(gone.name, gone.items),
+      });
+    } catch (error) {
+      new Notice(ErrorUtils.getErrorMessage(error));
+    }
   }
 
   private drawEntry(parent: HTMLElement, entry: FoodEntry): void {

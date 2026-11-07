@@ -71,6 +71,11 @@ export interface FoodChangedPayload {
   date: string;
 }
 
+/** A saved meal was saved, replaced or deleted. */
+export interface MealsChangedPayload {
+  name: string;
+}
+
 /** Which "Insert workout ..." command ran. */
 export type InsertCommandKind =
   | "chart"
@@ -96,6 +101,7 @@ export type WorkoutEvent =
   | { type: "muscle-tags:changed"; payload: MuscleTagsChangedPayload }
   | { type: "bodyweight:changed"; payload: BodyWeightChangedPayload }
   | { type: "food:changed"; payload: FoodChangedPayload }
+  | { type: "meals:changed"; payload: MealsChangedPayload }
   | { type: "settings:changed"; payload: SettingsChangedPayload }
   | { type: "command:insert"; payload: CommandInsertPayload }
   | { type: "plugin:error"; payload: PluginErrorPayload };
