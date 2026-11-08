@@ -905,7 +905,8 @@
       "insertSets": "Insert workout sets",
       "insertBodyWeight": "Insert workout body weight",
       "insertDayCard": "Insert workout day card",
-      "insertFood": "Insert workout food log"
+      "insertFood": "Insert workout food log",
+      "insertExercises": "Insert exercises by tier"
     },
     "weightUnitToggle": "Unit for this entry",
     "work": "Work",
@@ -1341,6 +1342,7 @@
       "tier5": "Best",
       "neck": "Axial load on the neck or spine: go light and keep the spine neutral.",
       "jerk": "Explosive movement: do it smoothly, no jerking.",
+      "spine": "Loads the lower back: go light, keep the spine neutral, read the page's safety note.",
       "equipment": "Needs: {items}",
       "band": "band",
       "bar": "pull-up bar"
@@ -1379,6 +1381,21 @@
     "topWeight": "up to {weight} {unit}",
     "calories": "Calories",
     "macros": "P {protein} · F {fat} · C {carbs}"
+  },
+  "exercises": {
+    "title": "Exercises by tier",
+    "count": "{count} exercises",
+    "unranked": "Not ranked yet",
+    "all": "All",
+    "category": "Category",
+    "empty": "No exercise pages match. Add pages to the exercise folder, or relax the filters of this block.",
+    "warning": {
+      "spine": "Lower back",
+      "neck": "Neck",
+      "jerk": "Explosive"
+    },
+    "warningLabel": "Caution: {kinds}",
+    "equipment": "Needs: {items}"
   },
   "food": {
     "folder": "Food",

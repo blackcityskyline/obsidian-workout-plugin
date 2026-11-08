@@ -36,6 +36,14 @@ Lie on a flat bench and hold the dumbbells with your palms facing you (supinated
 
 - Dumbbells slipping out because of the unfamiliar grip (use a moderate weight).
 
+## 🛡️ Spine safety
+
+Lower back in its natural curve, feet planted; the supinated grip is harder on the wrists, so go lighter and keep them straight.
+
+## 🛋️ At home, with what you have
+
+Dumbbells on the sofa edge or pressing from the floor; keep the palms facing you.
+
 ## Video
 
 https://www.youtube.com/results?search_query=underhand%20dumbbell%20bench%20press

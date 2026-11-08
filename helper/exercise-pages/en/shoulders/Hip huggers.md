@@ -35,6 +35,14 @@ Stand upright holding heavy dumbbells.
 
 - Bending your torso forward.
 
+## 🛡️ Spine safety
+
+Stay tall with the ribs down and pull the elbows back without arching; the weight stays close to the hips.
+
+## 🛋️ At home, with what you have
+
+Dumbbells of up to 16 kg held at the sides.
+
 ## Video
 
 https://www.youtube.com/results?search_query=hip%20huggers%20rear%20delt

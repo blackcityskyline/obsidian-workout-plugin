@@ -34,6 +34,14 @@ Set up in a side plank on your forearm.
 
 - Letting your hips sag down.
 
+## 🛡️ Spine safety
+
+Keep the body in one line and the hips lifted; do not sag the lower back, and rotate the chest slowly without twisting the pelvis. Shorten the range on the forearm if the shoulder tires.
+
+## 🛋️ At home, with what you have
+
+A floor and a towel under the elbow; knees on the floor for an easier version.
+
 ## Video
 
 https://www.youtube.com/results?search_query=side%20bridge%20twist

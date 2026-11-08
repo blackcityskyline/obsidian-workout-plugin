@@ -36,6 +36,14 @@ Stand tall with a dumbbell in one hand at your hip, palm facing up.
 
 - Doing the work by curling with your biceps.
 
+## 🛡️ Spine safety
+
+Raise the arm along a diagonal without leaning back or twisting the lower back; keep the neck neutral and the weight light.
+
+## 🛋️ At home, with what you have
+
+One light dumbbell or a band under the foot.
+
 ## Video
 
 https://www.youtube.com/results?search_query=UCV%20raise%20upper%20chest

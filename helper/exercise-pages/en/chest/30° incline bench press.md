@@ -35,6 +35,14 @@ Set the bench to 30°. Hold the barbell or dumbbells at upper chest level. Keep 
 
 - Lifting your hips off the bench.
 
+## 🛡️ Spine safety
+
+Shoulder blades pinned and the lower back in its natural curve, not a bridge; the 30° angle reduces strain on the shoulders. Keep the neck relaxed on the bench.
+
+## 🛋️ At home, with what you have
+
+Sofa back or stacked cushions on a chair for the angle; dumbbells instead of the bar.
+
 ## Video
 
 https://www.youtube.com/results?search_query=30%20degree%20incline%20bench%20press

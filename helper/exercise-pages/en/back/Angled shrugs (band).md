@@ -38,6 +38,14 @@ Anchor the band low in front of you. Grab the ends with your arms extended forwa
 
 - Bending your arms at the elbows.
 
+## 🛡️ Spine safety
+
+Keep the neck long and the shoulders away from the ears at the top; do not lean back as the band pulls.
+
+## 🛋️ At home, with what you have
+
+Anchor the band low (door bottom or a heavy chair leg).
+
 ## Video
 
 https://www.youtube.com/results?search_query=angled%20cable%20shrug

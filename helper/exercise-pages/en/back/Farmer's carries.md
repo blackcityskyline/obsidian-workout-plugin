@@ -10,6 +10,7 @@ tier: 3
 rank_source: https://www.youtube.com/watch?v=w7OSC-RfKOI
 video: https://www.youtube.com/results?search_query=farmers%20carry%20dumbbells
 neck_warning: true
+spine_warning: true
 helper_id: 42
 ---
 
@@ -37,6 +38,14 @@ Stand between two heavy dumbbells or kettlebells. Squat down with proper form an
 ## Common mistakes
 
 - Rounding the shoulders and bending the back.
+
+## 🛡️ Spine safety
+
+Heavy carries put a high axial load on the spine and neck. Keep the load light, the ribs down, the torso tall and the neck long; no leaning to one side, stop if the back or neck aches.
+
+## 🛋️ At home, with what you have
+
+Two dumbbells of up to 16 kg and a hallway; short steps, slow pace.
 
 ## Video
 

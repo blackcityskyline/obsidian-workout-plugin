@@ -37,6 +37,14 @@ Stand sideways to the band and grab it with one hand.
 
 - Turning your entire torso to follow your arm.
 
+## 🛡️ Spine safety
+
+Brace the torso and do not rotate the lower back; the movement is in the arm and chest, the hips stay square.
+
+## 🛋️ At home, with what you have
+
+Anchor the band to a door at shoulder height and stand sideways to it.
+
 ## Video
 
 https://www.youtube.com/results?search_query=heavy%20one%20arm%20cable%20crossover

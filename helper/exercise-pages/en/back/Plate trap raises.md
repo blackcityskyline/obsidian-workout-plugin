@@ -10,6 +10,7 @@ tier: 3
 rank_source: https://www.youtube.com/watch?v=w7OSC-RfKOI
 video: https://www.youtube.com/results?search_query=plate%20trap%20raise
 neck_warning: true
+spine_warning: true
 helper_id: 43
 ---
 
@@ -38,6 +39,14 @@ Stand tall, holding a heavy plate in both hands in front of you by its edges.
 ## Common mistakes
 
 - Bending your arms at the elbows (bringing in the biceps).
+
+## 🛡️ Spine safety
+
+A heavy plate at the front loads the neck and the spine axially. Choose a light plate, keep the neck neutral and the raise straight up, no jutting chin.
+
+## 🛋️ At home, with what you have
+
+Hold a light plate, or a dumbbell in each hand.
 
 ## Video
 

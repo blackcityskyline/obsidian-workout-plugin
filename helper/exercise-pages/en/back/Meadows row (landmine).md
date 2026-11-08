@@ -42,6 +42,14 @@ Place one end of the barbell in a landmine (or in a corner). Stand perpendicular
 
 - Helping with the whole body (swinging).
 
+## 🛡️ Spine safety
+
+Support the free hand on a chair or the sofa, and keep the back neutral; do not twist the torso to lift the bar higher.
+
+## 🛋️ At home, with what you have
+
+Wedge one end of the 20 kg bar in a corner with a towel and put plates on the other end.
+
 ## Video
 
 https://www.youtube.com/results?search_query=meadows%20row%20landmine

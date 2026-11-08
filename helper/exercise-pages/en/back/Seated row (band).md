@@ -43,6 +43,14 @@ Sit on the floor with your legs extended (or slightly bent). Loop the band aroun
 - Shrugging your shoulders toward your ears.
 - Rounding your upper back.
 
+## 🛡️ Spine safety
+
+Sit tall on the floor with the back long; do not round the back at the start or lean far back at the end. Sit with the back against the sofa if you cannot keep it straight.
+
+## 🛋️ At home, with what you have
+
+Loop the band around the feet; sit with the back against the sofa for support.
+
 ## Video
 
 https://www.youtube.com/results?search_query=seated%20resistance%20band%20row

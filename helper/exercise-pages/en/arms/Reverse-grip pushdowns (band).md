@@ -37,6 +37,14 @@ Anchor the band up high. Use an underhand grip (palms facing up).
 
 - Letting your elbows come away from your torso.
 
+## 🛡️ Spine safety
+
+Keep the upper arm still and the torso upright; leaning over the band strains the neck and lower back.
+
+## 🛋️ At home, with what you have
+
+Anchor the band to the top of a door, a pull-up bar or a high hook.
+
 ## Video
 
 https://www.youtube.com/results?search_query=reverse%20grip%20triceps%20pushdown%20band

@@ -35,6 +35,14 @@ Lie on your back with your knees bent and your shoulder blades lifted.
 
 - Resting your neck on the floor between reps.
 
+## 🛡️ Spine safety
+
+Keep the lower back pressed to the floor and the neck relaxed; reach along the sides without twisting the lower back hard.
+
+## 🛋️ At home, with what you have
+
+Floor only; a rolled towel under the head.
+
 ## Video
 
 https://www.youtube.com/results?search_query=swiper%20abs%20exercise%20athlean-x

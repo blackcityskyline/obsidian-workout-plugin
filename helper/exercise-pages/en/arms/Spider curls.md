@@ -34,6 +34,14 @@ Lie chest-down on an incline bench (45°). Let your arms hang straight down vert
 
 - Letting your elbows drift back toward the bench.
 
+## 🛡️ Spine safety
+
+The chest is supported, so the spine is protected; keep the neck neutral (look at the floor) and do not lift the chest off the bench.
+
+## 🛋️ At home, with what you have
+
+Lie chest-down on the sofa arm or a stack of pillows on a chair; the dumbbells hang in front.
+
 ## Video
 
 https://www.youtube.com/results?search_query=spider%20curl

@@ -10,6 +10,7 @@ tier: 4
 rank_source: https://www.youtube.com/watch?v=w7OSC-RfKOI
 video: https://www.youtube.com/results?search_query=dumbbell%20shrugs%20form
 neck_warning: true
+spine_warning: true
 helper_id: 47
 ---
 
@@ -38,6 +39,14 @@ Stand tall with the barbell in front of you or dumbbells at your sides. Keep you
 ## Common mistakes
 
 - Rolling your shoulders in circles.
+
+## 🛡️ Spine safety
+
+Heavy weight on the traps loads the neck and spine axially. Keep the neck neutral, raise the shoulders straight up, no rolling and no head jutting; use moderate weight.
+
+## 🛋️ At home, with what you have
+
+Dumbbells up to 16 kg are enough; hold with the elbows soft and pause at the top.
 
 ## Video
 

@@ -34,6 +34,14 @@ Hinge over with your torso parallel to the floor. Pin your elbow to your side an
 
 - Swinging the weight instead of extending under control.
 
+## 🛡️ Spine safety
+
+Hold the hinge with a long, flat back; do not round or arch it. Rest the free hand on a chair or the sofa to unload the back.
+
+## 🛋️ At home, with what you have
+
+Hand and knee on the sofa, a light dumbbell in the other hand.
+
 ## Video
 
 https://www.youtube.com/results?search_query=triceps%20kickbacks

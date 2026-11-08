@@ -11,6 +11,7 @@ tier: 3
 rank_source: https://www.youtube.com/watch?v=TqXwI1MWZks
 video: https://www.youtube.com/results?search_query=hanging%20corkscrew
 equipment_bar: true
+spine_warning: true
 helper_id: 89
 ---
 
@@ -37,6 +38,16 @@ Hang from a pull-up bar.
 ## Common mistakes
 
 - Losing control of your shoulder girdle.
+
+## 🛡️ Spine safety
+
+> [!warning] Spine caution: this exercise can load the lower back or neck more than most. Read the safety note and go light.
+
+Hanging with rotation can swing the spine and strain the neck and shoulders. Move slowly with a rounded lower back, no swinging, and skip it if the neck or the lower back is sore.
+
+## 🛋️ At home, with what you have
+
+Needs a bar. Lying alternative: lying knee-ups with a controlled twist, lower back pressed to the floor.
 
 ## Video
 

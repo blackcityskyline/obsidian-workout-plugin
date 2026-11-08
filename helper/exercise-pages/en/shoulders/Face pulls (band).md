@@ -38,6 +38,14 @@ Anchor the band at chest or eye level.
 
 - Pulling to your stomach or chin.
 
+## 🛡️ Spine safety
+
+Keep the ribs down and the neck neutral; do not lean back, and pull toward the eyes, not up toward the ceiling.
+
+## 🛋️ At home, with what you have
+
+Anchor the band at face height on a door; a loop band works the same.
+
 ## Video
 
 https://www.youtube.com/results?search_query=resistance%20band%20face%20pull

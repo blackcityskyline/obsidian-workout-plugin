@@ -13,6 +13,7 @@ rank_source: https://www.youtube.com/watch?v=w7OSC-RfKOI
 video: https://www.youtube.com/results?search_query=dumbbell%20high%20pull
 neck_warning: true
 jerk_warning: true
+spine_warning: true
 helper_id: 97
 ---
 
@@ -43,6 +44,14 @@ Stand with the dumbbells hanging in your lowered hands in front of your thighs.
 ## Common mistakes
 
 - Raising your hands higher than your elbows.
+
+## 🛡️ Spine safety
+
+Explosive jerking with weight: high axial load on the neck and spine and a risk of jerking the neck. With cervical issues, use very light weight and a controlled pull, or skip it.
+
+## 🛋️ At home, with what you have
+
+Safer swap: slow upright rows with a band under the feet, elbows leading, no jump.
 
 ## Video
 

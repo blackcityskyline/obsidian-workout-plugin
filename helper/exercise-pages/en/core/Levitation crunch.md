@@ -34,6 +34,14 @@ Lie on your back with your arms extended overhead and your legs raised slightly.
 
 - Arching your lower back (dangerous for the spine).
 
+## 🛡️ Spine safety
+
+Keep the lower back pressed to the floor; if it arches, raise the legs higher or bend the knees. Keep the neck relaxed and do not pull on it.
+
+## 🛋️ At home, with what you have
+
+Floor only; a rolled towel under the head keeps the neck comfortable.
+
 ## Video
 
 https://www.youtube.com/results?search_query=levitation%20crunch%20athlean-x

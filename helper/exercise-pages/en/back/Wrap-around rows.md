@@ -36,6 +36,14 @@ The band is anchored to the side at waist or chest height. Stand sideways to the
 
 - Rotating the hips excessively.
 
+## 🛡️ Spine safety
+
+Rotate through the upper back only; keep the hips square and do not twist the lower back for extra range.
+
+## 🛋️ At home, with what you have
+
+Anchor the band to a door at waist height and stand sideways.
+
 ## Video
 
 https://www.youtube.com/results?search_query=wrap%20around%20row

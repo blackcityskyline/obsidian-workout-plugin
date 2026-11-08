@@ -10,6 +10,7 @@ category: shoulders
 tier: 3
 rank_source: https://www.youtube.com/watch?v=tZafawk3arc
 video: https://www.youtube.com/results?search_query=arnold%20press
+spine_warning: true
 helper_id: 49
 ---
 
@@ -36,6 +37,16 @@ Sit with the dumbbells in front of your chest, palms facing you.
 ## Common mistakes
 
 - Rotating too fast right at the start of the movement.
+
+## 🛡️ Spine safety
+
+> [!warning] Spine caution: this exercise can load the lower back or neck more than most. Read the safety note and go light.
+
+Overhead pressing with a rotation can arch the lower back and strain the neck. Sit with the back against a high-backed chair, ribs down, and use a weight you can press without leaning.
+
+## 🛋️ At home, with what you have
+
+Use the chair with a high back for support and dumbbells of up to 16 kg.
 
 ## Video
 

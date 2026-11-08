@@ -42,6 +42,14 @@ Attach a weight (plate or kettlebell) to a dip belt. Grab the pull-up bar with a
 
 - Incomplete range of motion at the bottom or at the top.
 
+## 🛡️ Spine safety
+
+Start by pulling the shoulder blades down; do not swing, kick or arch the lower back, and keep the chin tucked slightly rather than jutting out. Use a modest added load.
+
+## 🛋️ At home, with what you have
+
+Needs a bar and a belt or a backpack with a load. Without a bar, do band lat pulldowns.
+
 ## Video
 
 https://www.youtube.com/results?search_query=weighted%20pull-ups

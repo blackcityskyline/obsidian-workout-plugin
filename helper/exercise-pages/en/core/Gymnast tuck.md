@@ -34,6 +34,14 @@ Support yourself on parallettes, dip bars or the floor with your arms straight.
 
 - Swinging.
 
+## 🛡️ Spine safety
+
+Round the lower back slightly under the abs (posterior pelvic tilt), shoulders pushed away from the ears; do not sag into an arch.
+
+## 🛋️ At home, with what you have
+
+Do it between two chairs or with the hands on stacked books if there are no parallettes.
+
 ## Video
 
 https://www.youtube.com/results?search_query=gymnast%20tuck%20abs

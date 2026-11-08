@@ -35,6 +35,14 @@ Hinge forward to a 45° torso angle. Let the dumbbells hang in your hands.
 
 - Pinning your elbows to your body.
 
+## 🛡️ Spine safety
+
+Hinge with a long, flat back and the neck in line with the spine; support the free hand on a chair if the back tires. Light weight.
+
+## 🛋️ At home, with what you have
+
+Support the forehead or one hand on the back of a chair; dumbbells of up to 16 kg.
+
 ## Video
 
 https://www.youtube.com/results?search_query=abduction%20row%20dumbbell

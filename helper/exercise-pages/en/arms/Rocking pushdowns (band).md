@@ -10,6 +10,7 @@ tier: 4
 rank_source: https://www.youtube.com/watch?v=ZrAiIvpZvhM
 video: https://www.youtube.com/results?search_query=rocking%20triceps%20pushdown
 equipment_band: true
+spine_warning: true
 helper_id: 84
 ---
 
@@ -36,6 +37,16 @@ Stand facing the band anchored high, like a cable stack.
 ## Common mistakes
 
 - Overly chaotic movements.
+
+## 🛡️ Spine safety
+
+> [!warning] Spine caution: this exercise can load the lower back or neck more than most. Read the safety note and go light.
+
+Rocking the hips and torso under load: keep the back neutral and the motion small and slow; do not round or arch the lower back at the end of each rep.
+
+## 🛋️ At home, with what you have
+
+A band anchored high works. Use a split stance for stability.
 
 ## Video
 

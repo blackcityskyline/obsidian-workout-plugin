@@ -11,6 +11,7 @@ rank_source: https://www.youtube.com/watch?v=w7OSC-RfKOI
 video: https://www.youtube.com/results?search_query=trap%20bar%20shrugs
 equipment_gear: trapbar
 neck_warning: true
+spine_warning: true
 helper_id: 95
 ---
 
@@ -40,6 +41,14 @@ Step inside the trap bar and grab the handles with a neutral grip.
 ## Common mistakes
 
 - Tilting your head forward.
+
+## 🛡️ Spine safety
+
+The trap bar puts a high axial load on the neck and spine and invites jutting the head forward. Keep it light, neck neutral, shoulders straight up.
+
+## 🛋️ At home, with what you have
+
+No trap bar: use two dumbbells of up to 16 kg at your sides.
 
 ## Video
 

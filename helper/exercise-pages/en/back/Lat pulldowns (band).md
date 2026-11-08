@@ -42,6 +42,14 @@ The band is anchored high above your head. Kneel or sit on a chair. Hold the ban
 
 - Leaning your torso back more than 20°.
 
+## 🛡️ Spine safety
+
+Keep the torso upright and the ribs down; do not lean back to pull the band, and do not crane the neck forward.
+
+## 🛋️ At home, with what you have
+
+Anchor the band to the pull-up bar or the top of a door.
+
 ## Video
 
 https://www.youtube.com/results?search_query=resistance%20band%20lat%20pulldown

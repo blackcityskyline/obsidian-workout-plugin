@@ -25,6 +25,10 @@ export interface ExercisePage {
   neckWarning: boolean;
   /** `jerk_warning: true`: explosive, jerky movement */
   jerkWarning: boolean;
+  /** `spine_warning: true`: loads the lower back (scoliosis, hyperlordosis); the page's safety note says how to go light */
+  spineWarning: boolean;
+  /** `category` as written (arms, back, chest, …); undefined when the page has none */
+  category?: string;
   /** Equipment the page asks for: `band`, `bar`, plus `equipment_gear` */
   equipment: string[];
 }
@@ -143,6 +147,8 @@ export class ExerciseLibrary {
       tier: tierOf(frontmatter.tier),
       neckWarning: frontmatter.neck_warning === true,
       jerkWarning: frontmatter.jerk_warning === true,
+      spineWarning: frontmatter.spine_warning === true,
+      category: text(frontmatter.category)?.toLowerCase(),
       equipment: equipmentOf(frontmatter),
     };
   }

@@ -36,6 +36,14 @@ Set the bench to an angle of 30–45°. Lie back, squeeze your shoulder blades t
 
 - Setting the bench angle too high (above 45° the load shifts to the delts).
 
+## 🛡️ Spine safety
+
+Shoulder blades squeezed, a natural lower-back curve and feet planted; do not bridge to push heavier weight. Keep the neck relaxed and the head on the bench.
+
+## 🛋️ At home, with what you have
+
+A sofa back or cushions on a chair for 30–45°; dumbbells up to 16 kg are enough.
+
 ## Video
 
 https://www.youtube.com/results?search_query=incline%20dumbbell%20press

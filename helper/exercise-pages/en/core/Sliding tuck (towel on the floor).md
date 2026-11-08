@@ -34,6 +34,14 @@ Get into a push-up position with your feet on a towel/sliders on a smooth floor.
 
 - Arching your lower back in the plank position.
 
+## 🛡️ Spine safety
+
+Keep the body in a straight line and the abs tight; do not let the lower back sag into an arch, and do not hop the feet.
+
+## 🛋️ At home, with what you have
+
+A towel on a smooth floor (laminate or tile), or socks on the floor.
+
 ## Video
 
 https://www.youtube.com/results?search_query=sliding%20tuck%20abs%20towel

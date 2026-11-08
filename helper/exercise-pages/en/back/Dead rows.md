@@ -11,6 +11,7 @@ category: back
 tier: 4
 rank_source: https://www.youtube.com/watch?v=w4vU3tzVM70
 video: https://www.youtube.com/results?search_query=dead%20row%20exercise
+spine_warning: true
 helper_id: 41
 ---
 
@@ -38,6 +39,16 @@ The barbell or dumbbells rest on the floor. Set your feet shoulder-width apart. 
 ## Common mistakes
 
 - Yanking the weight off the floor with a rounded back.
+
+## 🛡️ Spine safety
+
+> [!warning] Spine caution: this exercise can load the lower back or neck more than most. Read the safety note and go light.
+
+Every rep starts with a dead stop and an explosive pull from the floor, which strains the lower back and the neck. Use a light weight, begin from a rigid, flat back and lift without jerking; skip the explosion if the back is tired.
+
+## 🛋️ At home, with what you have
+
+Do it with dumbbells and raise them on two stacked books; pull smoothly instead of explosively, or use the supported chest-on-sofa row.
 
 ## Video
 

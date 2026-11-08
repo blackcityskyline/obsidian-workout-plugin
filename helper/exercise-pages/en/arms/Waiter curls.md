@@ -34,6 +34,14 @@ Hold one dumbbell vertically with both palms cupped under the top plate (like a 
 
 - Clamping the dumbbell with your fingers.
 
+## 🛡️ Spine safety
+
+Hold the torso still and the ribs down; do not lean back as the dumbbell rises, and keep the neck relaxed.
+
+## 🛋️ At home, with what you have
+
+One dumbbell, held by the top plate. Stand with your back against a wall.
+
 ## Video
 
 https://www.youtube.com/results?search_query=waiter%20curl

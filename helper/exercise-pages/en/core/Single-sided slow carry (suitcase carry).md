@@ -36,6 +36,14 @@ Pick up a heavy dumbbell/kettlebell in one hand.
 
 - Letting your shoulder girdle tilt.
 
+## 🛡️ Spine safety
+
+Stand tall and resist the lean toward the weight; ribs down, neck long. Keep the weight moderate, because heavy one-sided load is hard on a scoliotic back.
+
+## 🛋️ At home, with what you have
+
+One dumbbell of up to 16 kg and a hallway; switch hands each lap.
+
 ## Video
 
 https://www.youtube.com/results?search_query=single%20arm%20suitcase%20carry%20slow

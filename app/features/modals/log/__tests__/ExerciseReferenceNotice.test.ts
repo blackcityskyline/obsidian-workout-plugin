@@ -15,6 +15,7 @@ const page = (extra: Partial<ExercisePage>): ExercisePage => ({
   parameters: [],
   neckWarning: false,
   jerkWarning: false,
+  spineWarning: false,
   equipment: [],
   ...extra,
 });
@@ -28,12 +29,13 @@ describe("referenceNoticeLines", () => {
   it("lists rank, warnings and equipment", () => {
     expect(
       referenceNoticeLines(
-        page({ tier: 4, neckWarning: true, jerkWarning: true, equipment: ["band", "sofa"] }),
+        page({ tier: 4, neckWarning: true, jerkWarning: true, spineWarning: true, equipment: ["band", "sofa"] }),
       ),
     ).toEqual([
       "reference.notice.tier(tier=reference.notice.tier4)",
       "reference.notice.neck",
       "reference.notice.jerk",
+      "reference.notice.spine",
       "reference.notice.equipment(items=reference.notice.band, sofa)",
     ]);
   });

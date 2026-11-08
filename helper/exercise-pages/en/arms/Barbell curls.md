@@ -34,6 +34,14 @@ Stand with an underhand grip, shoulder-width apart.
 
 - Swinging your torso (cheating).
 
+## 🛡️ Spine safety
+
+Keep the ribs down and the glutes lightly tight; do not lean back to swing the bar up, that is a lumbar arch.
+
+## 🛋️ At home, with what you have
+
+Use the 20 kg bar or dumbbells. Stand with your back against a wall to take the swing out.
+
 ## Video
 
 https://www.youtube.com/results?search_query=barbell%20curl%20form

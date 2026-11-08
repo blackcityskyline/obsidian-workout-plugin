@@ -37,6 +37,14 @@ Set an incline bench (30–45°). Hold the dumbbells in front of your chest so t
 
 - Letting up on the pressure between the dumbbells.
 
+## 🛡️ Spine safety
+
+Squeeze the dumbbells together with the lower back in its natural curve; do not bridge. The constant tension keeps the shoulders stable.
+
+## 🛋️ At home, with what you have
+
+A sofa back or cushions for the incline; one pair of dumbbells.
+
 ## Video
 
 https://www.youtube.com/results?search_query=dumbbell%20incline%20squeeze%20press

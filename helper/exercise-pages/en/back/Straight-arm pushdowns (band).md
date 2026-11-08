@@ -41,6 +41,14 @@ Anchor a resistance band or loop band at a high point (door anchor, pull-up bar)
 
 - Bending your arms and turning the exercise into a triceps pushdown.
 
+## 🛡️ Spine safety
+
+Keep the ribs down and the glutes tight; do not arch to finish the pull and do not lock the neck forward.
+
+## 🛋️ At home, with what you have
+
+Anchor the band high at a door or on the pull-up bar.
+
 ## Video
 
 https://www.youtube.com/results?search_query=straight%20arm%20pushdown%20resistance%20band

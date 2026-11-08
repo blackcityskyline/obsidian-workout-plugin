@@ -40,6 +40,14 @@ Run the band across your upper back and hold its ends in your palms, with or wit
 
 - Letting the band slide up onto your neck.
 
+## 🛡️ Spine safety
+
+Keep the lower back in a natural curve, feet planted, shoulder blades down; do not arch to chase the band's pull.
+
+## 🛋️ At home, with what you have
+
+Run the band across the upper back and lie on the sofa or the floor; a floor press protects the shoulders.
+
 ## Video
 
 https://www.youtube.com/results?search_query=band%20bench%20press

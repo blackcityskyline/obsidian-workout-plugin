@@ -10,6 +10,7 @@ tier: 3
 rank_source: https://www.youtube.com/watch?v=w7OSC-RfKOI
 video: https://www.youtube.com/results?search_query=haney%20shrug
 neck_warning: true
+spine_warning: true
 helper_id: 44
 ---
 
@@ -38,6 +39,14 @@ Stand tall, holding a barbell behind your back at glute level with an overhand g
 ## Common mistakes
 
 - Using too much weight, which keeps you from lifting your shoulders.
+
+## 🛡️ Spine safety
+
+Holding a bar behind the back with heavy shrugs loads the neck and spine axially and pulls the shoulders back. Light weight only; no arching, no rolling the shoulders.
+
+## 🛋️ At home, with what you have
+
+The 20 kg bar held behind the glutes, or dumbbells held behind the back; use a wall behind you as a cue.
 
 ## Video
 

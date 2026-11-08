@@ -19,6 +19,7 @@ export function referenceNoticeLines(page: ExercisePage | undefined): string[] {
   }
   if (page.neckWarning) lines.push(t("reference.notice.neck"));
   if (page.jerkWarning) lines.push(t("reference.notice.jerk"));
+  if (page.spineWarning) lines.push(t("reference.notice.spine"));
   if (page.equipment.length > 0) {
     const items = page.equipment.map((item) =>
       item === "band" || item === "bar"

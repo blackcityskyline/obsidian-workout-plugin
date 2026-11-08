@@ -35,6 +35,14 @@ Lie on a bench. Take a shoulder-width grip (or a 20–30 cm gap between your han
 
 - Gripping too narrow (causes wrist pain).
 
+## 🛡️ Spine safety
+
+Press with the shoulder blades pinned down and a natural lower back; no bridge. A narrow grip loads the wrists, keep them straight.
+
+## 🛋️ At home, with what you have
+
+Dumbbells with a neutral grip on the sofa edge, or press from the floor.
+
 ## Video
 
 https://www.youtube.com/results?search_query=close%20grip%20bench%20press

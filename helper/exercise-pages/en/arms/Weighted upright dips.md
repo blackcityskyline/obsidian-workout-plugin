@@ -11,6 +11,7 @@ tier: 4
 rank_source: https://www.youtube.com/watch?v=ZrAiIvpZvhM
 video: https://www.youtube.com/results?search_query=weighted%20upright%20dips%20triceps
 equipment_bar: true
+spine_warning: true
 helper_id: 91
 ---
 
@@ -38,6 +39,16 @@ Support yourself on the dip bars.
 ## Common mistakes
 
 - Leaning your torso forward (shifts the load to your chest).
+
+## 🛡️ Spine safety
+
+> [!warning] Spine caution: this exercise can load the lower back or neck more than most. Read the safety note and go light.
+
+Deep dips overload the shoulders and push the neck forward. Go only to a comfortable depth (upper arm about parallel to the floor), keep the shoulders down and the torso upright, no swinging.
+
+## 🛋️ At home, with what you have
+
+Needs parallel bars. Chair dips are a lighter swap, but keep the hips close to the chair and do not go deep.
 
 ## Video
 

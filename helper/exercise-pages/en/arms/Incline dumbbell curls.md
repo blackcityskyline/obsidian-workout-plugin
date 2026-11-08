@@ -34,6 +34,14 @@ Sit on a bench set to 45° and let your arms hang down freely, holding the dumbb
 
 - Lifting your shoulders off the bench.
 
+## 🛡️ Spine safety
+
+The incline supports the back; do not let the shoulders roll forward in the stretch and do not strain the neck.
+
+## 🛋️ At home, with what you have
+
+No adjustable bench: sit on the sofa with a cushion behind the back so the arms hang behind the torso line.
+
 ## Video
 
 https://www.youtube.com/results?search_query=incline%20dumbbell%20curl

@@ -36,6 +36,14 @@ Stand with the dumbbells resting against the front of your thighs.
 
 - Leaning your torso back as you lift.
 
+## 🛡️ Spine safety
+
+Keep the ribs down and the glutes tight; do not swing the weight up with the hips or lean back.
+
+## 🛋️ At home, with what you have
+
+Light dumbbells or a plate; standing with the back against a wall removes the swing.
+
 ## Video
 
 https://www.youtube.com/results?search_query=dumbbell%20front%20raise

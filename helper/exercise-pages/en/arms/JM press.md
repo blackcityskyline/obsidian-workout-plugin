@@ -34,6 +34,14 @@ Lie on a bench with the bar over your chest.
 
 - Overextending your wrists.
 
+## 🛡️ Spine safety
+
+Lower back stays on the bench, feet planted; no arch. Keep it light: the bar travels close to the neck and face.
+
+## 🛋️ At home, with what you have
+
+Use dumbbells with a neutral grip on the sofa or the floor; alone with a bar over your face is risky.
+
 ## Video
 
 https://www.youtube.com/results?search_query=JM%20press

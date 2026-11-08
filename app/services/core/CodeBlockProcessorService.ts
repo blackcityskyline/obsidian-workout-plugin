@@ -29,6 +29,8 @@ import { durationBlock } from "@app/features/duration/durationBlock";
 import { sessionBlock } from "@app/features/session/sessionBlock";
 import { EmbeddedFoodView } from "@app/features/food/views/EmbeddedFoodView";
 import { foodBlock } from "@app/features/food/foodBlock";
+import { EmbeddedExercisesView } from "@app/features/exercises/views/EmbeddedExercisesView";
+import { exercisesBlock } from "@app/features/exercises/exercisesBlock";
 import { EmbeddedDayCardView } from "@app/features/daycard/views/EmbeddedDayCardView";
 import { dayCardBlock } from "@app/features/daycard/dayCardBlock";
 import { EmbeddedBodyWeightView } from "@app/features/bodyweight/views/EmbeddedBodyWeightView";
@@ -109,6 +111,7 @@ export class CodeBlockProcessorService {
   private embeddedBodyWeightView: EmbeddedBodyWeightView;
   private embeddedDayCardView: EmbeddedDayCardView;
   private embeddedFoodView: EmbeddedFoodView;
+  private embeddedExercisesView: EmbeddedExercisesView;
 
   constructor(
     private plugin: CodeBlockProcessorPlugin,
@@ -125,9 +128,14 @@ export class CodeBlockProcessorService {
     this.embeddedBodyWeightView = new EmbeddedBodyWeightView(plugin);
     this.embeddedDayCardView = new EmbeddedDayCardView(plugin);
     this.embeddedFoodView = new EmbeddedFoodView(plugin);
+    this.embeddedExercisesView = new EmbeddedExercisesView(plugin);
   }
 
   registerProcessors(): void {
+    this.plugin.registerMarkdownCodeBlockProcessor(
+      exercisesBlock.type,
+      (source, el, ctx) => this.handleWorkoutExercises(source, el, ctx),
+    );
     this.plugin.registerMarkdownCodeBlockProcessor(
       foodBlock.type,
       (source, el, ctx) => this.handleWorkoutFood(source, el, ctx),
@@ -203,6 +211,18 @@ export class CodeBlockProcessorService {
         );
       },
     });
+  }
+
+  // Handle workout exercises code blocks: the pages grouped by tier, redrawn when a page changes
+  private handleWorkoutExercises(
+    source: string,
+    el: HTMLElement,
+    ctx: MarkdownPostProcessorContext,
+  ) {
+    const params = this.parseParams(exercisesBlock, source, el);
+    if (params) {
+      ctx.addChild(this.embeddedExercisesView.createExercises(el, params, ctx.sourcePath));
+    }
   }
 
   // Handle workout food code blocks: the view redraws itself on food:changed

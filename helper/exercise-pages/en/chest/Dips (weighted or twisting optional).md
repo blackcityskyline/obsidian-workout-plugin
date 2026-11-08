@@ -13,6 +13,7 @@ tier: 4
 rank_source: https://www.youtube.com/watch?v=ykQlXirszbo
 video: https://www.youtube.com/results?search_query=chest%20dips
 equipment_bar: true
+spine_warning: true
 helper_id: 90
 ---
 
@@ -41,6 +42,16 @@ Support yourself on the dip bars with straight arms.
 ## Common mistakes
 
 - Sinking too deep at the bottom (risk of shoulder injury).
+
+## 🛡️ Spine safety
+
+> [!warning] Spine caution: this exercise can load the lower back or neck more than most. Read the safety note and go light.
+
+Deep dips overload the shoulders and force the neck forward. Go only to a comfortable depth, no deeper than the upper arm parallel to the floor; shoulders away from the ears, no swinging. Skip weighted or twisting versions if the shoulders or neck complain.
+
+## 🛋️ At home, with what you have
+
+Needs parallel bars. Chair dips are the lighter swap: hips close to the chair, shallow depth.
 
 ## Video
 

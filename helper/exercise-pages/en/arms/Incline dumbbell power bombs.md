@@ -9,6 +9,7 @@ category: arms
 tier: 4
 rank_source: https://www.youtube.com/watch?v=ZrAiIvpZvhM
 video: https://www.youtube.com/results?search_query=incline%20dumbbell%20power%20bomb%20triceps
+spine_warning: true
 helper_id: 83
 ---
 
@@ -33,6 +34,16 @@ Sit on a bench set to 75° and hold a dumbbell with both hands behind your head.
 ## Common mistakes
 
 - Letting the dumbbell touch your neck.
+
+## 🛡️ Spine safety
+
+> [!warning] Spine caution: this exercise can load the lower back or neck more than most. Read the safety note and go light.
+
+Overhead work on a steep 75° bench pushes the lower back into extension. Ribs down, light weight; stop if the lower back arches or the neck tightens.
+
+## 🛋️ At home, with what you have
+
+Sit on a chair with a high back, abs braced, one light dumbbell held in both hands.
 
 ## Video
 

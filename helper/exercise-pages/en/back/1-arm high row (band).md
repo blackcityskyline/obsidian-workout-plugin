@@ -41,6 +41,14 @@ Anchor the band overhead. Kneel on one knee (the arm on the same side as the kne
 
 - Leaning your torso toward the working arm.
 
+## 🛡️ Spine safety
+
+Kneel tall with ribs down; do not lean back or arch to pull the band down. Move the elbow, not the torso.
+
+## 🛋️ At home, with what you have
+
+Anchor the band overhead on a door or the pull-up bar; kneel on a folded towel.
+
 ## Video
 
 https://www.youtube.com/results?search_query=single%20arm%20high%20cable%20row

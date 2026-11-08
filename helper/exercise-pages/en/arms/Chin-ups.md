@@ -38,6 +38,14 @@ Hang from the bar with an underhand grip (palms facing you), shoulder-width apar
 
 - Swinging and using an incomplete range of motion.
 
+## 🛡️ Spine safety
+
+Do not arch the lower back or kick the legs for height; pull with the elbows and keep the neck neutral, chin not poking forward.
+
+## 🛋️ At home, with what you have
+
+Needs a bar. Without one: band-assisted rows with an underhand grip, or a towel over a sturdy door.
+
 ## Video
 
 https://www.youtube.com/results?search_query=chin-ups

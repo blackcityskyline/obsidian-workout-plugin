@@ -39,6 +39,14 @@ The bands are anchored low behind you. Stand in the center with your arms down a
 
 - Bending your arms at the elbows.
 
+## 🛡️ Spine safety
+
+Stay tall with the ribs down; do not lean back or swing from the hips to pull the band up.
+
+## 🛋️ At home, with what you have
+
+Anchor two bands low on a door or use a loop band under the feet.
+
 ## Video
 
 https://www.youtube.com/results?search_query=low%20to%20high%20cable%20crossover

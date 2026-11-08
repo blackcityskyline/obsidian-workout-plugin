@@ -38,6 +38,14 @@ Step on the band with the opposite foot. Grab the end of the resistance band.
 
 - Shrugging your shoulder (traps) up.
 
+## 🛡️ Spine safety
+
+Stand tall with the ribs down; do not lean away from the band or hike the shoulder toward the ear.
+
+## 🛋️ At home, with what you have
+
+Step on the band with one foot, or anchor it low to a door.
+
 ## Video
 
 https://www.youtube.com/results?search_query=cable%20lateral%20raise

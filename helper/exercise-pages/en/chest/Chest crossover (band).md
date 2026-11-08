@@ -37,6 +37,14 @@ The bands are anchored at shoulder height. Your arms are spread out to the sides
 
 - Turning the fly into a press.
 
+## 🛡️ Spine safety
+
+Hold the ribs down and the torso still; do not lean forward to cross the hands, and keep the elbows slightly bent.
+
+## 🛋️ At home, with what you have
+
+Anchor two bands at shoulder height on a door, or one band through a door loop.
+
 ## Video
 
 https://www.youtube.com/results?search_query=band%20chest%20crossover

@@ -2741,6 +2741,41 @@ body.is-mobile .workout-timer-strip .workout-timer .workout-timer-controls .work
   color: var(--text-muted);
 }
 
+.workout-exercises .workout-exercises-tier-title {
+  margin: var(--size-4-3) 0 var(--size-4-1);
+  font-size: var(--font-ui-small);
+  color: var(--workout-text-accent);
+}
+.workout-exercises .workout-exercises-tier-0 {
+  color: var(--text-muted);
+}
+.workout-exercises .workout-exercises-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2-1);
+}
+.workout-exercises .workout-exercises-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--size-2-1) var(--size-4-2);
+}
+.workout-exercises .workout-exercises-name {
+  font-weight: var(--font-semibold);
+}
+.workout-exercises .workout-exercises-warning {
+  color: var(--workout-text-warning);
+  font-size: var(--font-ui-smaller);
+}
+.workout-exercises .workout-exercises-muscles,
+.workout-exercises .workout-exercises-equipment {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+.workout-exercises .workout-exercises-empty {
+  color: var(--text-muted);
+}
+
 /* Modal styles entrypoint (split into app/styles/modal/*) */
 /* ============================================================================
    MODAL STYLES

@@ -37,6 +37,14 @@ Anchor the band at eye level.
 
 - Dropping your elbows.
 
+## 🛡️ Spine safety
+
+Stand tall with the ribs down and do not lean back against the band's pull. Neutral neck: look straight ahead.
+
+## 🛋️ At home, with what you have
+
+Anchor a band to a door at eye level, or loop it over a pull-up bar or a high hook.
+
 ## Video
 
 https://www.youtube.com/results?search_query=cable%20flex%20curl%20lip%20buster%20curl

@@ -39,6 +39,14 @@ Set the band at face level. Hold the ends with a neutral or overhand grip.
 
 - Arching the lower back as you raise your arms.
 
+## 🛡️ Spine safety
+
+Pull the band toward the face while keeping the ribs down; do not lean back or arch, and keep the neck neutral.
+
+## 🛋️ At home, with what you have
+
+Anchor the band at face height on a door; a loop band works the same.
+
 ## Video
 
 https://www.youtube.com/results?search_query=face%20pull%20with%20overhead%20extension

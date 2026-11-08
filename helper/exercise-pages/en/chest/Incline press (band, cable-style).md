@@ -39,6 +39,14 @@ Anchor the band behind you, low. Take a staggered stance or sit.
 
 - Losing tension in the band at the bottom.
 
+## 🛡️ Spine safety
+
+Brace the torso so the band does not pull you into an arch; split stance for balance, neck neutral.
+
+## 🛋️ At home, with what you have
+
+Anchor the band low behind you (door bottom or heavy furniture), or sit on a chair with the band behind the back.
+
 ## Video
 
 https://www.youtube.com/results?search_query=incline%20cable%20press

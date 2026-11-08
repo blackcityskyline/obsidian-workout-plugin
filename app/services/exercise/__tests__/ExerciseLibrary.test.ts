@@ -25,6 +25,8 @@ describe("ExerciseLibrary", () => {
           tier: 4,
           neck_warning: true,
           jerk_warning: true,
+          spine_warning: true,
+          category: "Back",
           equipment_band: true,
           equipment_bar: true,
           equipment_gear: "landmine",
@@ -36,12 +38,16 @@ describe("ExerciseLibrary", () => {
         tier: 4,
         neckWarning: true,
         jerkWarning: true,
+        spineWarning: true,
+        category: "back",
         equipment: ["band", "bar", "landmine"],
       });
       expect(lib.find("Plain")).toMatchObject({
         tier: undefined,
         neckWarning: false,
         jerkWarning: false,
+        spineWarning: false,
+        category: undefined,
         equipment: [],
       });
     });

@@ -14,6 +14,7 @@ rank_source: https://www.youtube.com/watch?v=w7OSC-RfKOI
 video: https://www.youtube.com/results?search_query=below%20the%20knee%20rack%20pull
 equipment_gear: rack
 neck_warning: true
+spine_warning: true
 helper_id: 96
 ---
 
@@ -43,6 +44,14 @@ The barbell is set on pins or safety arms of the rack at just below knee level. 
 ## Common mistakes
 
 - Overextending (leaning back) at the top.
+
+## 🛡️ Spine safety
+
+Pulling heavy from pins loads the lower back and neck, and a hip and back extension at the top invites a lumbar arch. With scoliosis and hyperlordosis, keep the load light, stop at upright without leaning back, and skip it if the back aches.
+
+## 🛋️ At home, with what you have
+
+Safer swap: Romanian-style hinge with dumbbells or the 20 kg bar from a low chair seat, moving slowly with a flat back.
 
 ## Video
 
