@@ -1,7 +1,7 @@
 import type { ExercisePage } from "@app/services/exercise/ExerciseLibrary";
 
 /** Best first; 0 is "not ranked yet", always last */
-export const TIER_ORDER = [5, 4, 3, 2, 0] as const;
+export const TIER_ORDER = [5, 4, 3, 2, 1, 0] as const;
 
 export interface TierFilter {
   category?: string;
@@ -11,7 +11,7 @@ export interface TierFilter {
 }
 
 export interface TierGroup {
-  /** 5 Best … 2 Better, 0 = not ranked */
+  /** 5 Best … 1 Worst, 0 = not ranked */
   tier: number;
   pages: ExercisePage[];
 }

@@ -30,6 +30,11 @@ describe("tierGroups", () => {
     expect(groups[3].pages.map((p) => p.names[0])).toEqual(["Plank"]);
   });
 
+  it("lists the worst tier after the better ones and before unranked", () => {
+    const groups = tierGroups([...pages, page("Bench flys", { tier: 1 })]);
+    expect(groups.map((g) => g.tier)).toEqual([5, 4, 3, 1, 0]);
+  });
+
   it("filters by category and muscle, ignoring case", () => {
     expect(tierGroups(pages, { category: "CHEST" }).flatMap((g) => g.pages).length).toBe(4);
     const upper = tierGroups(pages, { muscle: "Upper_Chest" });

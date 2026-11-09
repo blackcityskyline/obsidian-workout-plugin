@@ -1336,6 +1336,7 @@
     },
     "notice": {
       "tier": "Rank: {tier}",
+      "tier1": "Worst",
       "tier2": "Better",
       "tier3": "Better still",
       "tier4": "Almost best",

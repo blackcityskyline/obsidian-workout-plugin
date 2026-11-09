@@ -3,6 +3,7 @@ import { t } from "@app/i18n";
 
 const TIER_KEYS: Record<number, string> = {
   2: "reference.notice.tier2",
+  1: "reference.notice.tier1",
   3: "reference.notice.tier3",
   4: "reference.notice.tier4",
   5: "reference.notice.tier5",

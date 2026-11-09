@@ -13,6 +13,7 @@ const TIER_KEYS: Record<number, string> = {
   4: "reference.notice.tier4",
   3: "reference.notice.tier3",
   2: "reference.notice.tier2",
+  1: "reference.notice.tier1",
 };
 
 /** The `workout-exercises` block: the exercise pages grouped by ranking tier, best first */
@@ -83,7 +84,7 @@ class ExercisesRenderChild extends MarkdownRenderChild {
       const section = card.el.createDiv({ cls: "workout-exercises-tier" });
       section.createEl("h4", {
         cls: `workout-exercises-tier-title workout-exercises-tier-${group.tier}`,
-        text: group.tier ? `★ ${t(TIER_KEYS[group.tier])}` : t("exercises.unranked"),
+        text: group.tier ? `${group.tier > 1 ? "★" : "✕"} ${t(TIER_KEYS[group.tier])}` : t("exercises.unranked"),
       });
       const list = section.createDiv({ cls: "workout-exercises-list" });
       for (const page of group.pages) this.drawRow(list, page);

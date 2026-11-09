@@ -10,8 +10,8 @@ export const exercisesBlock = defineCodeBlock("workout-exercises", {
   category: { kind: "string" },
   /** Only exercises with this muscle tag (chest, upper_chest, lats, …) */
   muscle: { kind: "string" },
-  /** Hide exercises ranked below this tier (2-5); unset = all, ranked or not */
-  minTier: { kind: "number", min: 2, max: 5 },
+  /** Hide exercises ranked below this tier (1-5); unset = all, ranked or not */
+  minTier: { kind: "number", min: 1, max: 5 },
   /** Hide the exercises that carry a neck, spine or jerk warning */
   hideWarned: { kind: "boolean", default: false },
 });

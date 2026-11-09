@@ -19,7 +19,7 @@ export interface ExercisePage {
   tags: string[];
   /** Valid `parameters` the page declares beyond its type's */
   parameters: ParameterDefinition[];
-  /** Ranking tier 2-5 (`tier`), undefined when the page has none */
+  /** Ranking tier 1-5 (`tier`), undefined when the page has none */
   tier?: number;
   /** `neck_warning: true`: puts load on the neck or spine's axis */
   neckWarning: boolean;
@@ -237,7 +237,7 @@ function text(value: unknown): string | undefined {
 
 function tierOf(raw: unknown): number | undefined {
   const n = Number(raw);
-  return Number.isInteger(n) && n >= 2 && n <= 5 ? n : undefined;
+  return Number.isInteger(n) && n >= 1 && n <= 5 ? n : undefined;
 }
 
 function equipmentOf(frontmatter: Record<string, unknown>): string[] {
