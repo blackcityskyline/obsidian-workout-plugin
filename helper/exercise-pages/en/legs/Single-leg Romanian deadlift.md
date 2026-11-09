@@ -7,11 +7,15 @@ tags:
 aliases:
 - Румынская тяга на одной ноге
 category: legs
+tier: 2
+rank_source: https://www.youtube.com/watch?v=1jp2uhfO8M0
 video: https://www.youtube.com/watch?v=bXmYtKlyfwM
 helper_id: 3
 ---
 
 # Single-leg Romanian deadlift
+
+**Better** · [Glute Exercises Ranked | Hamstrings (BEST TO WORST!)](https://www.youtube.com/watch?v=1jp2uhfO8M0)
 
 **Target muscles:** Glutes, hamstrings, deep pelvic stabilizers.
 

@@ -8,11 +8,15 @@ tags:
 aliases:
 - Румынская тяга
 category: legs
+tier: 4
+rank_source: https://www.youtube.com/watch?v=1jp2uhfO8M0
 video: https://www.youtube.com/watch?v=ijcrYaRuZGM
 helper_id: 2
 ---
 
 # Romanian deadlift
+
+**Almost best** · [Glute Exercises Ranked | Hamstrings (BEST TO WORST!)](https://www.youtube.com/watch?v=1jp2uhfO8M0)
 
 **Target muscles:** Hamstrings, glutes, spinal extensors.
 

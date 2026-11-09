@@ -8,11 +8,15 @@ tags:
 aliases:
 - Болгарские сплит-приседания
 category: legs
+tier: 4
+rank_source: https://www.youtube.com/watch?v=Ud9hEOxJMpQ
 video: https://www.youtube.com/watch?v=VDyPdfpOnw0
 helper_id: 1
 ---
 
 # Bulgarian split squats
+
+**Almost best** · [Quad Exercises Ranked (BEST TO WORST!)](https://www.youtube.com/watch?v=Ud9hEOxJMpQ)
 
 **Target muscles:** Quadriceps, glutes, hamstrings.
 
