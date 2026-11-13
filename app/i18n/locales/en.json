@@ -1371,6 +1371,8 @@
   },
   "dayCard": {
     "folder": "Days",
+    "workoutName": "Workout {date}",
+    "exercises": "Exercises",
     "notes": "Notes",
     "sets": "Sets",
     "volume": "Volume",

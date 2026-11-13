@@ -1,4 +1,5 @@
 // Main plugin file - Workout Charts for Obsidian
+import { attachSetToDay, withDayWorkout } from "@app/features/daycard/business/dayWorkout";
 import { Plugin, Notice } from "obsidian";
 import { HOME_VIEW_TYPE, WorkoutHomeView } from "@app/features/home/views/WorkoutHomeView";
 import {
@@ -129,6 +130,11 @@ export default class WorkoutChartsPlugin extends Plugin {
         }
       },
     );
+
+    // The first set of a day creates its workout page; later sets link their exercise there
+    this.eventBus.on("log:added", ({ entry }) => {
+      void attachSetToDay(this, entry).catch(() => undefined);
+    });
 
     // Initialize LocalizationService (must be first - other services may use translations)
     LocalizationService.initialize(this.app);
@@ -441,7 +447,7 @@ export default class WorkoutChartsPlugin extends Plugin {
     entry: LogEntryInput,
     options?: { timestamp?: number },
   ): Promise<void> {
-    return this.workoutLogFile.add(entry, options);
+    return this.workoutLogFile.add(withDayWorkout(entry), options);
   }
 
   /**
