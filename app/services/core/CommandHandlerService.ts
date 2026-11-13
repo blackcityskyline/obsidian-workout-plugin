@@ -24,6 +24,7 @@ import type {
   WorkoutAPIPort,
   TemplateGeneratorPort,
   TourPort,
+  HomePort,
 } from "@app/types/PluginPorts";
 import {
   createExampleNotes,
@@ -50,7 +51,7 @@ import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
 import { generateCodeBlockId } from "@app/utils/IdUtils";
 import { sessionBlock } from "@app/features/session/sessionBlock";
 
-type CommandHandlerPlugin = WorkoutPluginContext & CommandRegistryPort & WorkoutAPIPort & TemplateGeneratorPort & TourPort;
+type CommandHandlerPlugin = WorkoutPluginContext & CommandRegistryPort & WorkoutAPIPort & TemplateGeneratorPort & TourPort & HomePort;
 
 export class CommandHandlerService {
   constructor(
@@ -318,6 +319,12 @@ export class CommandHandlerService {
         );
         new Notice(t("messages.codeInserted"));
       },
+    });
+
+    this.plugin.addCommand({
+      id: "open-home",
+      name: t("commands.openHome"),
+      callback: () => void this.plugin.openHome(),
     });
 
     this.plugin.addCommand({

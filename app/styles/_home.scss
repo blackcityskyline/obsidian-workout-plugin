@@ -1,0 +1,101 @@
+// The home view: a left navigation and the picked section's page. Blocks inside are the plugin's own.
+.workout-home {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: var(--size-4-4);
+  height: 100%;
+  padding: var(--size-4-3);
+
+  .workout-home-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2-1);
+    align-self: start;
+    position: sticky;
+    top: 0;
+  }
+
+  .workout-home-nav-item {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4-2);
+    justify-content: flex-start;
+    background: transparent;
+    box-shadow: none;
+    color: var(--text-muted);
+
+    &:hover {
+      background: var(--background-modifier-hover);
+      color: var(--text-normal);
+    }
+
+    &.is-active {
+      background: var(--background-secondary);
+      color: var(--workout-text-accent);
+      font-weight: var(--font-semibold);
+    }
+  }
+
+  .workout-home-nav-icon {
+    display: inline-flex;
+    width: var(--icon-s);
+    height: var(--icon-s);
+  }
+
+  .workout-home-main {
+    min-width: 0;
+    overflow-y: auto;
+  }
+
+  .workout-home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--size-4-3);
+    margin-bottom: var(--size-4-3);
+  }
+
+  .workout-home-title {
+    margin: 0;
+  }
+
+  .workout-home-add {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--size-2-3);
+  }
+
+  .workout-home-action {
+    margin-bottom: var(--size-4-3);
+  }
+
+  .workout-home-files {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2-1);
+  }
+
+  .workout-home-file {
+    justify-content: flex-start;
+    background: var(--background-secondary);
+    box-shadow: none;
+    text-align: left;
+  }
+
+  .workout-home-empty {
+    color: var(--text-muted);
+  }
+}
+
+// Phones: the navigation becomes a row on top
+@media (max-width: 600px) {
+  .workout-home {
+    grid-template-columns: minmax(0, 1fr);
+
+    .workout-home-nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: static;
+    }
+  }
+}

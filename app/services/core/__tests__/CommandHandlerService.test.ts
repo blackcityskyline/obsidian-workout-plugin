@@ -135,6 +135,7 @@ describe("CommandHandlerService", () => {
       settings: { exerciseFolderPath: "exercises" },
       triggerWorkoutLogRefresh: jest.fn(),
       createLogModalHandler: { openModal: jest.fn() },
+      openHome: jest.fn().mockResolvedValue(undefined),
       eventBus: new WorkoutEventBus(),
     };
     service = new CommandHandlerService(app, mockPlugin);

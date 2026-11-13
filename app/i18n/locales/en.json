@@ -54,7 +54,8 @@
     "showWhatsNew": "Show what's new",
     "createProgramNotes": "Create program notes (days A, B, C and cardio)",
     "openDailyCard": "Open today's daily report card",
-    "createReferenceFoods": "Create reference food pages"
+    "createReferenceFoods": "Create reference food pages",
+    "openHome": "Open workout home"
   },
   "common": {
     "bpm": "bpm",
@@ -1555,6 +1556,25 @@
         "save": "Save nutrient"
       },
       "kg": "kg"
+    }
+  },
+  "home": {
+    "title": "Workout home",
+    "open": "Open home",
+    "add": "Log a set",
+    "today": "Open today's note",
+    "diaryNotes": "Daily notes",
+    "recent": "Recently edited",
+    "empty": "Nothing here yet.",
+    "sections": {
+      "home": "Home",
+      "diary": "Diary",
+      "notes": "Notes",
+      "exercises": "Exercises",
+      "history": "History",
+      "food": "Food",
+      "weight": "Weight",
+      "data": "Data"
     }
   }
 }

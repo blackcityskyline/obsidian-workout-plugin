@@ -80,6 +80,10 @@ export interface LogModalPort {
   createLogModalHandler: { openModal(): void };
 }
 
+export interface HomePort {
+  openHome(): Promise<void>;
+}
+
 export interface TourPort {
   getTourEngine(): TourRunner;
 }

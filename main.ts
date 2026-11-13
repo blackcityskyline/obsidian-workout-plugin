@@ -1,5 +1,6 @@
 // Main plugin file - Workout Charts for Obsidian
 import { Plugin, Notice } from "obsidian";
+import { HOME_VIEW_TYPE, WorkoutHomeView } from "@app/features/home/views/WorkoutHomeView";
 import {
   WorkoutChartsSettings,
   DEFAULT_SETTINGS,
@@ -241,6 +242,8 @@ export default class WorkoutChartsPlugin extends Plugin {
     window.WorkoutPlannerAPI = this.workoutPlannerAPI;
 
     this.codeBlockProcessorService.registerProcessors();
+    this.registerView(HOME_VIEW_TYPE, (leaf) => new WorkoutHomeView(leaf, this));
+    this.addRibbonIcon("layout-dashboard", t("home.open"), () => void this.openHome());
 
     this.app.workspace.onLayoutReady(() => {
       this.commandHandlerService.registerCommands();
@@ -271,6 +274,15 @@ export default class WorkoutChartsPlugin extends Plugin {
       () => this.createLogModalHandler.openModal(),
     );
     markTourTarget(this.quickLogRibbonIcon, TOUR_TARGETS.ribbonIcon);
+  }
+
+  /** Opens the home page in a tab, or shows the one already open */
+  public async openHome(): Promise<void> {
+    const { workspace } = this.app;
+    const existing = workspace.getLeavesOfType(HOME_VIEW_TYPE)[0];
+    const leaf = existing ?? workspace.getLeaf("tab");
+    if (!existing) await leaf.setViewState({ type: HOME_VIEW_TYPE, active: true });
+    workspace.setActiveLeaf(leaf, { focus: true });
   }
 
   onunload() {
