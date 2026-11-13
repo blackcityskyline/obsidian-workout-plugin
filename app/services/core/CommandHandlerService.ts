@@ -47,6 +47,8 @@ import { ensureDailyNote } from "@app/features/daycard/business/dailyCardNote";
 import { localDay } from "@app/services/history/TrainingHistory";
 import { foodBlock } from "@app/features/food/foodBlock";
 import { exercisesBlock } from "@app/features/exercises/exercisesBlock";
+import { sleepBlock } from "@app/features/sleep/sleepBlock";
+import { diaryBlock } from "@app/features/diary/diaryBlock";
 import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
 import { generateCodeBlockId } from "@app/utils/IdUtils";
 import { sessionBlock } from "@app/features/session/sessionBlock";
@@ -278,6 +280,30 @@ export class CommandHandlerService {
         this.emitInsert("session");
         editor.replaceRange(
           sessionBlock.serialize({}) + "\n\n",
+          editor.getCursor(),
+        );
+        new Notice(t("messages.codeInserted"));
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "insert-workout-sleep",
+      name: t("modal.titles.insertSleep"),
+      editorCallback: (editor) => {
+        editor.replaceRange(
+          sleepBlock.serialize({ id: generateCodeBlockId() }) + "\n\n",
+          editor.getCursor(),
+        );
+        new Notice(t("messages.codeInserted"));
+      },
+    });
+
+    this.plugin.addCommand({
+      id: "insert-workout-diary",
+      name: t("modal.titles.insertDiary"),
+      editorCallback: (editor) => {
+        editor.replaceRange(
+          diaryBlock.serialize({ id: generateCodeBlockId() }) + "\n\n",
           editor.getCursor(),
         );
         new Notice(t("messages.codeInserted"));

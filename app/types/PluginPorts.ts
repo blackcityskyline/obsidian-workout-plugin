@@ -1,6 +1,7 @@
 import type { FoodLog } from "@app/services/food/FoodLog";
 import type { SavedMeals } from "@app/services/food/SavedMeals";
 import type { FoodLibrary } from "@app/services/food/FoodLibrary";
+import type { SleepLog } from "@app/services/sleep/SleepLog";
 import type { BodyWeightLog } from "@app/services/body/BodyWeightFile";
 import type { App, Command, MarkdownPostProcessorContext } from "obsidian";
 import type {
@@ -65,6 +66,10 @@ export interface BodyWeightPort {
   getBodyWeightLog(): BodyWeightLog;
 }
 
+export interface SleepPort {
+  getSleepLog(): SleepLog;
+}
+
 export interface FoodPort {
   getFoodLog(): FoodLog;
   getFoodLibrary(): FoodLibrary;
@@ -125,6 +130,7 @@ export type WorkoutPluginContext = AppPort &
   ExerciseDefinitionPort &
   ExerciseLibraryPort &
   BodyWeightPort &
+  SleepPort &
   FoodPort &
   MuscleTagPort &
   EventBusPort &

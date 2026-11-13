@@ -1,0 +1,44 @@
+// workout-sleep and workout-diary: forms and lists. The card, stat cards and
+// fields come from the kit; this only places them.
+.workout-sleep {
+  .workout-charts-container {
+    margin: var(--size-4-3) 0;
+  }
+
+  .workout-sleep-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--size-4-2);
+    margin: var(--size-4-3) 0;
+  }
+
+  .workout-sleep-times {
+    display: flex;
+    gap: var(--size-4-2);
+  }
+
+  .workout-sleep-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .workout-sleep-row {
+    display: grid;
+    grid-template-columns: minmax(0, 8rem) minmax(0, 6rem) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--size-4-2);
+    padding: var(--size-4-1) 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+  }
+
+  .workout-sleep-empty {
+    color: var(--text-muted);
+  }
+}
+
+.workout-diary .workout-diary-text {
+  width: 100%;
+  min-height: 7rem;
+  resize: vertical;
+}

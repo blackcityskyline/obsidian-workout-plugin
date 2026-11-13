@@ -20,6 +20,8 @@ export interface ViewFilter {
   bodyWeightAware?: boolean;
   /** True: the view also redraws on food:changed (the calendar marks days with food) */
   foodAware?: boolean;
+  /** True: the view also redraws on sleep:changed */
+  sleepAware?: boolean;
 }
 
 /**
@@ -119,6 +121,14 @@ export class EventAwareRenderChild extends MarkdownRenderChild {
     if (this.filter.bodyWeightAware) {
       this.register(
         this.eventBus.on("bodyweight:changed", () => {
+          void this.renderFn();
+        }),
+      );
+    }
+
+    if (this.filter.sleepAware) {
+      this.register(
+        this.eventBus.on("sleep:changed", () => {
           void this.renderFn();
         }),
       );

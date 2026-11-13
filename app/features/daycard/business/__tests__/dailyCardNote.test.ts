@@ -17,11 +17,17 @@ describe("daily note", () => {
     expect(dailyFolder("Workouts/Exercises")).toBe("Workouts/dayCard.folder");
   });
 
-  it("has the date as a property and one day card block", () => {
+  it("has the date as a property and the day's module blocks", () => {
     const content = dailyNoteContent("2026-11-06");
     expect(content).toContain("---\ndate: 2026-11-06\n---");
     const blocks = readWorkoutNote(content).blocks;
-    expect(blocks.map((b) => b.type)).toEqual(["workout-day"]);
+    expect(blocks.map((b) => b.type)).toEqual([
+      "workout-day",
+      "workout-food",
+      "workout-sleep",
+      "workout-bodyweight",
+      "workout-diary",
+    ]);
   });
 
   it("creates the note once and never overwrites it", async () => {

@@ -10,6 +10,8 @@ const BLOCK_TYPES = new Set([
   "workout-bodyweight",
   "workout-day",
   "workout-food",
+  "workout-sleep",
+  "workout-diary",
   "workout-exercises",
 ]);
 

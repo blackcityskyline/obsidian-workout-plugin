@@ -907,7 +907,9 @@
       "insertBodyWeight": "Insert workout body weight",
       "insertDayCard": "Insert workout day card",
       "insertFood": "Insert workout food log",
-      "insertExercises": "Insert exercises by tier"
+      "insertExercises": "Insert exercises by tier",
+      "insertSleep": "Insert workout sleep",
+      "insertDiary": "Insert workout diary"
     },
     "weightUnitToggle": "Unit for this entry",
     "work": "Work",
@@ -1578,5 +1580,28 @@
       "weight": "Weight",
       "data": "Data"
     }
+  },
+  "sleep": {
+    "title": "Sleep",
+    "latest": "Last night",
+    "average": "Average, {days} days",
+    "trend": "Trend",
+    "date": "Day you woke up",
+    "hours": "Hours slept",
+    "hoursUnit": "h",
+    "bedtime": "Bedtime",
+    "wake": "Wake time",
+    "quality": "Quality (1–5)",
+    "add": "Add night",
+    "invalid": "Enter hours between 0 and 24",
+    "saved": "Saved {hours} h",
+    "empty": "No nights in this period yet.",
+    "remove": "Remove the night of {date}",
+    "removed": "Removed the night of {date}"
+  },
+  "diary": {
+    "title": "Diary",
+    "heading": "Diary",
+    "placeholder": "How was the day? Training, food, sleep, mood…"
   }
 }

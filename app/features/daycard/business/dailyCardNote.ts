@@ -2,6 +2,10 @@ import { normalizePath, TFile } from "obsidian";
 import { t } from "@app/i18n";
 import type { AppPort, SettingsPort } from "@app/types/PluginPorts";
 import { dayCardBlock } from "@app/features/daycard/dayCardBlock";
+import { foodBlock } from "@app/features/food/foodBlock";
+import { sleepBlock } from "@app/features/sleep/sleepBlock";
+import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
+import { diaryBlock } from "@app/features/diary/diaryBlock";
 import { generateCodeBlockId } from "@app/utils/IdUtils";
 
 export type DailyCardPlugin = AppPort & SettingsPort;
@@ -23,6 +27,14 @@ export function dailyNoteContent(day: string): string {
     `# ${day}`,
     "",
     dayCardBlock.serialize({ id: generateCodeBlockId() }),
+    "",
+    foodBlock.serialize({ id: generateCodeBlockId() }),
+    "",
+    sleepBlock.serialize({ id: generateCodeBlockId() }),
+    "",
+    bodyWeightBlock.serialize({ id: generateCodeBlockId(), showChart: false }),
+    "",
+    diaryBlock.serialize({ id: generateCodeBlockId() }),
     "",
     `## ${t("dayCard.notes")}`,
     "",

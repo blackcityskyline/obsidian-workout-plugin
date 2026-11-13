@@ -66,6 +66,11 @@ export interface BodyWeightChangedPayload {
   date: string;
 }
 
+/** A night of sleep was added, replaced or deleted (YYYY-MM-DD of its day). */
+export interface SleepChangedPayload {
+  date: string;
+}
+
 /** A food log entry was added or deleted (YYYY-MM-DD of its day). */
 export interface FoodChangedPayload {
   date: string;
@@ -100,6 +105,7 @@ export type WorkoutEvent =
   | { type: "log:bulk-changed"; payload: LogBulkChangedPayload }
   | { type: "muscle-tags:changed"; payload: MuscleTagsChangedPayload }
   | { type: "bodyweight:changed"; payload: BodyWeightChangedPayload }
+  | { type: "sleep:changed"; payload: SleepChangedPayload }
   | { type: "food:changed"; payload: FoodChangedPayload }
   | { type: "meals:changed"; payload: MealsChangedPayload }
   | { type: "settings:changed"; payload: SettingsChangedPayload }

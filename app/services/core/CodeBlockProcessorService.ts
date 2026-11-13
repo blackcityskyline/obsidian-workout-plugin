@@ -34,6 +34,10 @@ import { exercisesBlock } from "@app/features/exercises/exercisesBlock";
 import { EmbeddedDayCardView } from "@app/features/daycard/views/EmbeddedDayCardView";
 import { dayCardBlock } from "@app/features/daycard/dayCardBlock";
 import { EmbeddedBodyWeightView } from "@app/features/bodyweight/views/EmbeddedBodyWeightView";
+import { EmbeddedSleepView } from "@app/features/sleep/views/EmbeddedSleepView";
+import { sleepBlock } from "@app/features/sleep/sleepBlock";
+import { EmbeddedDiaryView } from "@app/features/diary/views/EmbeddedDiaryView";
+import { diaryBlock } from "@app/features/diary/diaryBlock";
 import { bodyWeightBlock } from "@app/features/bodyweight/bodyWeightBlock";
 import { EmbeddedSessionView } from "@app/features/session/views/EmbeddedSessionView";
 import { setsBlock } from "@app/features/tables/setsBlock";
@@ -109,6 +113,8 @@ class TimerRenderChild extends MarkdownRenderChild {
 export class CodeBlockProcessorService {
   private embeddedDurationView: EmbeddedDurationView;
   private embeddedBodyWeightView: EmbeddedBodyWeightView;
+  private embeddedSleepView: EmbeddedSleepView;
+  private embeddedDiaryView: EmbeddedDiaryView;
   private embeddedDayCardView: EmbeddedDayCardView;
   private embeddedFoodView: EmbeddedFoodView;
   private embeddedExercisesView: EmbeddedExercisesView;
@@ -126,6 +132,8 @@ export class CodeBlockProcessorService {
     // Initialize duration view internally (no external dependencies needed)
     this.embeddedDurationView = new EmbeddedDurationView(plugin);
     this.embeddedBodyWeightView = new EmbeddedBodyWeightView(plugin);
+    this.embeddedSleepView = new EmbeddedSleepView(plugin);
+    this.embeddedDiaryView = new EmbeddedDiaryView(plugin);
     this.embeddedDayCardView = new EmbeddedDayCardView(plugin);
     this.embeddedFoodView = new EmbeddedFoodView(plugin);
     this.embeddedExercisesView = new EmbeddedExercisesView(plugin);
@@ -143,6 +151,14 @@ export class CodeBlockProcessorService {
     this.plugin.registerMarkdownCodeBlockProcessor(
       dayCardBlock.type,
       (source, el, ctx) => this.handleWorkoutDayCard(source, el, ctx),
+    );
+    this.plugin.registerMarkdownCodeBlockProcessor(
+      sleepBlock.type,
+      (source, el, ctx) => this.handleWorkoutSleep(source, el, ctx),
+    );
+    this.plugin.registerMarkdownCodeBlockProcessor(
+      diaryBlock.type,
+      (source, el, ctx) => this.handleWorkoutDiary(source, el, ctx),
     );
     this.plugin.registerMarkdownCodeBlockProcessor(
       bodyWeightBlock.type,
@@ -260,6 +276,30 @@ export class CodeBlockProcessorService {
     const params = this.parseParams(bodyWeightBlock, source, el);
     if (params) {
       ctx.addChild(this.embeddedBodyWeightView.createBodyWeight(el, params));
+    }
+  }
+
+  // Handle workout sleep code blocks: the view redraws itself on sleep:changed
+  private handleWorkoutSleep(
+    source: string,
+    el: HTMLElement,
+    ctx: MarkdownPostProcessorContext,
+  ) {
+    const params = this.parseParams(sleepBlock, source, el);
+    if (params) {
+      ctx.addChild(this.embeddedSleepView.createSleep(el, params, ctx.sourcePath));
+    }
+  }
+
+  // Handle workout diary code blocks: the text lives in the day's page
+  private handleWorkoutDiary(
+    source: string,
+    el: HTMLElement,
+    ctx: MarkdownPostProcessorContext,
+  ) {
+    const params = this.parseParams(diaryBlock, source, el);
+    if (params) {
+      ctx.addChild(this.embeddedDiaryView.createDiary(el, params, ctx.sourcePath));
     }
   }
 

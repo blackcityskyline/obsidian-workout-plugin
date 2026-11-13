@@ -15,6 +15,7 @@ import { EmbeddedTableView } from "@app/features/tables/views/EmbeddedTableView"
 import { EmbeddedTimerView } from "@app/features/timer/views/EmbeddedTimerView";
 import { TimerDeviceEffects } from "@app/features/timer/business/TimerDeviceEffects";
 import { EmbeddedDashboardView } from "@app/features/dashboard/views/EmbeddedDashboardView";
+import { SleepLog, VaultSleepStorage } from "@app/services/sleep/SleepLog";
 import {
   BodyWeightLog,
   VaultBodyWeightStorage,
@@ -70,6 +71,7 @@ export default class WorkoutChartsPlugin extends Plugin {
   public embeddedDashboardView!: EmbeddedDashboardView;
   public embeddedSessionView!: EmbeddedSessionView;
   private bodyWeightLog!: BodyWeightLog;
+  private sleepLog!: SleepLog;
   private foodLog!: FoodLog;
   private foodLibrary!: FoodLibrary;
   private savedMeals!: SavedMeals;
@@ -199,6 +201,10 @@ export default class WorkoutChartsPlugin extends Plugin {
     this.bodyWeightLog = new BodyWeightLog(
       new VaultBodyWeightStorage(this.app, this.settings),
       this.settings,
+      this.eventBus,
+    );
+    this.sleepLog = new SleepLog(
+      new VaultSleepStorage(this.app, this.settings),
       this.eventBus,
     );
     this.foodLog = new FoodLog(
@@ -415,6 +421,10 @@ export default class WorkoutChartsPlugin extends Plugin {
 
   public getSavedMeals(): SavedMeals {
     return this.savedMeals;
+  }
+
+  public getSleepLog(): SleepLog {
+    return this.sleepLog;
   }
 
   public getBodyWeightLog(): BodyWeightLog {

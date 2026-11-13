@@ -1,9 +1,9 @@
-import { MarkdownRenderChild, TFile } from "obsidian";
+import { MarkdownRenderChild } from "obsidian";
 import { BaseView } from "@app/features/common/views/BaseView";
 import { BlockCard } from "@app/components/molecules/BlockCard";
 import { StatCard } from "@app/components/molecules/StatCard";
-import { dayReport, resolveDay, type DayReport } from "@app/features/daycard/business/dayReport";
-import { localDay } from "@app/services/history/TrainingHistory";
+import { noteDay } from "@app/features/daycard/business/noteDay";
+import { dayReport, type DayReport } from "@app/features/daycard/business/dayReport";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
 import type { EmbeddedDayCardParams } from "@app/features/daycard/dayCardBlock";
 import { t } from "@app/i18n";
@@ -55,16 +55,7 @@ class DayCardRenderChild extends MarkdownRenderChild {
   }
 
   private day(): string {
-    const { app } = this.plugin;
-    const file = app.vault.getAbstractFileByPath(this.sourcePath);
-    const frontmatter =
-      file instanceof TFile ? app.metadataCache.getFileCache(file)?.frontmatter : undefined;
-    return resolveDay({
-      param: this.params.date,
-      property: frontmatter?.date,
-      basename: file instanceof TFile ? file.basename : "",
-      today: localDay(new Date()),
-    });
+    return noteDay(this.plugin, this.sourcePath, this.params.date);
   }
 
   async render(): Promise<void> {
