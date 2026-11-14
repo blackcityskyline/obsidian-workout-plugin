@@ -6,7 +6,9 @@ import {
   DashboardWidgetId,
   EmbeddedDashboardParams,
   ProtocolFilterCallback,
+  SERIES_VARIANTS,
 } from "@app/features/dashboard/types";
+import { dashboardBlock } from "@app/features/dashboard/dashboardBlock";
 import { SummaryWidget } from "@app/features/dashboard/widgets/summary/SummaryWidget";
 import { QuickStatsCards } from "@app/features/dashboard/widgets/quick-stats/QuickStatsCards";
 import { MuscleHeatMap } from "@app/features/dashboard/widgets/muscle-heat-map/MuscleHeatMap";
@@ -19,6 +21,14 @@ import { QuickActions } from "@app/features/dashboard/widgets/quick-actions/Quic
 import { WidgetsFileError } from "@app/features/dashboard/widgets/file-errors/WidgetsFileError";
 import { MuscleTagsWidget } from "@app/features/dashboard/widgets/muscle-tags/MuscleTagsWidget";
 import { TrainingCalendarWidget } from "@app/features/dashboard/widgets/training-calendar/TrainingCalendarWidget";
+import { SeriesWidget } from "@app/features/dashboard/widgets/series/SeriesWidget";
+import {
+  foodSeries,
+  seriesOf,
+  sleepSeries,
+  type Series,
+} from "@app/features/dashboard/widgets/series/seriesData";
+import { localDay } from "@app/services/history/TrainingHistory";
 import { CONSTANTS } from "@app/constants";
 import { t } from "@app/i18n";
 
@@ -64,6 +74,10 @@ export type WidgetSetting =
         | "protocolMinEntries"
         | "durationRecentCount"
         | "durationRestSeconds"
+        | "weightDays"
+        | "sleepDays"
+        | "caloriesDays"
+        | "proteinDays"
         | "fileErrorsMaxItems"
         | "fileErrorsMaxTags";
       label(): string;
@@ -84,6 +98,10 @@ export type WidgetSetting =
         | "heatMapTimeFrame"
         | "heatMapMetric"
         | "heatMapView"
+        | "weightVariant"
+        | "sleepVariant"
+        | "caloriesVariant"
+        | "proteinVariant"
         | "protocolChartType"
         | "protocolSortBy";
       label(): string;
@@ -112,6 +130,61 @@ export type WidgetSetting =
       label(): string;
       default: boolean;
     };
+
+/** The settings every measure widget has: how it is drawn and the days it covers */
+function seriesSettings(
+  variantKey: "weightVariant" | "sleepVariant" | "caloriesVariant" | "proteinVariant",
+  daysKey: "weightDays" | "sleepDays" | "caloriesDays" | "proteinDays",
+): WidgetSetting[] {
+  return [
+    {
+      kind: "choice",
+      key: variantKey,
+      label: () => t("dashboard.widgetModal.seriesVariant"),
+      default: "line",
+      options: SERIES_VARIANTS.map((value) => ({
+        value,
+        label: () => t(`dashboard.series.variants.${value}`),
+      })),
+    },
+    {
+      kind: "number",
+      key: daysKey,
+      label: () => t("dashboard.widgetModal.seriesDays"),
+      min: 2,
+      max: 365,
+      step: 7,
+      unit: () => t("dashboard.widgetModal.units.days"),
+    },
+  ];
+}
+
+/** A measure widget: loads its series and draws it in the chosen variant */
+function seriesWidget(
+  id: "bodyWeight" | "sleep" | "calories" | "protein",
+  title: () => string,
+  unit: (ctx: DashboardWidgetContext) => string,
+  variantKey: "weightVariant" | "sleepVariant" | "caloriesVariant" | "proteinVariant",
+  daysKey: "weightDays" | "sleepDays" | "caloriesDays" | "proteinDays",
+  load: (ctx: DashboardWidgetContext, days: number, today: string) => Promise<Series>,
+): DashboardWidget {
+  return {
+    label: title,
+    settings: seriesSettings(variantKey, daysKey),
+    minColumns: 1,
+    render: async (ctx) => {
+      const days = ctx.params[daysKey] ?? dashboardBlock.defaults[daysKey];
+      SeriesWidget.render(ctx.grid, {
+        title: title(),
+        series: await load(ctx, days, localDay(new Date())),
+        variant: ctx.params[variantKey] ?? "line",
+        unit: unit(ctx),
+        chartId: `workout-series-${id}-${ctx.dashboardId}`,
+        className: `workout-series-widget workout-series-${id}`,
+      });
+    },
+  };
+}
 
 interface DashboardWidget {
   /** Shown in the dashboard modal */
@@ -509,6 +582,44 @@ export const DASHBOARD_WIDGETS: Record<
     render: (ctx) =>
       WidgetsFileError.render(ctx.grid, ctx.plugin, ctx.params),
   },
+  bodyWeight: seriesWidget(
+    "bodyWeight",
+    () => t("dashboard.series.bodyWeight"),
+    (ctx) => ctx.plugin.settings.weightUnit,
+    "weightVariant",
+    "weightDays",
+    async (ctx, days, today) => {
+      const entries = await ctx.plugin.getBodyWeightLog().read();
+      return seriesOf(entries, (e) => e.weight, days, today);
+    },
+  ),
+  sleep: seriesWidget(
+    "sleep",
+    () => t("dashboard.series.sleep"),
+    () => t("sleep.hoursUnit"),
+    "sleepVariant",
+    "sleepDays",
+    async (ctx, days, today) =>
+      sleepSeries(await ctx.plugin.getSleepLog().read(), days, today),
+  ),
+  calories: seriesWidget(
+    "calories",
+    () => t("dashboard.series.calories"),
+    () => t("dashboard.series.kcalUnit"),
+    "caloriesVariant",
+    "caloriesDays",
+    async (ctx, days, today) =>
+      foodSeries(await ctx.plugin.getFoodLog().read(), "kcal", days, today),
+  ),
+  protein: seriesWidget(
+    "protein",
+    () => t("dashboard.series.protein"),
+    () => t("dashboard.series.gramUnit"),
+    "proteinVariant",
+    "proteinDays",
+    async (ctx, days, today) =>
+      foodSeries(await ctx.plugin.getFoodLog().read(), "protein", days, today),
+  ),
   muscleTags: {
     label: () => t("dashboard.muscleTags.title"),
     settings: [

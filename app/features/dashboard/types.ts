@@ -16,8 +16,16 @@ export const DASHBOARD_WIDGET_IDS = [
   "fileErrors",
   "muscleTags",
   "trainingCalendar",
+  "bodyWeight",
+  "sleep",
+  "calories",
+  "protein",
 ] as const;
 export type DashboardWidgetId = (typeof DASHBOARD_WIDGET_IDS)[number];
+
+/** How a measure widget (weight, sleep, calories, protein) is drawn */
+export const SERIES_VARIANTS = ["number", "line", "bars", "table"] as const;
+export type SeriesVariant = (typeof SERIES_VARIANTS)[number];
 
 /** The periods the quick stats table can show, shortest first */
 export const QUICK_STATS_PERIOD_IDS = ["week", "month", "year"] as const;

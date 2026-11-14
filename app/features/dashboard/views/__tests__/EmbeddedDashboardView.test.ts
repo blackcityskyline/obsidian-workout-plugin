@@ -91,10 +91,14 @@ const history = [
 
 const render = async (params: EmbeddedDashboardParams) => {
   const view = new EmbeddedDashboardView({
-    settings: { weeklyGoal: 3, exerciseFolderPath: "Workouts/Exercises" },
+    settings: {
+      weeklyGoal: 3,
+      exerciseFolderPath: "Workouts/Exercises",
+    },
     getWorkoutLogData: async () => history,
     getBodyWeightLog: () => ({ read: async () => [] }),
-      getFoodLog: () => ({ read: async () => [] }),
+    getFoodLog: () => ({ read: async () => [] }),
+    getSleepLog: () => ({ read: async () => [] }),
     app: { vault: { getAbstractFileByPath: () => null } },
   } as unknown as WorkoutChartsPlugin);
   await view.createDashboard(createObsidianContainer(), logs, params);
@@ -225,6 +229,7 @@ describe("EmbeddedDashboardView grid layout", () => {
       getWorkoutLogData: async () => history,
       getBodyWeightLog: () => ({ read: async () => [] }),
       getFoodLog: () => ({ read: async () => [] }),
+      getSleepLog: () => ({ read: async () => [] }),
       app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin).createDashboard(
       container,
@@ -291,7 +296,10 @@ describe("EmbeddedDashboardView grid layout", () => {
     Platform.isPhone = true;
     try {
       const { cell } = await renderGrid(GRID, 900);
-      expect(cell("recentWorkouts")).toEqual(["1 / span 1", "2 / span 1"]);
+      expect(cell("recentWorkouts")).toEqual([
+        "1 / span 1",
+        "2 / span 1",
+      ]);
     } finally {
       Platform.isPhone = false;
     }
@@ -300,7 +308,9 @@ describe("EmbeddedDashboardView grid layout", () => {
   it("says how to place widgets when the grid has none", async () => {
     const { container } = await renderGrid({ layout: "grid" }, 900);
 
-    expect(container.textContent).toContain(t("dashboard.grid.empty"));
+    expect(container.textContent).toContain(
+      t("dashboard.grid.empty"),
+    );
   });
 
   it("shows what is wrong with the grid instead of the widgets", async () => {
@@ -325,18 +335,20 @@ describe("EmbeddedDashboardView grid layout", () => {
 describe("EmbeddedDashboardView resize watching", () => {
   it("keeps following the first dashboard's width after a second one renders", async () => {
     const observers: FakeResizeObserver[] = [];
-    (window as unknown as { ResizeObserver: unknown }).ResizeObserver =
-      class extends FakeResizeObserver {
-        constructor() {
-          super();
-          observers.push(this);
-        }
-      };
+    (
+      window as unknown as { ResizeObserver: unknown }
+    ).ResizeObserver = class extends FakeResizeObserver {
+      constructor() {
+        super();
+        observers.push(this);
+      }
+    };
     const view = new EmbeddedDashboardView({
       settings: { exerciseFolderPath: "Workouts/Exercises" },
       getWorkoutLogData: async () => history,
       getBodyWeightLog: () => ({ read: async () => [] }),
       getFoodLog: () => ({ read: async () => [] }),
+      getSleepLog: () => ({ read: async () => [] }),
       app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin);
 
@@ -364,26 +376,41 @@ describe("EmbeddedDashboardView view state", () => {
       getWorkoutLogData: async () => history,
       getBodyWeightLog: () => ({ read: async () => [] }),
       getFoodLog: () => ({ read: async () => [] }),
+      getSleepLog: () => ({ read: async () => [] }),
       app: { vault: { getAbstractFileByPath: () => null } },
     } as unknown as WorkoutChartsPlugin);
     const params: EmbeddedDashboardParams = { title: "Stats" };
-    const editAction = { label: "Edit", icon: "pencil", edits: true, run: jest.fn() };
+    const editAction = {
+      label: "Edit",
+      icon: "pencil",
+      edits: true,
+      run: jest.fn(),
+    };
 
-    await view.createDashboard(createObsidianContainer(), logs, params, {
-      sourcePath: "Stats.md",
-      matchWithoutId: () => ({ body: "title: Stats" }),
-      editAction,
-    });
+    await view.createDashboard(
+      createObsidianContainer(),
+      logs,
+      params,
+      {
+        sourcePath: "Stats.md",
+        matchWithoutId: () => ({ body: "title: Stats" }),
+        editAction,
+      },
+    );
     // The options the protocol widget was last drawn with
     const widgetOptions = () =>
-      (ProtocolDistribution.render as jest.Mock).mock.calls.at(-1).at(-1) as {
+      (ProtocolDistribution.render as jest.Mock).mock.calls
+        .at(-1)
+        .at(-1) as {
         onFilterChange: (protocol: string | null) => void;
         activeFilter?: string | null;
       };
     widgetOptions().onFilterChange("dropset");
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    const dashboardMenus = menu.mock.calls.filter(([, actions]) => actions[0] === editAction);
+    const dashboardMenus = menu.mock.calls.filter(
+      ([, actions]) => actions[0] === editAction,
+    );
     expect(dashboardMenus).toHaveLength(2);
     expect(widgetOptions().activeFilter).toBe("dropset");
   });
@@ -409,9 +436,13 @@ describe("EmbeddedDashboardView render", () => {
 
   it("says no set matches when its filters leave nothing (it used to show 'no data')", async () => {
     const container = createObsidianContainer();
-    await view(history).render(container, { exercise: "Bench Press" });
+    await view(history).render(container, {
+      exercise: "Bench Press",
+    });
 
     expect(SummaryWidget.render).not.toHaveBeenCalled();
-    expect(container.querySelector(".workout-log-no-match")).not.toBeNull();
+    expect(
+      container.querySelector(".workout-log-no-match"),
+    ).not.toBeNull();
   });
 });

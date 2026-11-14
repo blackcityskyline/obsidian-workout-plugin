@@ -45,3 +45,39 @@
     display: none;
   }
 }
+
+/* Measure widgets (weight, sleep, calories, protein): bars and table variants */
+.workout-series-widget {
+  .workout-series-empty,
+  .workout-series-caption {
+    color: var(--text-muted);
+  }
+
+  .workout-series-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--size-2-1);
+    height: 8rem;
+    margin: var(--size-4-2) 0;
+  }
+
+  .workout-series-bar {
+    flex: 1 1 0;
+    min-width: 2px;
+    height: calc(var(--workout-series-bar, 0) * 100%);
+    min-height: 2px;
+    background: var(--workout-accent-fill);
+    border-radius: var(--radius-s) var(--radius-s) 0 0;
+  }
+
+  .workout-series-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--size-4-1) 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+  }
+
+  .workout-series-value {
+    font-variant-numeric: tabular-nums;
+  }
+}

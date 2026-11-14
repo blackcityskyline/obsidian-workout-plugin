@@ -493,7 +493,7 @@ export class CodeBlockProcessorService {
         await render();
         // Every log change, and muscle tags for the heat map
         ctx.addChild(
-          new EventAwareRenderChild(body, this.eventBus, { muscleTagsAware: true, bodyWeightAware: true, foodAware: true }, () =>
+          new EventAwareRenderChild(body, this.eventBus, { muscleTagsAware: true, bodyWeightAware: true, foodAware: true, sleepAware: true }, () =>
             render().finally(syncMenu),
           ),
         );

@@ -116,6 +116,10 @@ describe("block schemas", () => {
         fileErrorsMaxTags: 3,
         fileErrorsCheckSharedNames: true,
         muscleTagsGroupByMuscle: false,
+        weightDays: 30,
+        sleepDays: 14,
+        caloriesDays: 14,
+        proteinDays: 14,
       });
     });
 

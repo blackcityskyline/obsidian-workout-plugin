@@ -121,7 +121,7 @@ export class WorkoutHomeView extends ItemView {
       new EventAwareRenderChild(
         el,
         this.plugin.eventBus,
-        { muscleTagsAware: true, bodyWeightAware: true, foodAware: true },
+        { muscleTagsAware: true, bodyWeightAware: true, foodAware: true, sleepAware: true },
         draw,
       ),
     );

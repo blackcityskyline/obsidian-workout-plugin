@@ -293,7 +293,9 @@
       },
       "editTitle": "Edit {widget}",
       "sortMostSets": "Most sets",
-      "lastWidget": "This is the dashboard's only widget, so it can't be removed: delete the block instead."
+      "lastWidget": "This is the dashboard's only widget, so it can't be removed: delete the block instead.",
+      "seriesVariant": "Shown as",
+      "seriesDays": "Days shown"
     },
     "editMode": {
       "edit": "Edit layout",
@@ -311,6 +313,26 @@
       "taller": "Taller",
       "remove": "Remove {widget}",
       "saveFailed": "The layout could not be saved: the block was not found in its note."
+    },
+    "series": {
+      "bodyWeight": "Body weight",
+      "sleep": "Sleep",
+      "calories": "Calories",
+      "protein": "Protein",
+      "kcalUnit": "kcal",
+      "gramUnit": "g",
+      "empty": "No data in this period yet.",
+      "latest": "Latest",
+      "average": "Average",
+      "lowest": "Lowest",
+      "highest": "Highest",
+      "caption": "Average {average}, latest {latest}",
+      "variants": {
+        "number": "Numbers",
+        "line": "Line",
+        "bars": "Bars",
+        "table": "Table"
+      }
     }
   },
   "duration": {

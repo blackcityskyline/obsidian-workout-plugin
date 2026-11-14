@@ -13,6 +13,10 @@ const ALL = [
   "fileErrors",
   "muscleTags",
   "trainingCalendar",
+  "bodyWeight",
+  "sleep",
+  "calories",
+  "protein",
 ];
 
 describe("resolveWidgets", () => {

@@ -10,6 +10,7 @@ import {
   QUICK_ACTION_IDS,
   QUICK_STATS_METRIC_IDS,
   QUICK_STATS_PERIOD_IDS,
+  SERIES_VARIANTS,
   SUMMARY_METRIC_IDS,
 } from "@app/features/dashboard/types";
 
@@ -67,6 +68,15 @@ export const dashboardBlock = defineCodeBlock("workout-dashboard", {
   fileErrorsMaxItems: { kind: "number", min: 1 },
   fileErrorsMaxTags: { kind: "number", min: 1, default: 3 },
   fileErrorsCheckSharedNames: { kind: "boolean", default: true },
+  /** bodyWeight, sleep, calories, protein: how each is drawn and the days it covers */
+  weightVariant: { kind: "enum", values: SERIES_VARIANTS },
+  weightDays: { kind: "number", min: 2, default: 30 },
+  sleepVariant: { kind: "enum", values: SERIES_VARIANTS },
+  sleepDays: { kind: "number", min: 2, default: 14 },
+  caloriesVariant: { kind: "enum", values: SERIES_VARIANTS },
+  caloriesDays: { kind: "number", min: 2, default: 14 },
+  proteinVariant: { kind: "enum", values: SERIES_VARIANTS },
+  proteinDays: { kind: "number", min: 2, default: 14 },
   /** muscleTags: one block of badges per muscle group */
   muscleTagsGroupByMuscle: { kind: "boolean", default: false },
 });
