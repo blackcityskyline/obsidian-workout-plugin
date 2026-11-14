@@ -9,6 +9,9 @@ import {
 import { dailyFolder, ensureDailyNote } from "@app/features/daycard/business/dailyCardNote";
 import { localDay } from "@app/services/history/TrainingHistory";
 import type { WorkoutPluginContext } from "@app/types/PluginPorts";
+import type { EmbeddedDashboardView } from "@app/features/dashboard/views/EmbeddedDashboardView";
+import { EventAwareRenderChild } from "@app/services/core/EventAwareRenderChild";
+import { homeParams, layoutFromParams } from "@app/features/home/business/homeLayout";
 import { t } from "@app/i18n";
 
 export const HOME_VIEW_TYPE = "workout-home";
@@ -24,7 +27,7 @@ export class WorkoutHomeView extends ItemView {
 
   constructor(
     leaf: WorkspaceLeaf,
-    private plugin: WorkoutPluginContext,
+    private plugin: WorkoutPluginContext & { embeddedDashboardView: EmbeddedDashboardView },
   ) {
     super(leaf);
   }
@@ -94,10 +97,34 @@ export class WorkoutHomeView extends ItemView {
     this.page = this.addChild(new Component());
 
     if (this.section === "diary") this.drawDiaryActions(body);
+    if (this.section === "home") await this.drawHomeDashboard(body.createDiv());
     const markdown = sectionMarkdown(this.section);
     if (markdown) await MarkdownRenderer.render(this.app, markdown, body.createDiv(), "", this.page);
     if (this.section === "diary") this.drawFiles(body, this.dailyNotes(), t("home.diaryNotes"));
     if (this.section === "notes") this.drawFiles(body, recentNotes(this.app.vault.getMarkdownFiles()), t("home.recent"));
+  }
+
+  /** The home dashboard: its layout lives in the settings and is edited on the page */
+  private async drawHomeDashboard(el: HTMLElement): Promise<void> {
+    const draw = () =>
+      this.plugin.embeddedDashboardView.render(el, homeParams(this.plugin.settings.homeLayout), {
+        layoutStore: {
+          key: "workout-home",
+          save: async (layout) => {
+            this.plugin.settings.homeLayout = layoutFromParams(layout);
+            await this.plugin.saveSettings();
+          },
+        },
+      });
+    await draw();
+    this.page?.addChild(
+      new EventAwareRenderChild(
+        el,
+        this.plugin.eventBus,
+        { muscleTagsAware: true, bodyWeightAware: true, foodAware: true },
+        draw,
+      ),
+    );
   }
 
   private drawDiaryActions(body: HTMLElement): void {

@@ -41,13 +41,8 @@ export const HOME_SECTIONS: readonly HomeSection[] = [
 export function sectionMarkdown(id: HomeSectionId): string {
   switch (id) {
     case "home":
-      return [
-        // One block per row: side by side the wide calendar pushes the next card off the page
-        dashboardBlock.serialize({ widgets: ["summary"] }),
-        dashboardBlock.serialize({ widgets: ["trainingCalendar"] }),
-        dashboardBlock.serialize({ widgets: ["recentWorkouts"] }),
-        dayCardBlock.serialize({}),
-      ].join("\n\n");
+      // The dashboard above it is drawn by the view itself (its layout is editable on the page)
+      return dayCardBlock.serialize({});
     case "diary":
       return dayCardBlock.serialize({});
     case "exercises":

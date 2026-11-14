@@ -10,7 +10,11 @@ import { EditTableModal } from "@app/features/tables/modals/EditTableModal";
 import { EditTimerModal } from "@app/features/timer/modals/EditTimerModal";
 import { EditDashboardModal } from "@app/features/dashboard/modals/EditDashboardModal";
 import { t } from "@app/i18n";
-import type { BlockLocation } from "@app/services/editor/CodeBlockEditorService";
+import {
+  CodeBlockEditorService,
+  type BlockLocation,
+} from "@app/services/editor/CodeBlockEditorService";
+import { generateCodeBlockId } from "@app/utils/IdUtils";
 import type { EditTarget } from "@app/features/modals/base/components/createEditButtons";
 import { EmbeddedChartView } from "@app/features/charts/views/EmbeddedChartView";
 import { EmbeddedTableView } from "@app/features/tables/views/EmbeddedTableView";
@@ -21,6 +25,7 @@ import { ErrorUtils } from "@app/utils/ErrorUtils";
 import { PathUtils } from "@app/utils/PathUtils";
 import { EmbeddedTimerParams } from "@app/features/timer/types";
 import { DashboardViewState } from "@app/features/dashboard/types";
+import type { EmbeddedDashboardParams } from "@app/features/dashboard/types";
 import { chartBlock } from "@app/features/charts/chartBlock";
 import { tableBlock } from "@app/features/tables/tableBlock";
 import { timerBlock } from "@app/features/timer/timerBlock";
@@ -462,8 +467,29 @@ export class CodeBlockProcessorService {
       loadError: (error) =>
         t("codeBlocks.loadError.dashboard", { error }),
       draw: async (body, params, syncMenu, editAction) => {
+        // A dashboard written in a note can be edited on the page: its layout is patched into the block
+        const layoutStore = ctx.sourcePath
+          ? {
+              key: `${ctx.sourcePath}#${params.id ?? ""}`,
+              save: async (layout: Partial<EmbeddedDashboardParams>) => {
+                const match = params.id ? { id: params.id } : state.matchWithoutId?.();
+                const changes: EmbeddedDashboardParams = { ...layout };
+                if (match && "body" in match) changes.id = generateCodeBlockId();
+                const saved = match
+                  ? await CodeBlockEditorService.patchCodeBlock(
+                      this.plugin.app,
+                      dashboardBlock,
+                      ctx.sourcePath,
+                      match,
+                      changes,
+                    )
+                  : false;
+                if (!saved) throw new Error(t("dashboard.editMode.saveFailed"));
+              },
+            }
+          : undefined;
         const render = () =>
-          this.embeddedDashboardView.render(body, params, { ...state, editAction });
+          this.embeddedDashboardView.render(body, params, { ...state, editAction, layoutStore });
         await render();
         // Every log change, and muscle tags for the heat map
         ctx.addChild(

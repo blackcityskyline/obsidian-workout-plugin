@@ -1,4 +1,4 @@
-import { Platform } from "obsidian";
+import { Platform, setIcon } from "obsidian";
 import { WorkoutLogData } from "@app/types/WorkoutLogData";
 import {
   BaseView,
@@ -26,6 +26,12 @@ import {
   fitColumns,
   Placement,
 } from "@app/features/dashboard/layout/gridLayout";
+import {
+  gridParams,
+  minColumnsOf,
+} from "@app/features/dashboard/layout/dashboardGrid";
+import { listToGrid } from "@app/features/dashboard/layout/layoutEdit";
+import { LayoutEditor } from "@app/features/dashboard/ui/LayoutEditor";
 import { BlockMenu } from "@app/features/common/ui/BlockMenu";
 import { WidgetActionSelect } from "@app/features/dashboard/ui/WidgetActionSelect";
 import { getElementScopedId } from "@app/utils/IdUtils";
@@ -37,6 +43,9 @@ import {
   TOUR_TARGETS,
   markTourTarget,
 } from "@app/features/tour/tourTargets";
+
+/** The dashboards in edit mode (by `LayoutStore.key`): a redraw or a re-render of the note keeps the mode */
+const editing = new Set<string>();
 
 /**
  * Dashboard View for displaying comprehensive workout analytics
@@ -113,12 +122,16 @@ export class EmbeddedDashboardView extends BaseView {
         });
       };
 
+      const redraw = (next: EmbeddedDashboardParams) => {
+        void this.createDashboard(container, logData, next, state);
+      };
       await this.renderDashboard(
         container,
         filteredData,
         params,
         state,
         onProtocolFilterChange,
+        redraw,
       );
     } catch (error) {
       this.handleError(container, error);
@@ -152,6 +165,7 @@ export class EmbeddedDashboardView extends BaseView {
     params: EmbeddedDashboardParams,
     state: DashboardViewState,
     onProtocolFilterChange: ProtocolFilterCallback,
+    redraw: (params: EmbeddedDashboardParams) => void,
   ): Promise<void> {
     // Create main dashboard container
     const dashboardEl = container.createDiv({
@@ -171,13 +185,31 @@ export class EmbeddedDashboardView extends BaseView {
         cls: "workout-dashboard-title",
       });
     }
+    const store = state.layoutStore;
+    const isEditing = !!store && editing.has(store.key);
+    if (store && !isEditing) {
+      const edit = headerEl.createEl("button", {
+        cls: "workout-dashboard-edit clickable-icon",
+        attr: { "aria-label": t("dashboard.editMode.edit"), title: t("dashboard.editMode.edit"), type: "button" },
+      });
+      setIcon(edit, "layout-grid");
+      edit.addEventListener("click", () => {
+        editing.add(store.key);
+        redraw(params);
+      });
+    }
     if (state.editAction) BlockMenu.render(headerEl, [state.editAction]);
 
-    // Grid layout: each widget in its cells; a broken grid shows why instead
-    const placements =
+    // Grid layout: each widget in its cells; a broken grid shows why instead.
+    // In edit mode a list dashboard is edited as a grid (saved on the first change)
+    let placements: Placement[] | null =
       params.layout === "grid" ? gridPlacements(params) : null;
-    const savedColumns =
-      placements && gridColumns(params, placements);
+    let savedColumns = placements && gridColumns(params, placements);
+    if (isEditing && !placements) {
+      const fits = columnsForWidth(container.getBoundingClientRect().width, container);
+      savedColumns = Math.min(4, Math.max(2, fits));
+      placements = listToGrid(resolveWidgets(params), savedColumns, minColumnsOf);
+    }
     if (placements && savedColumns) {
       const problems = gridProblemMessages(placements, savedColumns);
       if (problems.length > 0) {
@@ -186,7 +218,7 @@ export class EmbeddedDashboardView extends BaseView {
       }
     }
 
-    if (placements && placements.length === 0) {
+    if (placements && placements.length === 0 && !isEditing) {
       dashboardEl.createEl("p", {
         text: t("dashboard.grid.empty"),
         cls: "setting-item-description",
@@ -228,7 +260,7 @@ export class EmbeddedDashboardView extends BaseView {
       // Tag what the widget drew, so the grid can place it
       for (const el of Array.from(gridEl.children).slice(drawn)) {
         (el as HTMLElement).dataset.widget = id;
-        if (state.sourcePath !== undefined) {
+        if (state.sourcePath !== undefined && !isEditing) {
           WidgetActionSelect.render(
             el as HTMLElement,
             this.plugin.app,
@@ -250,6 +282,29 @@ export class EmbeddedDashboardView extends BaseView {
         : () => this.applyBentoLayout(gridEl);
     layout();
     this.observeGridResize(container, gridEl, layout);
+
+    if (isEditing && store && placements && savedColumns) {
+      const columns = savedColumns;
+      const current = placements;
+      LayoutEditor.render({
+        app: this.plugin.app,
+        grid: gridEl,
+        placements: current,
+        columns,
+        onChange: (next) => {
+          const layout: Partial<EmbeddedDashboardParams> = {
+            layout: "grid",
+            columns,
+            ...gridParams(next),
+          };
+          void store.save(layout).then(() => redraw({ ...params, ...layout }));
+        },
+        onDone: () => {
+          editing.delete(store.key);
+          redraw(params);
+        },
+      });
+    }
   }
 
   /**

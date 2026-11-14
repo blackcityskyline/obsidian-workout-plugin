@@ -2636,6 +2636,42 @@ body.is-mobile .workout-timer-strip .workout-timer .workout-timer-controls .work
   color: var(--text-muted);
 }
 
+.workout-sleep .workout-charts-container {
+  margin: var(--size-4-3) 0;
+}
+.workout-sleep .workout-sleep-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--size-4-2);
+  margin: var(--size-4-3) 0;
+}
+.workout-sleep .workout-sleep-times {
+  display: flex;
+  gap: var(--size-4-2);
+}
+.workout-sleep .workout-sleep-list {
+  display: flex;
+  flex-direction: column;
+}
+.workout-sleep .workout-sleep-row {
+  display: grid;
+  grid-template-columns: minmax(0, 8rem) minmax(0, 6rem) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--size-4-2);
+  padding: var(--size-4-1) 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+.workout-sleep .workout-sleep-empty {
+  color: var(--text-muted);
+}
+
+.workout-diary .workout-diary-text {
+  width: 100%;
+  min-height: 7rem;
+  resize: vertical;
+}
+
 .workout-daycard .workout-daycard-session {
   margin-top: var(--size-4-3);
 }
@@ -4003,6 +4039,79 @@ body.is-mobile .workout-field-with-adjust .workout-field-label {
     font-size: var(--workout-font-xl);
   }
 }
+/* Edit mode: a toolbar above the grid, a bar on every widget, a corner to drag */
+.workout-dashboard .workout-layout-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+  margin: var(--size-4-2) 0;
+}
+.workout-dashboard .workout-layout-hint {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+.workout-dashboard .workout-dashboard-grid.is-editing .workout-dashboard-widget.is-editable {
+  position: relative;
+  outline: 2px dashed var(--background-modifier-border-hover);
+  outline-offset: 2px;
+}
+.workout-dashboard .workout-dashboard-grid.is-editing .workout-dashboard-widget.is-editable.is-dragging {
+  opacity: 0.5;
+}
+.workout-dashboard .workout-dashboard-grid.is-editing .workout-dashboard-widget.is-editable.is-drop-target {
+  outline-color: var(--interactive-accent);
+}
+.workout-dashboard .workout-widget-edit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-2-1);
+  padding: var(--size-2-1);
+  margin-bottom: var(--size-4-1);
+  background: var(--background-secondary);
+  border-radius: var(--radius-s);
+}
+.workout-dashboard .workout-widget-edit-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--font-semibold);
+}
+.workout-dashboard .workout-widget-edit-btn.is-grip {
+  cursor: grab;
+  touch-action: none;
+}
+.workout-dashboard .workout-widget-edit-btn.is-danger {
+  color: var(--workout-text-error);
+}
+.workout-dashboard .workout-widget-resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 18px;
+  height: 18px;
+  cursor: nwse-resize;
+  touch-action: none;
+  background: linear-gradient(135deg, transparent 50%, var(--interactive-accent) 50%);
+  border-bottom-right-radius: var(--radius-s);
+}
+.workout-dashboard .workout-dashboard-edit {
+  margin-left: auto;
+}
+
+.workout-widget-catalog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4-1);
+}
+
+.workout-widget-catalog-item {
+  text-align: left;
+}
+
 /* ============================================================================
    WORKOUT CHARTS PLUGIN - STYLES
    Modern styles using Obsidian CSS Variables

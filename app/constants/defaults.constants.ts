@@ -91,6 +91,8 @@ workout: {{workout}}
   showRibbonIcon: true,
   /** Any week with a session keeps the streak */
   weeklyGoal: 1,
+  /** The home dashboard starts with its default widgets */
+  homeLayout: null,
   /** The welcome modal was shown */
   welcomeShown: false,
   /** Set on the first load; the notes of later versions show once after an update */

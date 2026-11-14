@@ -12,7 +12,6 @@ describe("homeSections", () => {
   });
 
   it("writes each block section as the plugin's own code block", () => {
-    expect(sectionMarkdown("home")).toContain("```workout-dashboard");
     expect(sectionMarkdown("home")).toContain("```workout-day");
     expect(sectionMarkdown("exercises")).toContain("```workout-exercises");
     expect(sectionMarkdown("history")).toContain("```workout-log");
@@ -20,10 +19,8 @@ describe("homeSections", () => {
     expect(sectionMarkdown("weight")).toContain("```workout-bodyweight");
   });
 
-  it("puts the wide calendar in a dashboard of its own", () => {
-    const blocks = sectionMarkdown("home").match(/```workout-dashboard/g) ?? [];
-    expect(blocks.length).toBeGreaterThan(1);
-    expect(sectionMarkdown("home")).toContain("widgets: [trainingCalendar]");
+  it("leaves the home dashboard to the view, so its layout is editable", () => {
+    expect(sectionMarkdown("home")).not.toContain("workout-dashboard");
   });
 
   it("draws no blocks on the notes page", () => {

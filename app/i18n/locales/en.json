@@ -294,6 +294,23 @@
       "editTitle": "Edit {widget}",
       "sortMostSets": "Most sets",
       "lastWidget": "This is the dashboard's only widget, so it can't be removed: delete the block instead."
+    },
+    "editMode": {
+      "edit": "Edit layout",
+      "done": "Done",
+      "add": "Add widget",
+      "addTitle": "Add a widget",
+      "allPlaced": "Every widget is already on this dashboard.",
+      "hint": "Drag the grip onto another widget to move it, or use the buttons. Drag the corner to resize.",
+      "drag": "Drag to move",
+      "earlier": "Move earlier",
+      "later": "Move later",
+      "narrower": "Narrower",
+      "wider": "Wider",
+      "shorter": "Shorter",
+      "taller": "Taller",
+      "remove": "Remove {widget}",
+      "saveFailed": "The layout could not be saved: the block was not found in its note."
     }
   },
   "duration": {

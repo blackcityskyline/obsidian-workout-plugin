@@ -103,6 +103,12 @@ import type { NutritionGoal } from "@app/services/food/NutritionGoals";
 /**
  * Plugin settings interface.
  */
+/** A dashboard's grid as saved in the settings: its columns and each widget's cell (1-based) */
+export interface HomeLayout {
+  columns: number;
+  cells: Record<string, { column: number; row: number; width: number; height: number }>;
+}
+
 export interface WorkoutChartsSettings {
   csvLogFilePath: string;
   exerciseFolderPath: string;
@@ -152,6 +158,8 @@ export interface WorkoutChartsSettings {
   showRibbonIcon: boolean;
   /** Training days a week counts towards the streak (1 = any session) */
   weeklyGoal: number;
+  /** The home page's dashboard layout, as the user edited it on the page; null = the starting widgets */
+  homeLayout: HomeLayout | null;
   /** The welcome modal was shown (set the first time, whatever the user picks) */
   welcomeShown: boolean;
   /** Plugin version whose release notes were shown ("" = none recorded yet) */

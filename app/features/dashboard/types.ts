@@ -55,7 +55,16 @@ export type EmbeddedDashboardParams = BlockParams<
 >;
 
 /** What the view knows about a rendered dashboard besides its block parameters */
+/** Where an edited layout is written: the block in its note, or the home page's settings */
+export interface LayoutStore {
+  /** Identifies the dashboard while it is in edit mode, across redraws */
+  key: string;
+  save(layout: Partial<EmbeddedDashboardParams>): Promise<void>;
+}
+
 export interface DashboardViewState {
+  /** Set: the dashboard can be edited on the page (grid layout) */
+  layoutStore?: LayoutStore;
   /** The protocol chosen in the distribution widget */
   activeProtocolFilter?: string | null;
   /** The note the block is written in, for the edit menu */
